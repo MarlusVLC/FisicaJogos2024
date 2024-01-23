@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-namespace _1._AvaliacaoDiagnostica
+namespace _2._RevisaoVetores
 {
     [Serializable]
     public class CustomVector

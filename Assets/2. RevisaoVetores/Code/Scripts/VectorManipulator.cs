@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _1._AvaliacaoDiagnostica
+namespace _2._RevisaoVetores
 {
     public class VectorManipulator : MonoBehaviour
     {
