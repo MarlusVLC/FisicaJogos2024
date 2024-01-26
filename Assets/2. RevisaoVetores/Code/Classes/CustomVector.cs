@@ -103,6 +103,16 @@ namespace _2._RevisaoVetores
         public static float Angle(CustomVector from, CustomVector to, bool convertToDegrees = false) =>
             Mathf.Acos(DotProduct(from, to) / (from.Magnitude() * to.Magnitude())) *
             (convertToDegrees ? 180 / Mathf.PI : 1);
+
+        public static float Component(CustomVector from, CustomVector onto)
+        {
+            return from.Magnitude() * Mathf.Cos(Angle(from, onto));
+        }
+        
+        // public static CustomVector Project(CustomVector from, CustomVector onto)
+        // {
+        //     
+        // }
     }
 }
 

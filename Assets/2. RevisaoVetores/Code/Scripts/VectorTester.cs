@@ -48,5 +48,11 @@ namespace _2._RevisaoVetores
             Debug.Log($"Angle Between A and B in radians = {CustomVector.Angle(a,b)}");
             Debug.Log($"Angle Between A and B in degrees = {CustomVector.Angle(a,b, true)}");
         }
+
+        [ContextMenu("Show Component of B onto A")]
+        public void ShowComponentOfBontoA()
+        {
+            Debug.Log($"Component of B onto A = {CustomVector.Component(b, a)}");
+        }
     }
 }
