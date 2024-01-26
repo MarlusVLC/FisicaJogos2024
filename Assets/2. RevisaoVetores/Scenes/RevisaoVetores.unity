@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 72368308}
   - component: {fileID: 72368312}
   - component: {fileID: 72368313}
+  - component: {fileID: 72368314}
   m_Layer: 0
   m_Name: MovedObj
   m_TagString: Untagged
@@ -224,7 +225,7 @@ Transform:
   m_GameObject: {fileID: 72368307}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.24, y: -2.37, z: 10.71}
+  m_LocalPosition: {x: 6, y: 1, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -239,11 +240,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 72368307}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eabdd4e768920c48b99aacd58dce421, type: 3}
+  m_Script: {fileID: 11500000, guid: e586104fa2e84e52815db2f9bd334345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {x: 0, y: 0, z: 0}
-  speed: 4
+  target:
+    vertices:
+    - 0
+    - 0
+    - 0
+  speed: 3
 --- !u!114 &72368313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,23 +258,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 72368307}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69864b33be3c41c0ab9da02efee914eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 633aedd95c1a4f0885099b7f55dd3060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   a:
-    Array:
-    - 0.463629
-    - 0.44301474
-    - 0.44301474
-    - 0.44301474
-    - 0.44301474
+    vertices:
+    - 6
+    - 1
+    - 2
   b:
-    Array:
-    - 6.3
-    - 6
-    - 6
-    - 6
-    - 6
+    vertices:
+    - 0
+    - 0
+    - -10
+--- !u!114 &72368314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72368307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 020d6c17f63d4d44b93874c3cd3519ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 330585545}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +329,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 20.78461
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -330,7 +344,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -357,7 +371,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -26,5 +26,27 @@ namespace _2._RevisaoVetores
         [ContextMenu("Show A's Magnitude")]
         public void ShowAMagnitude() => Debug.Log(a.Magnitude());
 
+        [ContextMenu("Sum B's Double Into A")]
+        public void SumBDoubleIntoA() => a = a + b * 2;
+
+        [ContextMenu("Negate A")]
+        public void NegateA() => a *= -1;
+
+        [ContextMenu("Show Distance Between A and B")]
+        public void ShowDistanceBetween() => Debug.Log(CustomVector.Distance(a, b));
+
+        [ContextMenu("Show Dot Product")]
+        public void ShowDotProduct()
+        {
+            Debug.Log($"Unity Vector Dot Product = {Vector3.Dot(a,b)}");
+            Debug.Log($"Custom Vector Dot Product = {CustomVector.DotProduct(a,b)}");
+        }
+
+        [ContextMenu("Show Angle Between")]
+        public void ShowAngleBetween()
+        {
+            Debug.Log($"Angle Between A and B in radians = {CustomVector.Angle(a,b)}");
+            Debug.Log($"Angle Between A and B in degrees = {CustomVector.Angle(a,b, true)}");
+        }
     }
 }

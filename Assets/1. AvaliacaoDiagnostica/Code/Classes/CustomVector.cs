@@ -28,10 +28,7 @@ namespace _1._AvaliacaoDiagnostica
             var valueArray = new float[a.Array.Length];
             for (var i = 0; i < a.Array.Length; i++)
             {
-                Debug.Log($"Pre-Operation Value = {a.Array[i]}");
                 valueArray[i] = a.Array[i] * k;
-                Debug.Log($"Multiplier = {k}");
-                Debug.Log($"Multiplied Value = {valueArray[i]}");
             }
             return new CustomVector(valueArray);
         }
