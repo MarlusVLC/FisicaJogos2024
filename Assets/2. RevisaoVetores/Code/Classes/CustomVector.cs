@@ -109,10 +109,10 @@ namespace _2._RevisaoVetores
             return from.Magnitude() * Mathf.Cos(Angle(from, onto));
         }
         
-        // public static CustomVector Project(CustomVector from, CustomVector onto)
-        // {
-        //     
-        // }
+        public static CustomVector Project(CustomVector from, CustomVector onto)
+        {
+            return onto.Normalize() * Component(from, onto);
+        }
     }
 }
 

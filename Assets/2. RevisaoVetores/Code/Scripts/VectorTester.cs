@@ -54,5 +54,11 @@ namespace _2._RevisaoVetores
         {
             Debug.Log($"Component of B onto A = {CustomVector.Component(b, a)}");
         }
+
+        [ContextMenu("Show Projection of B onto A")]
+        public void ShowProjectionOfBontoA()
+        {
+            Debug.Log($"Projection of B onto A = {CustomVector.Project(b,a)}");
+        }
     }
 }
