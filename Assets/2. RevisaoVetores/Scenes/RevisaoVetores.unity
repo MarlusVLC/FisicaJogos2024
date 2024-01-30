@@ -263,9 +263,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   a:
     vertices:
-    - 6
-    - 1
-    - 2
+    - 15
+    - 15
+    - 5
   b:
     vertices:
     - 0
@@ -345,7 +345,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60.000004
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -655,8 +655,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 914844934}
-  tx: 1
-  ty: 0
+  txSpeed: 1
+  tySpeed: 0
+  sxSpeed: 1
+  sySpeed: 1
+  rotationRate: 0
 --- !u!64 &914844932
 MeshCollider:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ namespace _2._RevisaoVetores
         public float[] vertices;
 
         public CustomVector(params float[] vertices) => this.vertices = vertices;
+        public CustomVector(uint dimensions) => this.vertices = new float[dimensions];
 
         public static CustomVector operator +(CustomVector a, CustomVector b)
         {
@@ -31,6 +32,33 @@ namespace _2._RevisaoVetores
                 valueArray[i] = a.vertices[i] * k;
             }
             return new CustomVector(valueArray);
+        }
+
+        public static CustomVector operator *(CustomVector vector, float[,] matrix)
+        {
+            var result = new CustomVector(vector.vertices);
+            // Debug.Log(result);
+            for (var row = 0; row < matrix.GetLength(0); row++)
+            {
+                var rowSum = 0f;
+                for (var column = 0; column < matrix.GetLength(1); column++)
+                {
+                    // Debug.Log($"Row = {row}");
+                    // Debug.Log($"Column = {column}");
+                    // Debug.Log($"Matrix ACCESSED value = {matrix[row, column]}");
+                    // Debug.Log($"Vector accessed Value = {vector.vertices[column]}");
+                    rowSum += matrix[row, column] * vector.vertices[column];
+                    // Debug.Log($"Row sum = {rowSum}");
+                    // Debug.Log($"-----------");
+                }
+                result.vertices[row] = rowSum;
+            }
+            return result;
+        }
+
+        public static CustomVector MultiplyByHomogeneousMatrix2(CustomVector vector, float[,] matrix)
+        {
+            if (v)
         }
 
         public static CustomVector operator /(CustomVector a, float k) => a * (1 / k);

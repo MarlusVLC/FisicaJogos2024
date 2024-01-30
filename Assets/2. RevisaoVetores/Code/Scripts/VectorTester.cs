@@ -8,6 +8,8 @@ namespace _2._RevisaoVetores
         [SerializeField] private CustomVector a;
         [SerializeField] private CustomVector b;
 
+        private float[,] customMatrix = { { 1, 0, 2 }, { 0, 1, 2}, {0, 0, 1}};
+
         [ContextMenu("Sum Into A")]
         public void SumIntoA() => a += b;
         
@@ -60,5 +62,8 @@ namespace _2._RevisaoVetores
         {
             Debug.Log($"Projection of B onto A = {CustomVector.Project(b,a)}");
         }
+
+        [ContextMenu("Multiply A by Custom Matrix")]
+        public void MultiplyAbyMatrix() => a = a * customMatrix;
     }
 }
