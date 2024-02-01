@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _2._RevisaoVetores
 {
@@ -7,8 +8,10 @@ namespace _2._RevisaoVetores
     {
         [SerializeField] private VectorN a;
         [SerializeField] private VectorN b;
+        [SerializeField] private float rotationAngle;
+        [SerializeField] private int multiplicationIterations;
 
-        private float[,] customMatrix = { { 2, 0}, { 0, 2}};
+        private float[,] scaleMatrix2D = { { 2, 0}, { 0, 2}};
         // private float[,] customHomogeneousMatrix = { { 1, 0, 2 }, { 0, 1, 2}, {0, 0, 1}};
         private float[,] customHomogeneousMatrix = { { 2, 0, 0 }, { 0, 2, 0}, {0, 0, 1}};
 
@@ -65,8 +68,26 @@ namespace _2._RevisaoVetores
             Debug.Log($"Projection of B onto A = {VectorN.Project(b,a)}");
         }
 
-        [ContextMenu("Multiply A by Custom Matrix")]
-        public void MultiplyAbyMatrix() => a = a * customMatrix;
+        [ContextMenu("Multiply A by Scale Matrix 2D")]
+        public void MultiplyAbyScaleMatrix()
+        {
+            for (var i = 0; i < multiplicationIterations; i++)
+            {
+                a = a * scaleMatrix2D;
+            }
+        } 
+
+        [ContextMenu("Multiply A by Rotation Matrix 2D")]
+        public void MultiplyAbyRotationMatrix()
+        {
+            var alpha = rotationAngle * Mathf.Deg2Rad;
+            for (var i = 0; i < multiplicationIterations; i++)
+            {
+                float[,] rotationMatrix2D =
+                    { { Mathf.Cos(alpha), (-1)*Mathf.Sin(alpha) }, { Mathf.Sin(alpha), Mathf.Cos(alpha) } };
+                a = a * rotationMatrix2D;    
+            }
+        }
 
         [ContextMenu("Multiply A by Homogeneous Matrix")]
         public void MultiplyAbyHomogeneousMatrix() => a = VectorN.MultiplyByHomogeneousMatrix(a, customHomogeneousMatrix);

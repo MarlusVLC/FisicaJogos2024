@@ -6,70 +6,91 @@ using UnityEngine.Serialization;
 namespace _2._RevisaoVetores
 {
     [Serializable]
-    public class VectorN
+    public struct VectorN
     {
-        public float[] dimensionsValues;
+        public float[] values;
 
-        public VectorN(params float[] dimensionsValues) => this.dimensionsValues = dimensionsValues;
-
-        public VectorN(uint length)
+        public VectorN(params float[] elements)
         {
-            dimensionsValues = new float[length];
-            for (var i = 0; i < length; i++)
+            if (elements == null || elements.Length == 0)
             {
-                dimensionsValues[i] = 0;
+                throw new AggregateException("At least one element is required");
+            }
+            
+            values = new float[elements.Length];
+            for (var i = 0; i < elements.Length; i++)
+            {
+                values[i] = elements[i];
             }
         }
 
-        public int Length => dimensionsValues.Length;
+        public VectorN(uint length)
+        {
+            values = new float[length];
+            for (var i = 0; i < length; i++)
+            {
+                values[i] = 0;
+            }
+        }
+
+        public int Length => values.Length;
 
         [System.Runtime.CompilerServices.IndexerName("DimensionValue")]
         public float this[int index]
         {
-            get => dimensionsValues[index];
-            set => dimensionsValues[index] = value;
+            get => values[index];
+            set => values[index] = value;
         }
 
         public static VectorN operator +(VectorN a, VectorN b)
         {
-            if (a.dimensionsValues.Length != b.dimensionsValues.Length)
+            if (a.values.Length != b.values.Length)
                 throw new Exception("Vectors should have same amount of vertices");
-            var valueArray = new float[a.dimensionsValues.Length];
+            var valueArray = new float[a.values.Length];
             for (var i = 0; i < valueArray.Length; i++)
             {
-                valueArray[i] = a.dimensionsValues[i] + b.dimensionsValues[i];
+                valueArray[i] = a.values[i] + b.values[i];
             }
             return new VectorN(valueArray);
         }
     
         public static VectorN operator *(VectorN a, float k)
         {
-            var valueArray = new float[a.dimensionsValues.Length];
-            for (var i = 0; i < a.dimensionsValues.Length; i++)
+            var valueArray = new float[a.values.Length];
+            for (var i = 0; i < a.values.Length; i++)
             {
-                valueArray[i] = a.dimensionsValues[i] * k;
+                valueArray[i] = a.values[i] * k;
             }
             return new VectorN(valueArray);
         }
 
+        // public static VectorN operator *(VectorN vector, float[,] matrix)
+        // {
+        //     var result = new VectorN(vector.dimensionsValues);
+        //     // Debug.Log(result);
+        //     for (var row = 0; row < matrix.GetLength(0); row++)
+        //     {
+        //         var rowSum = 0f;
+        //         for (var column = 0; column < matrix.GetLength(1); column++)
+        //         {
+        //             rowSum += matrix[row, column] * vector.dimensionsValues[column];
+        //         }
+        //         result.dimensionsValues[row] = rowSum;
+        //     }
+        //     return result;
+        // }
+        
         public static VectorN operator *(VectorN vector, float[,] matrix)
         {
-            var result = new VectorN(vector.dimensionsValues);
-            Debug.Log(result);
+            var result = new VectorN(vector.values);
             for (var row = 0; row < matrix.GetLength(0); row++)
             {
-                var rowSum = 0f;
+                result[row] = 0.0f;
                 for (var column = 0; column < matrix.GetLength(1); column++)
                 {
-                    Debug.Log($"Row = {row}");
-                    Debug.Log($"Column = {column}");
-                    Debug.Log($"Matrix ACCESSED value = {matrix[row, column]}");
-                    Debug.Log($"Vector accessed Value = {vector[column]}");
-                    rowSum += matrix[row, column] * vector.dimensionsValues[column];
-                    Debug.Log($"Row sum = {rowSum}");
-                    Debug.Log($"-----------");
-                }
-                result.dimensionsValues[row] = rowSum;
+                    Debug.Log(result);
+                    result[row] += vector.values[column] * matrix[row, column];
+                } 
             }
             return result;
         }
@@ -118,17 +139,17 @@ namespace _2._RevisaoVetores
 
         public static VectorN operator -(VectorN a, VectorN b) => a + b*-1;
 
-        public float Magnitude() => Mathf.Sqrt(dimensionsValues.Sum(element => element * element));
+        public float Magnitude() => Mathf.Sqrt(values.Sum(element => element * element));
 
         public VectorN Normalize() => this / Magnitude();
 
         public static implicit operator Vector3(VectorN v)
         {
-            if (v.dimensionsValues.Length > 3)
+            if (v.values.Length > 3)
             {
                 throw new Exception("A game ready vector shouldn't have more than 3 vertices!");
             }
-            return new Vector3(v.dimensionsValues[0], v.dimensionsValues[1], v.dimensionsValues[2]);
+            return new Vector3(v.values[0], v.values[1], v.values[2]);
         }
         
         public static implicit operator VectorN(Vector3 v)
@@ -139,14 +160,14 @@ namespace _2._RevisaoVetores
         public override string ToString()
         {
             var rep = "(";
-            for (var i = 0; i < dimensionsValues.Length; i++)
+            for (var i = 0; i < values.Length; i++)
             {
                 if (i > 0)
                 {
                     rep += " ";
                 }
-                rep += dimensionsValues[i];
-                if (i < dimensionsValues.Length - 1)
+                rep += values[i];
+                if (i < values.Length - 1)
                 {
                     rep += ",";
                 }
@@ -157,12 +178,12 @@ namespace _2._RevisaoVetores
 
         public static float Distance(VectorN a, VectorN b)
         {
-            if (a.dimensionsValues.Length != b.dimensionsValues.Length)
+            if (a.values.Length != b.values.Length)
                 throw new Exception("Vectors should have same amount of vertices");
             var result = 0f;
-            for (var i = 0; i < a.dimensionsValues.Length; i++)
+            for (var i = 0; i < a.values.Length; i++)
             {
-                result += (a.dimensionsValues[i] - b.dimensionsValues[i]) * (a.dimensionsValues[i] - b.dimensionsValues[i]);
+                result += (a.values[i] - b.values[i]) * (a.values[i] - b.values[i]);
             }
             // var result = a.vertices.Select((t, i) => (t - b.vertices[i]) * (t - b.vertices[i])).Sum();
             return Mathf.Sqrt(result);
@@ -170,12 +191,12 @@ namespace _2._RevisaoVetores
 
         public static float DotProduct(VectorN a, VectorN b)
         {
-            if (a.dimensionsValues.Length != b.dimensionsValues.Length)
+            if (a.values.Length != b.values.Length)
                 throw new Exception("Vectors should have same amount of vertices");
             var result = 0f;
-            for (var i = 0; i < a.dimensionsValues.Length; i++)
+            for (var i = 0; i < a.values.Length; i++)
             {
-                result += a.dimensionsValues[i] * b.dimensionsValues[i];
+                result += a.values[i] * b.values[i];
             }
             return result;
             // return a.vertices.Select((t, i) => t * b.vertices[i]).Sum();

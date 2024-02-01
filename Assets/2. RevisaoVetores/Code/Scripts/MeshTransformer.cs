@@ -131,7 +131,7 @@ namespace _2._RevisaoVetores
 
             var mat = new float[2,2];
             mat[0, 0] = Mathf.Cos(angle);
-            mat[0, 1] = -Mathf.Sin(angle);
+            mat[0, 1] = (-1)*Mathf.Sin(angle);
             mat[1, 0] = Mathf.Sin(angle);
             mat[1, 1] = Mathf.Cos(angle);
             for (var i = 0; i < vertices.Length; i++)

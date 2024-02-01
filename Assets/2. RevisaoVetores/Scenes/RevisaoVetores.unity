@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 72368312}
   - component: {fileID: 72368313}
   - component: {fileID: 72368314}
+  - component: {fileID: 72368315}
   m_Layer: 0
   m_Name: MovedObj
   m_TagString: Untagged
@@ -244,7 +245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target:
-    dimensionsValues: []
+    values: []
   speed: 3
 --- !u!114 &72368313
 MonoBehaviour:
@@ -259,13 +260,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   a:
-    dimensionsValues:
+    values:
     - 1
     - 1
   b:
-    dimensionsValues:
-    - -1
-    - 1
+    values: []
+  rotationAngle: 45
+  multiplicationIterations: 1
 --- !u!114 &72368314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,6 +280,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 330585545}
+--- !u!114 &72368315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72368307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b70957072de6453fb41ad671df4aeb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +667,7 @@ MonoBehaviour:
   tySpeed: 0
   sxSpeed: 1
   sySpeed: 1
-  rotationRate: 90
+  rotationRate: 180
 --- !u!64 &914844932
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -737,7 +750,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
