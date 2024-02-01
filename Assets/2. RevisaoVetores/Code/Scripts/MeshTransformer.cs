@@ -21,12 +21,12 @@ namespace _2._RevisaoVetores
         private void Update()
         {
             // Translate2D(txSpeed * Time.deltaTime, tySpeed * Time.deltaTime);
-            Translate2DMatHM(txSpeed * Time.deltaTime, tySpeed * Time.deltaTime);
+            // Translate2DMatHM(txSpeed * Time.deltaTime, tySpeed * Time.deltaTime);
             // Scale2D(sxSpeed, sySpeed);
             // Scale2DMat(sxSpeed, sySpeed);
             // Scale2DMatHM(sxSpeed, sySpeed);
             // Rotate2D(rotationRate * Time.deltaTime);
-            // Rotate2DMat(rotationRate * Time.deltaTime);
+            Rotate2DMat(rotationRate * Time.deltaTime);
             // Rotate2DMatHM(rotationRate * Time.deltaTime);
         }
         
@@ -40,7 +40,6 @@ namespace _2._RevisaoVetores
             mesh.vertices = vertices;
         }
 
-        //TODO - Vertices must in Vector2 format, but with 1 as Z dimension;
         private void Translate2DMatHM(float tx, float ty)
         {
             var vertices = mesh.vertices;
@@ -56,7 +55,7 @@ namespace _2._RevisaoVetores
             mat[2, 2] = 1;
             for (var i = 0; i < vertices.Length; i++)
             {
-                vertices[i] = (CustomVector)mesh.vertices[i] * mat;
+                vertices[i] = VectorN.MultiplyByHomogeneousMatrix(mesh.vertices[i], mat);
             }
             mesh.vertices = vertices;
         }
@@ -81,7 +80,7 @@ namespace _2._RevisaoVetores
             mat[1, 1] = sy;
             for (var i = 0; i < vertices.Length; i++)
             {
-                vertices[i] = (CustomVector)vertices[i] * mat;
+                vertices[i] = (VectorN)vertices[i] * mat;
             }
             mesh.vertices = vertices;
         }
@@ -101,7 +100,7 @@ namespace _2._RevisaoVetores
             mat[2, 2] = 1;
             for (var i = 0; i < vertices.Length; i++)
             {
-                vertices[i] = (CustomVector)mesh.vertices[i] * mat;
+                vertices[i] = VectorN.MultiplyByHomogeneousMatrix(mesh.vertices[i], mat);
             }
             mesh.vertices = vertices;
         }
@@ -137,7 +136,7 @@ namespace _2._RevisaoVetores
             mat[1, 1] = Mathf.Cos(angle);
             for (var i = 0; i < vertices.Length; i++)
             {
-                vertices[i] = (CustomVector)vertices[i] * mat;
+                vertices[i] = (VectorN)vertices[i] * mat;
             }
             mesh.vertices = vertices;
         }
@@ -145,7 +144,7 @@ namespace _2._RevisaoVetores
         private void Rotate2DMatHM(float angle, bool convertToRadians = true)
         {
             var vertices = mesh.vertices;
-            if (convertToRadians)
+            if (convertToRadians) 
             {
                 angle = angle * Mathf.PI / 180f;
             }
@@ -162,7 +161,7 @@ namespace _2._RevisaoVetores
             mat[2, 2] = 1;
             for (var i = 0; i < vertices.Length; i++)
             {
-                vertices[i] = (CustomVector)vertices[i] * mat;
+                vertices[i] = VectorN.MultiplyByHomogeneousMatrix(mesh.vertices[i], mat);
             }
             mesh.vertices = vertices;
         }

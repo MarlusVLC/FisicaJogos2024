@@ -238,16 +238,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72368307}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e586104fa2e84e52815db2f9bd334345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target:
-    vertices:
-    - 0
-    - 0
-    - 0
+    dimensionsValues: []
   speed: 3
 --- !u!114 &72368313
 MonoBehaviour:
@@ -262,15 +259,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   a:
-    vertices:
-    - 15
-    - 15
-    - 5
+    dimensionsValues:
+    - 1
+    - 1
   b:
-    vertices:
-    - 0
-    - 0
-    - -10
+    dimensionsValues:
+    - -1
+    - 1
 --- !u!114 &72368314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,11 +650,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 914844934}
-  txSpeed: 1
+  txSpeed: 0
   tySpeed: 0
   sxSpeed: 1
   sySpeed: 1
-  rotationRate: 0
+  rotationRate: 90
 --- !u!64 &914844932
 MeshCollider:
   m_ObjectHideFlags: 0

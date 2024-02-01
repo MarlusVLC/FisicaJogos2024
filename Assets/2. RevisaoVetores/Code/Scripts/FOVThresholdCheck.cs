@@ -15,13 +15,13 @@ namespace _2._RevisaoVetores
         [ContextMenu("Check Conical Threshold")]
         private void CheckConicalThreshold()
         {
-            CustomVector cameraPosition = _camera.transform.position;
+            VectorN cameraPosition = _camera.transform.position;
             Debug.Log($"Camera Position = {cameraPosition}");
-            CustomVector targetPosition = transform.position;
+            VectorN targetPosition = transform.position;
             Debug.Log($"Target Position = {targetPosition}");
-            CustomVector toTarget = (targetPosition - cameraPosition).Normalize();
+            VectorN toTarget = (targetPosition - cameraPosition).Normalize();
             Debug.Log($"To Target Normalized Vector = {toTarget}");
-            CustomVector cameraForward = _camera.transform.forward;
+            VectorN cameraForward = _camera.transform.forward;
             Debug.Log($"Camera Forward = {cameraForward}");
             // var dot = CustomVector.DotProduct(cameraForward, toTarget);
             var dot = Vector3.Dot(cameraForward, toTarget);
