@@ -56,9 +56,21 @@ namespace _2._RevisaoVetores
             return result;
         }
 
-        public static CustomVector MultiplyByHomogeneousMatrix2(CustomVector vector, float[,] matrix)
+        public static CustomVector MultiplyByHomogeneousMatrix(CustomVector vector, float[,] matrix)
         {
-            if (v)
+            if (matrix.GetLength(0) != matrix.GetLength(1))
+            {
+                throw new Exception("Entry matrix should be square, with the same amount of columns and rows");
+            }
+
+            var matrixDimensions = matrix.GetLength(0);
+            if (matrixDimensions <= vector.vertices.Length)
+            {
+                throw new Exception("A homogeneous matrix should be at least one dimension greater than the vector!");
+            }
+            
+            
+            
         }
 
         public static CustomVector operator /(CustomVector a, float k) => a * (1 / k);
