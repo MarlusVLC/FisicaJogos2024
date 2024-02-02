@@ -64,33 +64,28 @@ namespace _2._RevisaoVetores
             return new VectorN(valueArray);
         }
 
-        // public static VectorN operator *(VectorN vector, float[,] matrix)
-        // {
-        //     var result = new VectorN(vector.dimensionsValues);
-        //     // Debug.Log(result);
-        //     for (var row = 0; row < matrix.GetLength(0); row++)
-        //     {
-        //         var rowSum = 0f;
-        //         for (var column = 0; column < matrix.GetLength(1); column++)
-        //         {
-        //             rowSum += matrix[row, column] * vector.dimensionsValues[column];
-        //         }
-        //         result.dimensionsValues[row] = rowSum;
-        //     }
-        //     return result;
-        // }
-        
         public static VectorN operator *(VectorN vector, float[,] matrix)
         {
-            var result = new VectorN(vector.values);
-            for (var row = 0; row < matrix.GetLength(0); row++)
-            {
-                result[row] = 0.0f;
-                for (var column = 0; column < matrix.GetLength(1); column++)
-                {
-                    Debug.Log(result);
-                    result[row] += vector.values[column] * matrix[row, column];
-                } 
+            // var result = new VectorN(vector.values);
+            // for (var row = 0; row < matrix.GetLength(0); row++)
+            // {
+            //     var rowSum = 0.0f;
+            //     for (var column = 0; column < matrix.GetLength(1); column++)
+            //     {
+            //         rowSum +=  matrix[row, column] * vector.values[column];
+            //         result[row] = rowSum;
+            //     } 
+            // }
+            // return result;
+            
+            Vector3 result = new VectorN(vector.values);
+            for (int r = 0; r < matrix.GetLength(0); r++) 
+            { 
+                float s = 0;
+                for (int z = 0; z < matrix.GetLength(1); z++)
+                    s += matrix[r, z] * (z >= vector.Length ? 1 : vector[z]);
+                if (r >= vector.Length) break;
+                result[r] = s;
             }
             return result;
         }
@@ -108,7 +103,6 @@ namespace _2._RevisaoVetores
                 throw new Exception("A homogeneous matrix should be at least the same dimension as the vector!");
             }
             var result = new VectorN((uint)matrixDimensions);
-            Debug.Log($"Just Created Temp Vector = {result}");
             for (var i = 0; i < matrixDimensions; i++)
             {
                 if (i == matrixDimensions - 1)
@@ -121,7 +115,6 @@ namespace _2._RevisaoVetores
                     result[i] = vector[i];
                 }
             }
-            Debug.Log($"Adapted Temp Vector = {result}");
             result *= matrix;
             if (preserveExtraDimensions)
             {
@@ -130,10 +123,24 @@ namespace _2._RevisaoVetores
                     result[i] = vector[i];
                 }
             }
-            Debug.Log($"Multiplied Temp Vector = {result}");
+            else
+            {
+                var values = new float[vectorDimensions];
+                for (int i = 0; i < vectorDimensions; i++)
+                {
+                    values[i] = result[i];
+                }
+
+                result = new VectorN(values);
+            }
+            
+
+            
             return result;
             
         }
+        
+        
 
         public static VectorN operator /(VectorN a, float k) => a * (1 / k);
 

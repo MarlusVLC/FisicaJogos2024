@@ -13,7 +13,11 @@ namespace _2._RevisaoVetores
 
         private float[,] scaleMatrix2D = { { 2, 0}, { 0, 2}};
         // private float[,] customHomogeneousMatrix = { { 1, 0, 2 }, { 0, 1, 2}, {0, 0, 1}};
-        private float[,] customHomogeneousMatrix = { { 2, 0, 0 }, { 0, 2, 0}, {0, 0, 1}};
+        private float[,] translationHomogeneousMatrix2D = { { 1, 0, 2 }, { 0, 1, 2}, {0, 0, 1}};
+        private float[,] scaleHomogeneousMatrix2D = { { 2, 0, 0 }, { 0, 1, 0}, {0, 0, 1}};
+        private float[,] translationHomogeneousMatrix3D = { { 1, 0, 0, 3 }, { 0, 1, 0, 1}, {0, 0, 1, 10}, {0, 0, 0, 1}};
+        // private float[,] translationHomogeneousMatrix3D = { { 1, 0, 0, 3 }, { 0, 1, 0, 1}, {0, 0, 1, 10}, {0, 0, 0, 1}};
+
 
         [ContextMenu("Sum Into A")]
         public void SumIntoA() => a += b;
@@ -69,7 +73,7 @@ namespace _2._RevisaoVetores
         }
 
         [ContextMenu("Multiply A by Scale Matrix 2D")]
-        public void MultiplyAbyScaleMatrix()
+        public void MultiplyAbyScaleMatrix2D()
         {
             for (var i = 0; i < multiplicationIterations; i++)
             {
@@ -78,18 +82,72 @@ namespace _2._RevisaoVetores
         } 
 
         [ContextMenu("Multiply A by Rotation Matrix 2D")]
-        public void MultiplyAbyRotationMatrix()
+        public void MultiplyAbyRotationMatrix2D()
         {
             var alpha = rotationAngle * Mathf.Deg2Rad;
             for (var i = 0; i < multiplicationIterations; i++)
             {
                 float[,] rotationMatrix2D =
-                    { { Mathf.Cos(alpha), (-1)*Mathf.Sin(alpha) }, { Mathf.Sin(alpha), Mathf.Cos(alpha) } };
+                    { { Mathf.Cos(alpha), -Mathf.Sin(alpha) }, { Mathf.Sin(alpha), Mathf.Cos(alpha) } };
                 a = a * rotationMatrix2D;    
             }
         }
 
-        [ContextMenu("Multiply A by Homogeneous Matrix")]
-        public void MultiplyAbyHomogeneousMatrix() => a = VectorN.MultiplyByHomogeneousMatrix(a, customHomogeneousMatrix);
+        [ContextMenu("Multiply A by 2D Translations Homogeneous Matrix")]
+        public void MultiplyAbyTranslationHomogeneousMatrix2D()
+        {
+            a = VectorN.MultiplyByHomogeneousMatrix(a, translationHomogeneousMatrix2D);
+            // a = ((Vector3)a).Multiply(translationHomogeneousMatrix2D);
+        }
+        
+        [ContextMenu("Multiply A by 2D Scale Homogeneous Matrix")]
+        public void MultiplyAbyScaleHomogeneousMatrix2D()
+        {
+            // a = VectorN.MultiplyByHomogeneousMatrix(a, scaleHomogeneousMatrix2D);
+            a = ((Vector3)a).Multiply(scaleHomogeneousMatrix2D);
+        }
+        
+        [ContextMenu("Multiply A by 2D Homogeneous Rotation Matrix")]
+        public void MultiplyAby2DHomogeneousRotationMatrix()
+        {
+            var alpha = rotationAngle * Mathf.Deg2Rad;
+            var cos = Mathf.Cos(alpha);
+            var sin = Mathf.Sin(alpha);
+            for (var i = 0; i < multiplicationIterations; i++)
+            {
+                float[,] rotationMatrix2D =
+                {
+                    { cos, -sin, 0 }, 
+                    { sin, cos, 0 },
+                    {0, 0, 1}
+                };
+                a = a * rotationMatrix2D;    
+            }
+        }
+
+        [ContextMenu("Multiply Matrix By Matrix")]
+        public void ShowMatrixMultiplication()
+        {
+            var alpha = rotationAngle * Mathf.Deg2Rad;
+            var cos = Mathf.Cos(alpha);
+            var sin = Mathf.Sin(alpha);
+            float[,] rotationMatrix2D =
+            {
+                { cos, -sin, 0 }, 
+                { sin, cos, 0 },
+                {0, 0, 1}
+            };
+            // var a = MathH.Multiply(scaleHomogeneousMatrix2D, rotationMatrix2D);
+            var a = MathH.Multiply(rotationMatrix2D, scaleHomogeneousMatrix2D);
+        }
+        
+        [ContextMenu("Multiply A by 3D Translations Homogeneous Matrix")]
+        public void MultiplyAbyTranslationHomogeneousMatrix3D()
+        {
+            a *= translationHomogeneousMatrix3D;
+            // a = (Vector3)VectorN.MultiplyByHomogeneousMatrix(a, translationHomogeneousMatrix3D, false);
+            // a = ((Vector3)a).Multiply(translationHomogeneousMatrix3D);
+
+        }
     }
 }

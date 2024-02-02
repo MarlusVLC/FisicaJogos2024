@@ -38,8 +38,7 @@
             float sinAngle = Mathf.Sin(radians);
 
             // Create the 2D rotation matrix
-            float[,] elements = new float[,]
-            {
+            float[,] elements = {
                 { cosAngle, -sinAngle },
                 { sinAngle, cosAngle }
             };

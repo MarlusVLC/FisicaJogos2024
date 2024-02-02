@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _2._RevisaoVetores
 {
-    public class MeshTransformer : MonoBehaviour
+    public class MeshTransformer2D : MonoBehaviour
     {
         [SerializeField] private MeshFilter meshFilter;
         [Space]
@@ -16,6 +16,8 @@ namespace _2._RevisaoVetores
         [Space] 
         [SerializeField] private float rotationRate;
 
+        [Space] [SerializeField] private Vector2 targetPosition;
+
         private Mesh mesh => meshFilter.mesh;
         
         private void Update()
@@ -26,8 +28,10 @@ namespace _2._RevisaoVetores
             // Scale2DMat(sxSpeed, sySpeed);
             // Scale2DMatHM(sxSpeed, sySpeed);
             // Rotate2D(rotationRate * Time.deltaTime);
-            Rotate2DMat(rotationRate * Time.deltaTime);
+            // Rotate2DMat(rotationRate * Time.deltaTime);
             // Rotate2DMatHM(rotationRate * Time.deltaTime);
+            // RotateScale2D(rotationRate * Time.deltaTime, sxSpeed, sySpeed);
+            // ScaleRotate2D(rotationRate * Time.deltaTime, sxSpeed, sySpeed);
         }
         
         private void Translate2D(float tx, float ty)
@@ -131,7 +135,7 @@ namespace _2._RevisaoVetores
 
             var mat = new float[2,2];
             mat[0, 0] = Mathf.Cos(angle);
-            mat[0, 1] = (-1)*Mathf.Sin(angle);
+            mat[0, 1] = -Mathf.Sin(angle);
             mat[1, 0] = Mathf.Sin(angle);
             mat[1, 1] = Mathf.Cos(angle);
             for (var i = 0; i < vertices.Length; i++)
@@ -161,9 +165,103 @@ namespace _2._RevisaoVetores
             mat[2, 2] = 1;
             for (var i = 0; i < vertices.Length; i++)
             {
-                vertices[i] = VectorN.MultiplyByHomogeneousMatrix(mesh.vertices[i], mat);
+                // vertices[i] = VectorN.MultiplyByHomogeneousMatrix(mesh.vertices[i], mat);
+                vertices[i] = (VectorN)mesh.vertices[i] * mat;    
+
             }
             mesh.vertices = vertices;
         }
+
+        private void RotateScale2D(float angle, float sx, float sy, bool convertToRadians = true)
+        {
+            if (convertToRadians) angle *= Mathf.Deg2Rad;
+            var cos = Mathf.Cos(angle);
+            var sin = Mathf.Sin(angle);
+            float[,] rmat =
+            {
+                { cos, -sin, 0 }, 
+                { sin, cos, 0 },
+                {0, 0, 1}
+            };
+            float[,] smat =
+            {
+                { sx, 0, 0 }, 
+                { 0, sy, 0 },
+                {0, 0, 1}
+            };
+            var mat = MathH.Multiply(rmat, smat);
+            var vertices = mesh.vertices;
+            for (var i = 0; i < vertices.Length; i++)
+            {
+                // vertices[i] = VectorN.MultiplyByHomogeneousMatrix(mesh.vertices[i], mat);
+                vertices[i] = (VectorN)mesh.vertices[i] * mat;    
+
+            }
+            mesh.vertices = vertices;
+        }
+        
+        private void ScaleRotate2D(float angle, float sx, float sy, bool convertToRadians = true)
+        {
+            if (convertToRadians) angle *= Mathf.Deg2Rad;
+            var cos = Mathf.Cos(angle);
+            var sin = Mathf.Sin(angle);
+            float[,] rmat =
+            {
+                { cos, -sin, 0 }, 
+                { sin, cos, 0 },
+                {0, 0, 1}
+            };
+            float[,] smat =
+            {
+                { sx, 0, 0 }, 
+                { 0, sy, 0 },
+                {0, 0, 1}
+            };
+            var mat = MathH.Multiply(smat, rmat);
+            var vertices = mesh.vertices;
+            for (var i = 0; i < vertices.Length; i++)
+            {
+                vertices[i] = VectorN.MultiplyByHomogeneousMatrix(mesh.vertices[i], mat);
+                // vertices[i] = (VectorN)mesh.vertices[i] * mat;    
+
+            }
+            mesh.vertices = vertices;
+        }
+        
+        
+        private void RotateAroundPoint(float angle, float px, float py, bool convertToRadians = true)
+        {
+            if (convertToRadians) angle *= Mathf.Deg2Rad;
+            var cos = Mathf.Cos(angle);
+            var sin = Mathf.Sin(angle);
+            float[,] rmat =
+            {
+                { cos, -sin, 0 }, 
+                { sin, cos, 0 },
+                { 0, 0, 1}
+            };
+            float[,] tmatOrigin =
+            {
+                { 1, 0, -px }, 
+                { 0, 1, -py },
+                { 0, 0, 1}
+            };
+            float[,] tmatTarget =
+            {
+                { 1, 0, px }, 
+                { 0, 1, py },
+                { 0, 0, 1}
+            };
+            var mat = MathH.Multiply(MathH.Multiply(tmatTarget, rmat), tmatOrigin);
+            var vertices = mesh.vertices;
+            for (var i = 0; i < vertices.Length; i++)
+            {
+                vertices[i] = VectorN.MultiplyByHomogeneousMatrix(mesh.vertices[i], mat);
+                // vertices[i] = (VectorN)mesh.vertices[i] * mat;    
+            }
+            mesh.vertices = vertices;
+        }
+
+        private void RotateAroundPoint(float angle, Vector2 p) => RotateAroundPoint(angle, p.x, p.y);
     }
 }
