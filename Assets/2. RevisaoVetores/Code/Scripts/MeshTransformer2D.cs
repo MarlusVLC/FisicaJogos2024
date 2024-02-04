@@ -1,6 +1,4 @@
-﻿using Unity.Mathematics;
-using UnityEditor.UI;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace _2._RevisaoVetores
 {

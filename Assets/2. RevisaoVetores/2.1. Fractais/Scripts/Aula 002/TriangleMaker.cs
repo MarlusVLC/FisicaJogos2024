@@ -34,10 +34,10 @@ namespace _2._RevisaoVetores
         public GameObject CreateTriangle(TriangleCoordinates coordinates) =>
             CreateTriangle(coordinates.right, coordinates.left, coordinates.top);
 
-        public void RecycleTriangle(GameObject triangleObject, Vector2 v0, Vector2 v1, Vector2 v2)
+        public static void RecycleTriangle(GameObject triangleObject, Vector2 v0, Vector2 v1, Vector2 v2)
         {
             var mesh = triangleObject.GetComponent<MeshFilter>().mesh;
-            if (mesh.vertexCount == 3)
+            if (mesh.vertexCount != 3)
             {
                 throw new Exception("The object must be a triangle");
             }
@@ -48,7 +48,17 @@ namespace _2._RevisaoVetores
                 new(v1.x,v1.y),
                 new(v2.x,v2.y),
             };
+            mesh.colors = new Color[mesh.vertexCount];
+            for (var i = 0; i < mesh.vertexCount; i++)
+            {
+                Debug.Log("Black");
+                mesh.colors[i] = Color.black;
+            }
+            mesh.triangles = new[] {0,1,2};
         }
+
+        public static void RecycleTriangle(GameObject triangleObject, TriangleCoordinates coordinates) =>
+            RecycleTriangle(triangleObject, coordinates.right, coordinates.left, coordinates.top);
          
         public GameObject CreateTrianglesInMesh(TriangleCoordinates[] coordinates)
         {

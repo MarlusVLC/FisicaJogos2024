@@ -15,13 +15,14 @@ namespace _2._RevisaoVetores
         private List<TriangleCoordinates> triangleData;
         private List<GameObject> trianglesObjects;
 
-        private void Start()
-        {
-            DrawSierpinsky();
-        }
 
-        public void DrawSierpinsky()
+        public void DrawSierpinsky(int maxDepth)
         {
+            if (maxDepth < 1)
+            {
+                DeactivateAllTriangles();
+                return;
+            }
             var triangleQuantity = (int)Mathf.Pow(3, maxDepth - 1);
             if (trianglesObjects == null)
             {
@@ -51,9 +52,9 @@ namespace _2._RevisaoVetores
             var right = targetCoordinates.right;
             var left = targetCoordinates.left;
             var top = targetCoordinates.top;
-            var leftTop = left + (top - left) / 2;
-            var rightTop = right + (top - right) / 2;
-            var baseCenter = left + (right - left) / 2;
+            var leftTop = (top + left) / 2;
+            var rightTop = (top + right) / 2;
+            var baseCenter = (right + left) / 2;
             currentLevel++;
 
             SetTriangleCoordinates(currentLevel,maxLevels, new TriangleCoordinates(right, baseCenter, rightTop),sierpinskyCoordinates);
@@ -63,12 +64,27 @@ namespace _2._RevisaoVetores
 
         private void GenerateTrianglesGameObjects()
         {
-            var recycleGameObjects = trianglesObjects.Count > triangleData.Count;
-            var iterationTarget = recycleGameObjects ? trianglesObjects.Count : triangleData.Count;
-            for (var i = 0; i < triangleData.Count; i++)
+            int i;
+            for (i = 0; i < triangleData.Count; i++)
             {
-                
+                if (i < trianglesObjects.Count)
+                {
+                    TriangleMaker.RecycleTriangle(trianglesObjects[i], triangleData[i]);
+                    trianglesObjects[i].SetActive(true);
+                    continue;
+                }
+                trianglesObjects.Add(triangleMaker.CreateTriangle(triangleData[i]));
             }
+
+            for (i = triangleData.Count; i < trianglesObjects.Count; i++)
+            {
+                trianglesObjects[i].SetActive(false);
+            }
+        }
+
+        private void DeactivateAllTriangles()
+        {
+            trianglesObjects.ForEach(g => g.SetActive(false));
         }
     }    
 }
