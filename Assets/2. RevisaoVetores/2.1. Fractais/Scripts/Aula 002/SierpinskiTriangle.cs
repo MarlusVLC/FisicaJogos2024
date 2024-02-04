@@ -10,7 +10,6 @@ namespace _2._RevisaoVetores
     {
         [SerializeField] private TriangleMaker triangleMaker;
         [SerializeField] private float sideLength;
-        [Min(1)][SerializeField] private int maxDepth;
     
         private List<TriangleCoordinates> triangleData;
         private List<GameObject> trianglesObjects;
@@ -34,11 +33,11 @@ namespace _2._RevisaoVetores
             }
             triangleData = new List<TriangleCoordinates>(triangleQuantity);
             var baseCoordinates = TriangleCoordinates.CreateEquilateralTriangle(sideLength, transform.position);
-            SetTriangleCoordinates(1, maxDepth, baseCoordinates, triangleData);
+            SetTriangleCoordinates(1, maxDepth, baseCoordinates);
             GenerateTrianglesGameObjects();
         }
 
-        private void SetTriangleCoordinates(int currentLevel,  int maxLevels, TriangleCoordinates targetCoordinates, List<TriangleCoordinates> sierpinskyCoordinates)
+        private void SetTriangleCoordinates(int currentLevel,  int maxLevels, TriangleCoordinates targetCoordinates)
         {
             if (currentLevel < 1)
             {
@@ -57,9 +56,9 @@ namespace _2._RevisaoVetores
             var baseCenter = (right + left) / 2;
             currentLevel++;
 
-            SetTriangleCoordinates(currentLevel,maxLevels, new TriangleCoordinates(right, baseCenter, rightTop),sierpinskyCoordinates);
-            SetTriangleCoordinates(currentLevel,maxLevels,new TriangleCoordinates(baseCenter, left, leftTop),sierpinskyCoordinates);
-            SetTriangleCoordinates(currentLevel,maxLevels,new TriangleCoordinates(rightTop, leftTop, top),sierpinskyCoordinates);
+            SetTriangleCoordinates(currentLevel,maxLevels, new TriangleCoordinates(right, baseCenter, rightTop));
+            SetTriangleCoordinates(currentLevel,maxLevels,new TriangleCoordinates(baseCenter, left, leftTop));
+            SetTriangleCoordinates(currentLevel,maxLevels,new TriangleCoordinates(rightTop, leftTop, top));
         }
 
         private void GenerateTrianglesGameObjects()

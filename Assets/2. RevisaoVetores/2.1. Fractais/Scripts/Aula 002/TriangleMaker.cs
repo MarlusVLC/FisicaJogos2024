@@ -51,7 +51,6 @@ namespace _2._RevisaoVetores
             mesh.colors = new Color[mesh.vertexCount];
             for (var i = 0; i < mesh.vertexCount; i++)
             {
-                Debug.Log("Black");
                 mesh.colors[i] = Color.black;
             }
             mesh.triangles = new[] {0,1,2};
