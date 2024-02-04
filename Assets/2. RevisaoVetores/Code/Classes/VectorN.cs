@@ -66,18 +66,6 @@ namespace _2._RevisaoVetores
 
         public static VectorN operator *(VectorN vector, float[,] matrix)
         {
-            // var result = new VectorN(vector.values);
-            // for (var row = 0; row < matrix.GetLength(0); row++)
-            // {
-            //     var rowSum = 0.0f;
-            //     for (var column = 0; column < matrix.GetLength(1); column++)
-            //     {
-            //         rowSum +=  matrix[row, column] * vector.values[column];
-            //         result[row] = rowSum;
-            //     } 
-            // }
-            // return result;
-            
             Vector3 result = new VectorN(vector.values);
             for (int r = 0; r < matrix.GetLength(0); r++) 
             { 
