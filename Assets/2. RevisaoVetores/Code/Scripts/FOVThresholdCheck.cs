@@ -23,7 +23,6 @@ namespace _2._RevisaoVetores
             Debug.Log($"To Target Normalized Vector = {toTarget}");
             VectorN cameraForward = _camera.transform.forward;
             Debug.Log($"Camera Forward = {cameraForward}");
-            // var dot = CustomVector.DotProduct(cameraForward, toTarget);
             var dot = Vector3.Dot(cameraForward, toTarget);
             Debug.Log($"Dot Product Between Camera Forward and ToTarget = {dot}");
 
@@ -33,13 +32,6 @@ namespace _2._RevisaoVetores
             Debug.Log($"Vertical FOV Angle in radians = {verFOVAngle}");
             var verThreshold = Mathf.Cos(verFOVAngle/2f);
             Debug.Log($"Vertical Threshold = {verThreshold}");
-            
-            // var horizontalFOVAngleInDegrees = Camera.VerticalToHorizontalFieldOfView(_camera.fieldOfView, _camera.aspect);
-            // Debug.Log($"Aspect Ratio = {_camera.aspect}");
-            // Debug.Log($"Horizontal FOV Angle in degrees = {horizontalFOVAngleInDegrees}");
-            // var horFOVAngle = horizontalFOVAngleInDegrees * Mathf.PI / 180;
-            // var horThreshold = Mathf.Cos(horFOVAngle/2f);
-            // Debug.Log($"Horizontal Threshold = {horThreshold}");
 
             var isVisible = dot >= verThreshold;
             Debug.Log($"Is Visible = {isVisible}");

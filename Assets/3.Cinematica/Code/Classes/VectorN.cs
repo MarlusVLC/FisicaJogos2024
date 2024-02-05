@@ -3,70 +3,73 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace _2._RevisaoVetores
+namespace _3.Cinematica
 {
     [Serializable]
     public struct VectorN
     {
-        public float[] values;
+        public float[] components;
 
-        public VectorN(params float[] elements)
+        public VectorN(params float[] components)
         {
-            if (elements == null || elements.Length == 0)
+            if (components == null || components.Length == 0)
             {
                 throw new AggregateException("At least one element is required");
             }
             
-            values = new float[elements.Length];
-            for (var i = 0; i < elements.Length; i++)
+            this.components = new float[components.Length];
+            for (var i = 0; i < components.Length; i++)
             {
-                values[i] = elements[i];
+                this.components[i] = components[i];
             }
         }
 
         public VectorN(uint length)
         {
-            values = new float[length];
+            components = new float[length];
             for (var i = 0; i < length; i++)
             {
-                values[i] = 0;
+                components[i] = 0;
             }
         }
 
-        public int Length => values.Length;
+        public int Length => components.Length;
 
-        [System.Runtime.CompilerServices.IndexerName("DimensionValue")]
+        [System.Runtime.CompilerServices.IndexerName("Dimension")]
         public float this[int index]
         {
-            get => values[index];
-            set => values[index] = value;
+            get => components[index];
+            set => components[index] = value;
         }
 
         public static VectorN operator +(VectorN a, VectorN b)
         {
-            if (a.values.Length != b.values.Length)
+            if (a.components.Length != b.components.Length)
                 throw new Exception("Vectors should have same amount of vertices");
-            var valueArray = new float[a.values.Length];
+            var valueArray = new float[a.components.Length];
             for (var i = 0; i < valueArray.Length; i++)
             {
-                valueArray[i] = a.values[i] + b.values[i];
+                valueArray[i] = a.components[i] + b.components[i];
             }
             return new VectorN(valueArray);
         }
-    
+        
+        //Although algebraically correct, this is bad way to do this, as it generates two new vectors. 
+        public static VectorN operator -(VectorN a, VectorN b) => a + b*-1;
+
         public static VectorN operator *(VectorN a, float k)
         {
-            var valueArray = new float[a.values.Length];
-            for (var i = 0; i < a.values.Length; i++)
+            var valueArray = new float[a.components.Length];
+            for (var i = 0; i < a.components.Length; i++)
             {
-                valueArray[i] = a.values[i] * k;
+                valueArray[i] = a.components[i] * k;
             }
             return new VectorN(valueArray);
         }
 
         public static VectorN operator *(VectorN vector, float[,] matrix)
         {
-            Vector3 result = new VectorN(vector.values);
+            Vector3 result = new VectorN(vector.components);
             for (int r = 0; r < matrix.GetLength(0); r++) 
             { 
                 float s = 0;
@@ -77,6 +80,9 @@ namespace _2._RevisaoVetores
             }
             return result;
         }
+        
+        //Although algebraically correct, this is bad way to do this, as it generates two new vectors. 
+        public static VectorN operator /(VectorN a, float k) => a * (1 / k);
 
         public static VectorN MultiplyByHomogeneousMatrix(VectorN vector, float[,] matrix, bool preserveExtraDimensions = true)
         {
@@ -127,23 +133,52 @@ namespace _2._RevisaoVetores
             return result;
             
         }
-        
-        public static VectorN operator /(VectorN a, float k) => a * (1 / k);
 
-        public static VectorN operator -(VectorN a, VectorN b) => a + b*-1;
-
-        public float Magnitude() => Mathf.Sqrt(values.Sum(element => element * element));
+        public float Magnitude() => Mathf.Sqrt(components.Sum(element => element * element));
 
         public VectorN Normalize() => this / Magnitude();
 
+        public static implicit operator Vector3(VectorN v)
+        {
+            if (v.components.Length > 3)
+            {
+                throw new Exception("A game ready vector shouldn't have more than 3 vertices!");
+            }
+            return new Vector3(v.components[0], v.components[1], v.components[2]);
+        }
+        
+        public static implicit operator VectorN(Vector3 v)
+        {
+            return new VectorN(v.x, v.y, v.z);
+        }
+
+        public override string ToString()
+        {
+            var rep = "(";
+            for (var i = 0; i < components.Length; i++)
+            {
+                if (i > 0)
+                {
+                    rep += " ";
+                }
+                rep += components[i];
+                if (i < components.Length - 1)
+                {
+                    rep += ",";
+                }
+            }
+            rep += ")";
+            return rep;
+        }
+
         public static float Distance(VectorN a, VectorN b)
         {
-            if (a.values.Length != b.values.Length)
+            if (a.components.Length != b.components.Length)
                 throw new Exception("Vectors should have same amount of vertices");
             var result = 0f;
-            for (var i = 0; i < a.values.Length; i++)
+            for (var i = 0; i < a.components.Length; i++)
             {
-                result += (a.values[i] - b.values[i]) * (a.values[i] - b.values[i]);
+                result += (a.components[i] - b.components[i]) * (a.components[i] - b.components[i]);
             }
             // var result = a.vertices.Select((t, i) => (t - b.vertices[i]) * (t - b.vertices[i])).Sum();
             return Mathf.Sqrt(result);
@@ -151,12 +186,12 @@ namespace _2._RevisaoVetores
 
         public static float DotProduct(VectorN a, VectorN b)
         {
-            if (a.values.Length != b.values.Length)
+            if (a.components.Length != b.components.Length)
                 throw new Exception("Vectors should have same amount of vertices");
             var result = 0f;
-            for (var i = 0; i < a.values.Length; i++)
+            for (var i = 0; i < a.components.Length; i++)
             {
-                result += a.values[i] * b.values[i];
+                result += a.components[i] * b.components[i];
             }
             return result;
             // return a.vertices.Select((t, i) => t * b.vertices[i]).Sum();
@@ -175,58 +210,6 @@ namespace _2._RevisaoVetores
         {
             return onto.Normalize() * Component(from, onto);
         }
-        
-        #region Implicit Conversions
-
-        public static implicit operator Vector3(VectorN v)
-        {
-            if (v.values.Length > 3)
-            {
-                throw new Exception("A game ready vector shouldn't have more than 3 vertices!");
-            }
-            return new Vector3(v.values[0], v.values[1], v.values[2]);
-        }
-        
-        public static implicit operator Vector2(VectorN v)
-        {
-            if (v.values.Length > 3)
-            {
-                throw new Exception("A game ready vector shouldn't have more than 3 vertices!");
-            }
-            return new Vector2(v.values[0], v.values[1]);
-        }
-        
-        public static implicit operator VectorN(Vector3 v)
-        {
-            return new VectorN(v.x, v.y, v.z);
-        }
-        
-        public static implicit operator VectorN(Vector2 v)
-        {
-            return new VectorN(v.x, v.y);
-        }
-
-        public override string ToString()
-        {
-            var rep = "(";
-            for (var i = 0; i < values.Length; i++)
-            {
-                if (i > 0)
-                {
-                    rep += " ";
-                }
-                rep += values[i];
-                if (i < values.Length - 1)
-                {
-                    rep += ",";
-                }
-            }
-            rep += ")";
-            return rep;
-        }
-        
-        #endregion
-
     }
 }
 
