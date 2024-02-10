@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/2. RevisaoVetores/2.1. Fractais/Scenes/Sierpinski.unity
     guid: beac8df74350c1a4381fe9631bcbca82
+  - enabled: 1
+    path: Assets/3.Cinematica/Scenes/MU.unity
+    guid: 012703d63468290479894d3e20531068
   m_configObjects: {}
