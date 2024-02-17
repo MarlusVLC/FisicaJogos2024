@@ -1,8 +1,6 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
-namespace _5.Dinamica
+namespace _6.AcaoReacao
 {
     public class SystemManager : MonoBehaviour
     {
