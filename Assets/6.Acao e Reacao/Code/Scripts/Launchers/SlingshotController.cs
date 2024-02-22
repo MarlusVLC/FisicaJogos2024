@@ -33,6 +33,8 @@ namespace _6.AcaoReacao
             projectile.transform.parent = slingshotRb.transform;
             projectile.IsStatic = true;
             projectile.transform.GetLocalPositionAndRotation(out originalLocalProjPosition, out originalLocalProjRotation);
+            
+            // projectile.Collider.onCollision.AddListener(HaltMovement);
         }
 
         private void AddExplosiveImpulse()
@@ -61,6 +63,10 @@ namespace _6.AcaoReacao
 
         private void Stretch(Vector3 target)
         {
+            if (projectile.transform.parent != transform)
+            {
+                return;
+            }
             projectile.transform.position = target;
         }
 
@@ -69,6 +75,13 @@ namespace _6.AcaoReacao
             projectile.IsStatic = projectile.isKinematic = true;
             projectile.transform.SetParent(transform);
             projectile.transform.SetLocalPositionAndRotation(originalLocalProjPosition, originalLocalProjRotation);
+            projectile.Collider.enabled = true;
+        }
+
+        private void HaltMovement(Collider stopper)
+        {
+            projectile.Collider.enabled = false;
+            projectile.IsStatic = true;
         }
     }
 }

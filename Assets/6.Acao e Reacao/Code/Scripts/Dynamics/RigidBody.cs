@@ -12,15 +12,24 @@ namespace _6.AcaoReacao
 
         private Vector3 acceleration;
 
+        private Collider collider;
+
         public float Mass => mass;
         public float Density => mass / (transform.lossyScale.x * transform.lossyScale.y * transform.lossyScale.y);
         public Vector3 Weight => mass * WorldForces.Gravity;
         public Vector3 Momentum => mass * Velocity;
+        public float KineticEnergy => mass * Velocity.sqrMagnitude / 2;
 
         public Vector3 Velocity
         {
             get => velocity;
-            set => velocity = value;
+            set => velocity = IsStatic ? Vector3.zero : value;
+        }
+        
+        public Collider Collider
+        {
+            get => collider == null ? GetComponent<Collider>() : collider;
+            set => collider = value;
         }
 
         public bool IsStatic
@@ -72,6 +81,12 @@ namespace _6.AcaoReacao
         public void Move()
         {
             transform.position += velocity * Time.fixedDeltaTime;
+        }
+
+        public void HaltMovement()
+        {
+            Velocity = Vector3.zero;
+            IsStatic = true;
         }
     }
 }

@@ -61,7 +61,7 @@ namespace _6.AcaoReacao
             onSpaceBarPressed.RemoveAllListeners();
         }
 
-        private Vector3 GetInputAxis()
+        private static Vector3 GetInputAxis()
         {
             return new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
         }

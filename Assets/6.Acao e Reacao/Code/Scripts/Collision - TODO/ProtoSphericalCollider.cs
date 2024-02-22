@@ -3,20 +3,29 @@
 namespace _6.AcaoReacao
 {
     //TODO (Marlus) finish later
+    [Tooltip("Still in construction, not working correctly")]
     public class ProtoSphericalCollider : Collider
     {
-        [field: SerializeField] public float collisionScale { get; private set; } 
-        
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, trueScale.magnitude);
-        }
+        [field: SerializeField] public float CollisionRadius { get; private set; } = 1;
 
-        //TODO (Marlus) Finish/correct implementation
-        public override Vector3 trueScale
+        public override Vector3 Size => transform.localScale * CollisionRadius;
+
+        // protected override void NarrowPhaseCheck()
+        // {
+        //     for (var i = 0; i < NearbyColliders.Length; i++)
+        //     {
+        //         if (NearbyColliders[i] == null)
+        //         {
+        //             break;
+        //         }
+        //         onCollision.Invoke(NearbyColliders[i]);
+        //     }
+        // }
+
+        protected override void DrawShape()
         {
-            get => transform.localScale * collisionScale; 
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, Size.magnitude);
         }
     }
 }

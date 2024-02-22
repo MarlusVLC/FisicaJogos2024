@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace _6.AcaoReacao
 { 
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         [SerializeField] private bool dontDestroyOnLoad = false;
+
+        protected UnityEvent<T> onInstanceDestruction;
         
         private static T instance;
         
@@ -27,6 +30,8 @@ namespace _6.AcaoReacao
                 return instance;
             }
         }
+
+        public static bool hasInstance => instance != null;
         
         protected virtual void Awake()
         {
@@ -38,10 +43,12 @@ namespace _6.AcaoReacao
                     DontDestroyOnLoad(gameObject);
                 }
             }
-            else
-            {
-                Destroy(gameObject);
-            }
+            // else
+            // {
+            //     // Debug.Log($"{name} has been destroyed by {Instance.name}");
+            //     onInstanceDestruction.Invoke(instance);
+            //     Destroy(gameObject);
+            // }
         }
     }
 }
