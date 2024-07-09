@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 namespace _6.AcaoReacao
 {
     [RequireComponent(typeof(ProtoBoxCollider))]
-    public class ProtoFluidField : EnvironmentCollider
+    public class FluidField : EnvironmentCollider
     {
         [SerializeField] private float fluidDensity;
         // [SerializeField] private ProtoBoxCollider[] affectedObjects;

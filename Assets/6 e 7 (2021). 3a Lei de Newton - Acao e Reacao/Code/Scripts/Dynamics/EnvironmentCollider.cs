@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace _6.AcaoReacao
 {
@@ -7,24 +6,23 @@ namespace _6.AcaoReacao
     {
         protected ProtoBoxCollider collider;
 
-        protected void Awake()
+        private void Awake()
         {
             collider = GetComponent<ProtoBoxCollider>();
         }
-
+        
         protected void FixedUpdate()
         {
             foreach (var otherCollider in CollisionManager.GetValidBoxColliders())
             {
                 if (otherCollider.gameObject.activeSelf == false)
                     continue;
-                if (!Collision.DoOverlap(collider, otherCollider))
+                if (!Collision.DoOverlap(GetComponent<Collider>(), otherCollider)) 
                     continue;
-                AffectCollider(otherCollider);
+               AffectCollider(otherCollider);
             }
         }
 
         abstract protected void AffectCollider(Collider otherCollider);
     }
 }
-

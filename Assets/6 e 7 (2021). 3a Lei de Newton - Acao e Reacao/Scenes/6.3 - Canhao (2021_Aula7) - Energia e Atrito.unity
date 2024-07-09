@@ -285,12 +285,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fluidDensity: 1.132955
-  affectedObjects:
-  - {fileID: 107220735}
-  - {fileID: 1808989743}
-  - {fileID: 1004124312}
-  - {fileID: 1976674786}
-  - {fileID: 1237217336}
 --- !u!114 &186265040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,12 +595,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   restitutionCoefficient: 0.5
-  targets:
-  - {fileID: 1237217336}
-  - {fileID: 107220735}
-  - {fileID: 1808989743}
-  - {fileID: 1004124312}
-  - {fileID: 1976674786}
 --- !u!114 &416022280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1047,7 +1035,7 @@ PrefabInstance:
     - target: {fileID: 6555235573090741214, guid: 5bff4f2c0afe5504bacf859c9c763352,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2142,12 +2130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fluidDensity: 997
-  affectedObjects:
-  - {fileID: 107220735}
-  - {fileID: 1808989743}
-  - {fileID: 1004124312}
-  - {fileID: 1976674786}
-  - {fileID: 1237217336}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
