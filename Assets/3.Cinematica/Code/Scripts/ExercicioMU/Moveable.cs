@@ -58,22 +58,13 @@ namespace _3.Cinematica
 
         public void BeginNewTranslation(Vector3 target)
         {
-            if (translationMovement == null)
-            {
-                translationMovement = StartCoroutine(useAcceleration 
-                    ? AccelerateTowards(target, translationDuration) 
-                    : LinearlyMoveTowards(target, translationDuration));
-            }
-            else
-            {
-                StopTranslation();
-                translationMovement = StartCoroutine(useAcceleration 
-                    ? AccelerateTowards(target, translationDuration) 
-                    : LinearlyMoveTowards(target, translationDuration));
-            }
+            TryStopRotation();
+            translationMovement = StartCoroutine(useAcceleration 
+                ? AccelerateTowards(target, translationDuration) 
+                : LinearlyMoveTowards(target, translationDuration));
         }
 
-        public void StopTranslation()
+        public void TryStopTranslation()
         {
             if (translationMovement != null)
             {
@@ -87,8 +78,8 @@ namespace _3.Cinematica
             var crossUptoDirection = transform.up.x * direction.y - direction.x * transform.up.y;
             if (crossUptoDirection == 0) crossUptoDirection = 1;
             var rotationDirection = crossUptoDirection / Mathf.Abs(crossUptoDirection);
-            var currentToTarget = VectorN.Angle(transform.up, direction) * rotationDirection;
-            var velocity = currentToTarget  * Time.fixedDeltaTime / movementDuration;
+            var currentAngleToTarget = VectorN.Angle(transform.up, direction) * rotationDirection;
+            var velocity = currentAngleToTarget  * Time.fixedDeltaTime / movementDuration;
             velocity *= Mathf.Rad2Deg;
             var velocityVector = new Vector3(0, 0 ,velocity);
 
@@ -106,18 +97,11 @@ namespace _3.Cinematica
         
         public void BeginNewRotation(Vector3 target)
         {
-            if (rotationMovement == null)
-            {
-                rotationMovement = StartCoroutine(LinearlyRotateTowards(target, rotationDuration));
-            }
-            else
-            {
-                StopRotation();
-                rotationMovement = StartCoroutine(LinearlyRotateTowards(target, rotationDuration));
-            }
+            TryStopRotation();
+            rotationMovement = StartCoroutine(LinearlyRotateTowards(target, rotationDuration));
         }
 
-        public void StopRotation()
+        public void TryStopRotation()
         {
             if (rotationMovement != null)
             {

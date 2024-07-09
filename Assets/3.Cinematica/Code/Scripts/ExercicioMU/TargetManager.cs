@@ -9,8 +9,8 @@ namespace _3.Cinematica
 
         private void OnEnable()
         {
-            targetInput.onTargetSet.AddListener((_ => moveable.StopTranslation()));
-            targetInput.onTargetSet.AddListener((_ => moveable.StopRotation()));
+            targetInput.onTargetSet.AddListener((_ => moveable.TryStopTranslation()));
+            targetInput.onTargetSet.AddListener((_ => moveable.TryStopRotation()));
             targetInput.onTargetSet.AddListener(moveable.BeginNewRotation);
             moveable.onRotationCompleted.AddListener(moveable.BeginNewTranslation);
             moveable.onTranslationCompleted.AddListener(_ => targetInput.DisableTarget());

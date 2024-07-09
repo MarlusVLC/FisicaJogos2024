@@ -32,7 +32,7 @@ namespace _2._RevisaoVetores
                 trianglesObjects.Capacity = triangleQuantity;
             }
             triangleData = new List<TriangleCoordinates>(triangleQuantity);
-            var baseCoordinates = TriangleCoordinates.CreateEquilateralTriangle(sideLength, transform.position);
+            var baseCoordinates = TriangleCoordinates.CreateEquilateralTriangle(sideLength, Vector2.zero);
             SetTriangleCoordinates(1, maxDepth, baseCoordinates);
             GenerateTrianglesGameObjects();
         }
@@ -48,6 +48,7 @@ namespace _2._RevisaoVetores
                 triangleData.Add(targetCoordinates);
                 return;
             }
+
             var right = targetCoordinates.right;
             var left = targetCoordinates.left;
             var top = targetCoordinates.top;
@@ -66,13 +67,18 @@ namespace _2._RevisaoVetores
             int i;
             for (i = 0; i < triangleData.Count; i++)
             {
+                GameObject triangle;
                 if (i < trianglesObjects.Count)
                 {
+                    triangle = trianglesObjects[i];
                     TriangleMaker.RecycleTriangle(trianglesObjects[i], triangleData[i]);
                     trianglesObjects[i].SetActive(true);
                     continue;
                 }
-                trianglesObjects.Add(triangleMaker.CreateTriangle(triangleData[i]));
+
+                triangle = triangleMaker.CreateTriangle(triangleData[i]);
+                trianglesObjects.Add(triangle);
+                // triangle.transform.SetParent(transform);
             }
 
             for (i = triangleData.Count; i < trianglesObjects.Count; i++)

@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Numerics;
+using UnityEditor;
+using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 namespace _2._RevisaoVetores
 {
@@ -13,11 +18,12 @@ namespace _2._RevisaoVetores
         [SerializeField] private float sySpeed;
         [Space] 
         [SerializeField] private float rotationRate;
+        [Space]
+        [SerializeField] private Vector2 targetPosition;
 
-        [Space] [SerializeField] private Vector2 targetPosition;
+        private Mesh mesh => Application.isPlaying ? meshFilter.mesh : meshFilter.sharedMesh;
+        private Vector3[] referenceVertex;
 
-        private Mesh mesh => meshFilter.mesh;
-        
         private void Update()
         {
             // Translate2D(txSpeed * Time.deltaTime, tySpeed * Time.deltaTime);
@@ -30,6 +36,23 @@ namespace _2._RevisaoVetores
             // Rotate2DMatHM(rotationRate * Time.deltaTime);
             // RotateScale2D(rotationRate * Time.deltaTime, sxSpeed, sySpeed);
             // ScaleRotate2D(rotationRate * Time.deltaTime, sxSpeed, sySpeed);
+        }
+
+        private Vector2 GetMeshCenter()
+        {
+            var vertices = mesh.vertices;
+            var sum = Vector2.zero;
+            for (var i = 0; i < mesh.vertexCount; i++)
+            {
+                sum += (Vector2)vertices[i];
+            }
+
+            return sum / mesh.vertexCount;
+        }
+        
+        private void SetReferenceVertex()
+        {
+            referenceVertex = mesh.vertices;
         }
         
         private void Translate2D(float tx, float ty)
@@ -61,6 +84,13 @@ namespace _2._RevisaoVetores
             }
             mesh.vertices = vertices;
         }
+
+        private void Reset()
+        {
+            mesh.vertices = referenceVertex;
+        }
+        
+        public void Translate2D() => Translate2DMatHM(txSpeed, tySpeed);
         
         private void Scale2D(float sx, float sy)
         {
@@ -106,6 +136,9 @@ namespace _2._RevisaoVetores
             }
             mesh.vertices = vertices;
         }
+
+        public void Scale() => Scale2DMatHM(sxSpeed, sySpeed);
+        //TODO: escala deve ser feita considerando rotação do transform.
 
         private void Rotate2D(float angle, bool convertToRadians = true)
         {
@@ -170,6 +203,9 @@ namespace _2._RevisaoVetores
             mesh.vertices = vertices;
         }
 
+        private void Rotate() => Rotate2DMatHM(rotationRate);
+        private void RotateAroundOrigin() => RotateAroundPoint(rotationRate, GetMeshCenter());
+
         private void RotateScale2D(float angle, float sx, float sy, bool convertToRadians = true)
         {
             if (convertToRadians) angle *= Mathf.Deg2Rad;
@@ -191,12 +227,14 @@ namespace _2._RevisaoVetores
             var vertices = mesh.vertices;
             for (var i = 0; i < vertices.Length; i++)
             {
-                // vertices[i] = VectorN.MultiplyByHomogeneousMatrix(mesh.vertices[i], mat);
-                vertices[i] = (VectorN)mesh.vertices[i] * mat;    
+                vertices[i] = VectorN.MultiplyByHomogeneousMatrix(mesh.vertices[i], mat);
+                // vertices[i] = (VectorN)mesh.vertices[i] * mat;    
 
             }
             mesh.vertices = vertices;
         }
+
+        private void RotateScale() => RotateScale2D(rotationRate, sxSpeed, sySpeed);
         
         private void ScaleRotate2D(float angle, float sx, float sy, bool convertToRadians = true)
         {
@@ -226,7 +264,8 @@ namespace _2._RevisaoVetores
             mesh.vertices = vertices;
         }
         
-        
+        private void ScaleRotate() => ScaleRotate2D(rotationRate, sxSpeed, sySpeed);
+
         private void RotateAroundPoint(float angle, float px, float py, bool convertToRadians = true)
         {
             if (convertToRadians) angle *= Mathf.Deg2Rad;
@@ -261,5 +300,56 @@ namespace _2._RevisaoVetores
         }
 
         private void RotateAroundPoint(float angle, Vector2 p) => RotateAroundPoint(angle, p.x, p.y);
+        
+        [CustomEditor(typeof(MeshTransformer2D))]
+        public class MeshTransformer2DEditor : Editor 
+        {
+            public override void OnInspectorGUI()
+            {
+                var meshTransformer = (MeshTransformer2D)target;
+
+                DrawDefaultInspector();
+
+                if (GUILayout.Button("Set Reference Vertexes"))
+                {
+                    meshTransformer.SetReferenceVertex();
+                }
+                
+                if (GUILayout.Button("Reset"))
+                {
+                    meshTransformer.Reset();
+                }
+                
+                if (GUILayout.Button("Translate"))
+                {
+                    meshTransformer.Translate2D();
+                }
+                
+                if (GUILayout.Button("Scale"))
+                {
+                    meshTransformer.Scale();
+                }
+                
+                if (GUILayout.Button("Rotate"))
+                {
+                    meshTransformer.Rotate();
+                }
+                
+                if (GUILayout.Button("Rotate Around Center"))
+                {
+                    meshTransformer.RotateAroundOrigin();
+                }
+                
+                if (GUILayout.Button("Rotate Then Scale"))
+                {
+                    meshTransformer.RotateScale();
+                }
+                
+                if (GUILayout.Button("Scale Then Rotate"))
+                {
+                    meshTransformer.ScaleRotate();
+                }
+            }
+        }
     }
 }

@@ -171,5 +171,7 @@ namespace _2._RevisaoVetores
             }
             mesh.vertices = vertices;
         }
+        
+        //TODO: Generalizar as transformações para N dimensões.
     }
 }
