@@ -17,7 +17,7 @@ namespace _6.AcaoReacao
             {
                 if (otherCollider.gameObject.activeSelf == false)
                     continue;
-                if (!Collision.DoOverlap(GetComponent<Collider>(), otherCollider)) 
+                if (!Collision.DoOverlap(collider, otherCollider)) 
                     continue;
                AffectCollider(otherCollider);
             }

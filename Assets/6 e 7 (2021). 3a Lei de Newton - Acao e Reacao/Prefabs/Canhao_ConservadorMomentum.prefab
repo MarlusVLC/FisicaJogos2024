@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2594000000324763703}
   - component: {fileID: 939923333067492126}
   - component: {fileID: 4746081629797540140}
+  - component: {fileID: 3314993920154242677}
   m_Layer: 0
   m_Name: Bola
   m_TagString: Untagged
@@ -102,6 +103,32 @@ MonoBehaviour:
   mass: 1
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 1
+--- !u!114 &3314993920154242677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398500345020951271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c87a9919960342f782962ddd50913dd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
+  alwaysDrawGizmo: 0
+  dragCoefficient: 0.45
+  onCollisionIn:
+    m_PersistentCalls:
+      m_Calls: []
+  onCollisionStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onCollisionOut:
+    m_PersistentCalls:
+      m_Calls: []
+  <CollisionSize>k__BackingField: {x: 5, y: 5, z: 1}
+  showDetailedGizmos: 0
 --- !u!1 &886627262643137478
 GameObject:
   m_ObjectHideFlags: 0
