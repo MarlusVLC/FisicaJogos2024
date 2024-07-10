@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 namespace _6.AcaoReacao
 {
-    public class TargetInput : MonoBehaviour
+    public class TargetInput : Singleton<TargetInput>
     {
         public UnityEvent<Vector3> onMouseLeft;
         public UnityEvent<Vector3> onMouseLeftDown;

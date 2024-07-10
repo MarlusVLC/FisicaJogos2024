@@ -696,7 +696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 416022278}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 50, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -977,11 +977,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3314993920154242677, guid: 5bff4f2c0afe5504bacf859c9c763352,
-        type: 3}
-      propertyPath: dragCoefficient
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 4083431831717304058, guid: 5bff4f2c0afe5504bacf859c9c763352,
         type: 3}
       propertyPath: isStatic
@@ -1081,6 +1076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4713c8491c91b9948b257e6c21f35d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
   onMouseLeft:
     m_PersistentCalls:
       m_Calls: []

@@ -23,6 +23,10 @@ namespace _6.AcaoReacao
 
         private void OnEnable()
         {
+            if (targetInput == null)
+            {
+                targetInput = TargetInput.Instance;
+            }
             targetInput.onMouseLeft.AddListener(Stretch);
             targetInput.onMouseLeftUp.AddListener(Fire);
             targetInput.onSpaceBarPressed.AddListener(ResetProjectile);

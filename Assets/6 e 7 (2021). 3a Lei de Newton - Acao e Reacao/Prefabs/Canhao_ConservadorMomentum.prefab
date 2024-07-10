@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStatic: 0
   isKinematic: 0
-  mass: 1
+  mass: 50
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 1
 --- !u!114 &3314993920154242677
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 0}
   alwaysDrawGizmo: 0
-  dragCoefficient: 0.45
+  dragCoefficient: 0.1
   onCollisionIn:
     m_PersistentCalls:
       m_Calls: []
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 4746081629797540140}
   targetInput: {fileID: 117423299734470954}
-  propulsionIntensity: 10
+  propulsionIntensity: 500
   preserveMomentum: 1
 --- !u!114 &4083431831717304058
 MonoBehaviour:
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStatic: 0
   isKinematic: 0
-  mass: 20
+  mass: 100
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 0
 --- !u!1 &7273543279031298216
@@ -326,6 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4713c8491c91b9948b257e6c21f35d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
   onMouseLeft:
     m_PersistentCalls:
       m_Calls: []

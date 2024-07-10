@@ -11,6 +11,10 @@ namespace _6.AcaoReacao
 
         private void OnEnable()
         {
+            if (targetInput == null)
+            {
+                targetInput = TargetInput.Instance;
+            }
             targetInput.onMouseLeft.AddListener(AddImpulse);
             targetInput.onMouseRightDown.AddListener(AddExplosiveImpulse);
             targetInput.onDirectionalAxisPressed.AddListener(AddDirectionalImpulse);

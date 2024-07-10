@@ -18,6 +18,10 @@ namespace _6.AcaoReacao
         private void Awake()
         {
             cannonRb = GetComponent<RigidBody>();
+            if (targetInput == null)
+            {
+                targetInput = TargetInput.Instance;
+            }
         }
 
         private void OnEnable()
