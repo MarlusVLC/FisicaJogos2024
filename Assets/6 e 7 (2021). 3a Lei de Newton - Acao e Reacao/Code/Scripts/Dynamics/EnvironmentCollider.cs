@@ -23,6 +23,6 @@ namespace _6.AcaoReacao
             }
         }
 
-        abstract protected void AffectCollider(Collider otherCollider);
+        protected abstract void AffectCollider(Collider otherCollider);
     }
 }
