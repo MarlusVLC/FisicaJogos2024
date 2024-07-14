@@ -100,9 +100,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStatic: 0
   isKinematic: 0
-  mass: 50
+  mass: 100
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 1
+  acceleration: {x: 0, y: 0, z: 0}
 --- !u!114 &3314993920154242677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 4746081629797540140}
   targetInput: {fileID: 117423299734470954}
-  propulsionIntensity: 500
+  propulsionIntensity: 2000
   preserveMomentum: 1
 --- !u!114 &4083431831717304058
 MonoBehaviour:
@@ -282,6 +283,7 @@ MonoBehaviour:
   mass: 100
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 0
+  acceleration: {x: 0, y: 0, z: 0}
 --- !u!1 &7273543279031298216
 GameObject:
   m_ObjectHideFlags: 0

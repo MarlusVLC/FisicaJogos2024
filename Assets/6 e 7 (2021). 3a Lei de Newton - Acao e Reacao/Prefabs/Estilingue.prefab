@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4713c8491c91b9948b257e6c21f35d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
   onMouseLeft:
     m_PersistentCalls:
       m_Calls: []
@@ -404,7 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStatic: 0
   isKinematic: 0
-  mass: 200
+  mass: 100
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 1
 --- !u!114 &6269080597796455815

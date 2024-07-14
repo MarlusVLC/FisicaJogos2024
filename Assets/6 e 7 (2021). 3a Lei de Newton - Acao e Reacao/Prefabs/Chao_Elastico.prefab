@@ -103,6 +103,7 @@ MonoBehaviour:
   mass: 1
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 0
+  acceleration: {x: 0, y: 0, z: 0}
 --- !u!114 &3238637552383171846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,10 +142,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a760fd0f568843148d490b856729ea56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restitutionCoefficient: 0.5
-  targets:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  restitutionCoefficient: 0.9
+  afterCollisionDirection: {x: 0, y: 0, z: 0}

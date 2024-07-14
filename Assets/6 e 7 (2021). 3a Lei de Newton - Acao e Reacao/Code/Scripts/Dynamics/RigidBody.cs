@@ -10,7 +10,7 @@ namespace _6.AcaoReacao
         [SerializeField] private Vector3 velocity;
         [SerializeField] private bool useGravity;
 
-        private Vector3 acceleration;
+        [SerializeField] private Vector3 acceleration;
 
         private Collider collider;
 
@@ -98,6 +98,14 @@ namespace _6.AcaoReacao
         {
             Velocity = Vector3.zero;
             IsStatic = true;
+        }
+
+        [ContextMenu("Use Mass To Define Scale")]
+        private void RescaleBasedOMass()
+        {
+            var newScale = transform.localScale;
+            newScale *= Mass / 100 ;
+            transform.localScale = newScale;
         }
     }
 }

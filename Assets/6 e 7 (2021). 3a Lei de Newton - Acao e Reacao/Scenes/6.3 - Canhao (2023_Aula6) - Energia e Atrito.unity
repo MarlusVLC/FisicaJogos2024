@@ -131,6 +131,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1287843780}
     m_Modifications:
+    - target: {fileID: 2111539771102010207, guid: db232545f6c2e874dacb5058f5c72ab8,
+        type: 3}
+      propertyPath: afterCollisionDirection.x
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 2160358717494282795, guid: db232545f6c2e874dacb5058f5c72ab8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -184,7 +189,7 @@ PrefabInstance:
     - target: {fileID: 5203518594790193043, guid: db232545f6c2e874dacb5058f5c72ab8,
         type: 3}
       propertyPath: m_Name
-      value: Parede_Esquerda (1)
+      value: Parede_Direita
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -226,7 +231,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.21643952, w: 0.97629607}
   m_LocalPosition: {x: -3.06, y: 0.02, z: 0}
-  m_LocalScale: {x: 0.125, y: 0.125, z: 0.125}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 862701069}
@@ -244,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 0}
-  alwaysDrawGizmo: 0
+  alwaysDrawGizmo: 1
   dragCoefficient: 0.1
   onCollisionIn:
     m_PersistentCalls:
@@ -271,9 +276,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStatic: 0
   isKinematic: 0
-  mass: 50
+  mass: 200
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 1
+  acceleration: {x: 0, y: 0, z: 0}
 --- !u!212 &107220737
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -424,6 +430,11 @@ PrefabInstance:
     - target: {fileID: 3238637552383171846, guid: 86bd3858e1725d64fa660961a9f3fff2,
         type: 3}
       propertyPath: showDetailedGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8095855649702598761, guid: 86bd3858e1725d64fa660961a9f3fff2,
+        type: 3}
+      propertyPath: afterCollisionDirection.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8137108576873449757, guid: 86bd3858e1725d64fa660961a9f3fff2,
@@ -621,6 +632,7 @@ MonoBehaviour:
   mass: 2
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 0
+  acceleration: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +778,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3229719897169270397, guid: 5bff4f2c0afe5504bacf859c9c763352,
+        type: 3}
+      propertyPath: propulsionIntensity
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314993920154242677, guid: 5bff4f2c0afe5504bacf859c9c763352,
+        type: 3}
+      propertyPath: showDetailedGizmos
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4083431831717304058, guid: 5bff4f2c0afe5504bacf859c9c763352,
         type: 3}
       propertyPath: isStatic
@@ -1045,7 +1067,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.21643952, w: 0.97629607}
   m_LocalPosition: {x: 5.2, y: 0.11, z: 0}
-  m_LocalScale: {x: 0.125, y: 0.125, z: 0.125}
+  m_LocalScale: {x: 0.0625, y: 0.0625, z: 0.0625}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 862701069}
@@ -1090,9 +1112,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStatic: 0
   isKinematic: 0
-  mass: 15
+  mass: 50
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 1
+  acceleration: {x: 0, y: 0, z: 0}
 --- !u!212 &1004124314
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1309,6 +1332,7 @@ MonoBehaviour:
   mass: 1
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 0
+  acceleration: {x: 0, y: 0, z: 0}
 --- !u!114 &1299582778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1412,6 +1436,11 @@ PrefabInstance:
         type: 3}
       propertyPath: showDetailedGizmos
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8095855649702598761, guid: 86bd3858e1725d64fa660961a9f3fff2,
+        type: 3}
+      propertyPath: afterCollisionDirection.y
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8137108576873449757, guid: 86bd3858e1725d64fa660961a9f3fff2,
         type: 3}
@@ -1540,7 +1569,7 @@ Transform:
   m_GameObject: {fileID: 1808989741}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.21643952, w: 0.97629607}
-  m_LocalPosition: {x: 0, y: -4.24, z: 0}
+  m_LocalPosition: {x: 0, y: -3.06, z: 0}
   m_LocalScale: {x: 0.125, y: 0.125, z: 0.125}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1589,6 +1618,7 @@ MonoBehaviour:
   mass: 1
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 1
+  acceleration: {x: 0, y: 0, z: 0}
 --- !u!212 &1808989745
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1718,6 +1748,7 @@ MonoBehaviour:
   mass: 100
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 1
+  acceleration: {x: 0, y: 0, z: 0}
 --- !u!212 &1976674788
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1778,6 +1809,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1287843780}
     m_Modifications:
+    - target: {fileID: 2111539771102010207, guid: db232545f6c2e874dacb5058f5c72ab8,
+        type: 3}
+      propertyPath: afterCollisionDirection.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2160358717494282795, guid: db232545f6c2e874dacb5058f5c72ab8,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -34,6 +34,7 @@ namespace _6.AcaoReacao
         {
             Gizmos.color = mainGizmoColor;
             Gizmos.DrawWireCube(Center, Size);
+            
             if (showDetailedGizmos == false)
             {
                 return;
