@@ -14,7 +14,7 @@ namespace _6.AcaoReacao
         protected override void AffectCollider(Collider otherCollider)
         {
             var rb = otherCollider.RigidBody;
-            rb.AddResistanceForce(0.5f * rb.Velocity.sqrMagnitude * fluidDensity * otherCollider.DragCoefficient * contactArea) ;
+            rb.AddOppositeForce(0.5f * rb.Velocity.sqrMagnitude * fluidDensity * otherCollider.DragCoefficient * contactArea) ;
         }
     }
 }

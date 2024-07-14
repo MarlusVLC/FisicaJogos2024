@@ -24,15 +24,7 @@ namespace _6.AcaoReacao
 
         private void SetWindForce(Vector3 direction)
         {
-            if (direction != Vector3.zero)
-            {
-                Debug.Log("Wind Direction = " + direction );
-            }
             windForce = windMaximumForceMagnitude * direction;
-            if (windForce != Vector3.zero)
-            {
-                Debug.Log("Wind Force = " + windForce );
-            }
         }
     }
 }

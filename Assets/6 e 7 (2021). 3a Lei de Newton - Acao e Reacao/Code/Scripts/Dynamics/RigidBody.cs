@@ -76,7 +76,7 @@ namespace _6.AcaoReacao
             AddForce(direction * intensity);
         }
 
-        public void AddResistanceForce(float intensity)
+        public void AddOppositeForce(float intensity)
         {
             AddForce(velocity.normalized * (intensity * -1));
         }

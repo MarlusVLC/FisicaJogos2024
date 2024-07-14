@@ -12,6 +12,7 @@ namespace _6.AcaoReacao
         [SerializeField] private Vector3 offset;
         [SerializeField] private bool alwaysDrawGizmo;
         [Min(0)][SerializeField] private float dragCoefficient = 0.45f;
+        [SerializeField] private CustomPhysicsMaterial material;
         [SerializeField] public UnityEvent<Collider> onCollisionIn;
         [SerializeField] public UnityEvent<Collider> onCollisionStay;
         [SerializeField] public UnityEvent<Collider> onCollisionOut;
@@ -24,6 +25,7 @@ namespace _6.AcaoReacao
         public bool WasIntersecting {get; private set; }
 
         public float DragCoefficient => dragCoefficient;
+        public CustomPhysicsMaterial Material => material;
 
         public abstract Vector3 Size { get; }
         public Vector3 Center => transform.position + offset;

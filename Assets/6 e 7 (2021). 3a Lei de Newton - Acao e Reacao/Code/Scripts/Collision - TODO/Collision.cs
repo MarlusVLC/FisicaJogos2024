@@ -49,21 +49,24 @@ namespace _6.AcaoReacao
             return sqrDistance <= sqrRadiiSum;
         }
 
-        public static bool DoOverlap(ProtoBoxCollider a, ProtoBoxCollider b)
+        public static bool DoOverlap(ProtoBoxCollider a, ProtoBoxCollider b, float threshold = 0f)
         {
             return
-                a.NegVertex.x <= b.PosVertex.x &&
-                a.PosVertex.x >= b.NegVertex.x &&
-                a.NegVertex.y <= b.PosVertex.y &&
-                a.PosVertex.y >= b.NegVertex.y &&
-                a.NegVertex.z <= b.PosVertex.z &&
-                b.PosVertex.z >= b.NegVertex.z;
+                a.NegVertex.x-threshold <= b.PosVertex.x &&
+                a.PosVertex.x+threshold >= b.NegVertex.x &&
+                a.NegVertex.y-threshold <= b.PosVertex.y &&
+                a.PosVertex.y+threshold >= b.NegVertex.y &&
+                a.NegVertex.z-threshold <= b.PosVertex.z &&
+                b.PosVertex.z+threshold >= b.NegVertex.z;
         }
+
+        public static float GetResultantBounciness(Collider a, Collider b) =>
+            CustomPhysicsMaterial.GetResultantBounciness(a.Material, b.Material);
 
         //TODO(Marlus) to be built later
         // public static bool DoOverlap(ProtoSphericalCollider sphere, ProtoBoxCollider box)
         // {
-            
+
         // }
     }
 }

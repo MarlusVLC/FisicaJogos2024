@@ -121,6 +121,7 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   alwaysDrawGizmo: 0
   dragCoefficient: 0.1
+  material: {fileID: 11400000, guid: c5332f201ef71c64aa6928a7497101f7, type: 2}
   onCollisionIn:
     m_PersistentCalls:
       m_Calls: []

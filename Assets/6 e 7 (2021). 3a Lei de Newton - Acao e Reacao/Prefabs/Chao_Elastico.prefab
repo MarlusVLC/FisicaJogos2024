@@ -121,6 +121,7 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   alwaysDrawGizmo: 0
   dragCoefficient: 0
+  material: {fileID: 11400000, guid: 62b0a38395ac0f74c9e9ddde878a074b, type: 2}
   onCollisionIn:
     m_PersistentCalls:
       m_Calls: []
@@ -144,5 +145,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a760fd0f568843148d490b856729ea56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restitutionCoefficient: 0.5
   afterCollisionDirection: {x: 0, y: 0, z: 0}
