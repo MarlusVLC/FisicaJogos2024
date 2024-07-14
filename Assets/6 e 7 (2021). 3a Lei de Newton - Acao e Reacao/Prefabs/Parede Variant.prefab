@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 2675542225162744997, guid: 86bd3858e1725d64fa660961a9f3fff2,
         type: 3}
       propertyPath: m_Name
-      value: Parede_Esquerda Variant
+      value: Parede Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3238637552383171846, guid: 86bd3858e1725d64fa660961a9f3fff2,
         type: 3}
@@ -21,7 +21,7 @@ PrefabInstance:
     - target: {fileID: 3238637552383171846, guid: 86bd3858e1725d64fa660961a9f3fff2,
         type: 3}
       propertyPath: <CollisionSize>k__BackingField.x
-      value: 1.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3238637552383171846, guid: 86bd3858e1725d64fa660961a9f3fff2,
         type: 3}

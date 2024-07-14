@@ -8,10 +8,12 @@ namespace _6.AcaoReacao
         [SerializeField] public bool isKinematic;
         [SerializeField] private float mass;
         [SerializeField] private Vector3 velocity;
-        [SerializeField] private bool useGravity;
-
+        [SerializeField] private bool useGravity = true;
+        [SerializeField] private bool useWind = true;
         [SerializeField] private Vector3 acceleration;
-
+        [Space]
+        [SerializeField] private Vector3 refScale;
+        
         private Collider collider;
 
         public float Mass => mass;
@@ -51,6 +53,7 @@ namespace _6.AcaoReacao
             }
             Move();
             if (useGravity) AddForce(Weight);
+            if (useWind) AddForce(WorldForces.WindForce);
         }
         
         private void OnValidate()
@@ -91,6 +94,7 @@ namespace _6.AcaoReacao
         
         public void Move()
         {
+            acceleration = Vector3.zero;
             transform.position += velocity * Time.fixedDeltaTime;
         }
 
@@ -103,7 +107,7 @@ namespace _6.AcaoReacao
         [ContextMenu("Use Mass To Define Scale")]
         private void RescaleBasedOMass()
         {
-            var newScale = transform.localScale;
+            var newScale = refScale;
             newScale *= Mass / 100 ;
             transform.localScale = newScale;
         }
