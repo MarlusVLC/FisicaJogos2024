@@ -67,7 +67,7 @@ namespace _6.AcaoReacao
             {
                 return;
             }
-            acceleration = forceVector / mass;
+            acceleration += forceVector / mass;
             velocity += acceleration * Time.fixedDeltaTime;
         }
 
