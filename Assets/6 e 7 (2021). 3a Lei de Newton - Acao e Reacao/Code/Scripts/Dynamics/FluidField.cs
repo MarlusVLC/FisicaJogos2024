@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
 namespace _6.AcaoReacao
 {
@@ -14,7 +12,7 @@ namespace _6.AcaoReacao
         protected override void AffectCollider(Collider otherCollider)
         {
             var rb = otherCollider.RigidBody;
-            rb.AddOppositeForce(0.5f * rb.Velocity.sqrMagnitude * fluidDensity * otherCollider.DragCoefficient * contactArea) ;
+            rb.AddOppositeForce(0.5f * rb.Velocity.sqrMagnitude * fluidDensity * otherCollider.Material.Friction * contactArea) ;
         }
     }
 }

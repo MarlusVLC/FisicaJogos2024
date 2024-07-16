@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Rubber
   m_EditorClassIdentifier: 
   Bounciness: 0.9
-  Friction: 1
+  Friction: 0.1

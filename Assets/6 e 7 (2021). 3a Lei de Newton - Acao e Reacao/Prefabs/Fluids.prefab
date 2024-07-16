@@ -104,6 +104,9 @@ MonoBehaviour:
   mass: 0
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 0
+  useWind: 1
+  acceleration: {x: 0, y: 0, z: 0}
+  refScale: {x: 0, y: 0, z: 0}
 --- !u!114 &1150460736178456844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +122,7 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   alwaysDrawGizmo: 0
   dragCoefficient: 0
+  material: {fileID: 0}
   onCollisionIn:
     m_PersistentCalls:
       m_Calls: []
@@ -142,13 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e9b47201b84092abeaf77bb1faa291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fluidDensity: 997
-  affectedObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  fluidDensity: 3623.5
 --- !u!1 &3075288032467339676
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,6 +251,9 @@ MonoBehaviour:
   mass: 0
   velocity: {x: 0, y: 0, z: 0}
   useGravity: 0
+  useWind: 1
+  acceleration: {x: 0, y: 0, z: 0}
+  refScale: {x: 0, y: 0, z: 0}
 --- !u!114 &4622266041655850087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,6 +269,7 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   alwaysDrawGizmo: 0
   dragCoefficient: 0
+  material: {fileID: 0}
   onCollisionIn:
     m_PersistentCalls:
       m_Calls: []
@@ -292,12 +294,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fluidDensity: 1.132955
-  affectedObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &7689211307141464670
 GameObject:
   m_ObjectHideFlags: 0

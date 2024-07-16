@@ -210,6 +210,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 862701069}
     m_Modifications:
+    - target: {fileID: 257466943858394009, guid: a7ffd4ce7145ebf43836c8293a21aeb2,
+        type: 3}
+      propertyPath: alwaysDrawGizmo
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1039259472233680347, guid: a7ffd4ce7145ebf43836c8293a21aeb2,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -517,7 +522,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 0}
   alwaysDrawGizmo: 0
-  dragCoefficient: 0
   material: {fileID: 0}
   onCollisionIn:
     m_PersistentCalls:
@@ -1397,7 +1401,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 0}
   alwaysDrawGizmo: 0
-  dragCoefficient: 0
   material: {fileID: 0}
   onCollisionIn:
     m_PersistentCalls:
