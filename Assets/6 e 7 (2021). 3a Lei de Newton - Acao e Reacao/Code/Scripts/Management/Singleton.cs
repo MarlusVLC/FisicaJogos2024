@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace _6.AcaoReacao
@@ -10,45 +11,43 @@ namespace _6.AcaoReacao
         protected UnityEvent<T> onInstanceDestruction;
         
         private static T instance;
-        
-        public static T Instance
+
+        public static readonly Lazy<T> lazyInstance = new Lazy<T>(() =>
         {
-            get
+            T instance = FindObjectOfType<T>();
+            
+            if (instance == null)
             {
-                // If the instance doesn't exist yet, find it in the scene
-                if (instance == null)
-                {
-                    instance = FindObjectOfType<T>();
-
-                    // If it's still null, create a new GameObject and add the SingletonExample script to it
-                    if (instance == null)
-                    {
-                        var singletonObject = new GameObject(nameof(T));
-                        instance = singletonObject.AddComponent<T>();
-                    }
-                }
-                return instance;
+                var singletonObject = new GameObject(nameof(T));
+                instance = singletonObject.AddComponent<T>();
             }
-        }
 
-        public static bool hasInstance => instance != null;
+            return instance;
+        });
+
+        public static T Instance => lazyInstance.Value;
+
+        public static bool HasInstance => lazyInstance.IsValueCreated;
         
         protected virtual void Awake()
         {
-            if (instance == null)
+            if (HasInstance && Instance != this)
             {
-                instance = this as T;
-                if (dontDestroyOnLoad)
-                {
-                    DontDestroyOnLoad(gameObject);
-                }
+                onInstanceDestruction?.Invoke(Instance);
+                Destroy(Instance.gameObject);
             }
-            // else
-            // {
-            //     // Debug.Log($"{name} has been destroyed by {Instance.name}");
-            //     onInstanceDestruction.Invoke(instance);
-            //     Destroy(gameObject);
-            // }
+            else if (dontDestroyOnLoad)
+            {
+                DontDestroyOnLoad(gameObject);
+            }
+        }
+
+        protected void OnDestroy()
+        {
+            if (instance == this)
+            {
+                instance = null;
+            }
         }
     }
 }

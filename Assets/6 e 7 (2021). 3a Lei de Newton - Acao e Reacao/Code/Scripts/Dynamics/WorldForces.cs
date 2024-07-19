@@ -17,7 +17,7 @@ namespace _6.AcaoReacao
 
         private void OnEnable()
         {
-            if (TargetInput.hasInstance)
+            if (TargetInput.HasInstance)
                 TargetInput.Instance.onDirectionalAxisPressed.AddListener(SetWindForce);
         }
 

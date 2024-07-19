@@ -14,7 +14,7 @@ namespace _6.AcaoReacao
 
         protected void OnDisable()
         {
-            if (CollisionManager.hasInstance == false)
+            if (CollisionManager.HasInstance == false)
                 return;
             Tracker<T>.Instance.StopTracking((T)this);
         }

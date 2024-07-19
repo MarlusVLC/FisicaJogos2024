@@ -50,7 +50,7 @@ namespace _6.AcaoReacao
         {
             onCollisionIn.RemoveAllListeners();
             
-            if (CollisionManager.hasInstance == false)
+            if (CollisionManager.HasInstance == false)
                 return;
             CollisionManager.Instance.RemoveCollider(this);
         }
