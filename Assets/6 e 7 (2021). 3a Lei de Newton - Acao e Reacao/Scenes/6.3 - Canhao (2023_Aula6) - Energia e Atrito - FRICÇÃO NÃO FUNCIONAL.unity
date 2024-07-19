@@ -892,6 +892,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bola_100kg
       objectReference: {fileID: 0}
+    - target: {fileID: 398500345020951271, guid: 5bff4f2c0afe5504bacf859c9c763352,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 886627262643137478, guid: 5bff4f2c0afe5504bacf859c9c763352,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2594000000324763703, guid: 5bff4f2c0afe5504bacf859c9c763352,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -906,6 +916,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.185
+      objectReference: {fileID: 0}
+    - target: {fileID: 2594000000324763703, guid: 5bff4f2c0afe5504bacf859c9c763352,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4083431831717304058, guid: 5bff4f2c0afe5504bacf859c9c763352,
         type: 3}
@@ -970,7 +985,7 @@ PrefabInstance:
     - target: {fileID: 6555235573090741214, guid: 5bff4f2c0afe5504bacf859c9c763352,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1466,7 +1481,7 @@ PrefabInstance:
     - target: {fileID: 160321835906706979, guid: ae4efa8b04b080549a2a680710a6adc3,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4061112432392269840, guid: ae4efa8b04b080549a2a680710a6adc3,
         type: 3}

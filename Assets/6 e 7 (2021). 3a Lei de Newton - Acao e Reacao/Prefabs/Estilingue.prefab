@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e2addf7a7641689bbf63351bd6718d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 0}
+  projectile: {fileID: 8950777728135043469}
   targetInput: {fileID: 5152288605080275440}
   slingshotForkCenter: {fileID: 1520553846238766899}
   elasticConstant: 1100
@@ -397,3 +397,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1187113333219341645}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8950777728135043469 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7804445283942444224, guid: a7ffd4ce7145ebf43836c8293a21aeb2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1187113333219341645}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08678bfabdcf0c04089b6767b701c003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
