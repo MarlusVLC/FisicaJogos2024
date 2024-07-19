@@ -13,6 +13,7 @@ namespace _6.AcaoReacao
         public static Vector3 EarthGravity => Instance.gravityAcceleration;
         public static Vector3 WindForce => Instance.windForce;
         public const float UniversalGravitationalConstant = 0.00000667428f;
+        
 
         private void OnEnable()
         {

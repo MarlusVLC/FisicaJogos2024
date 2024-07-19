@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace _6.AcaoReacao
 { 
-    public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         [SerializeField] private bool dontDestroyOnLoad = false;
 
