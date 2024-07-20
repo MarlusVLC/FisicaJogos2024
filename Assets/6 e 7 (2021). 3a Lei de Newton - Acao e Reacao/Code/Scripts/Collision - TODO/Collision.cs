@@ -5,6 +5,7 @@ namespace _6.AcaoReacao
 {
     public static class Collision
     {
+        //TODO: Levar em consideração movimento para confirmar colisão.
         public static bool DoOverlap(Collider a, Collider b, bool useMomentumConservation = false)
         {
             var doOverlap = false;
