@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using _6.AcaoReacao;
 using UnityEngine;
 
@@ -7,7 +8,9 @@ public abstract class Tracker<T> : Singleton<Tracker<T>> where T : Tracked<T>
 {
     protected Dictionary<int, T> trackedCollection = new();
     private int keyCount;
-    
+
+    public IReadOnlyDictionary<int, T> TrackedCollection => trackedCollection;
+
     public int StartTracking(T newTrack)
     {
         if (newTrack.SystemID >= 0 && trackedCollection.ContainsKey(newTrack.SystemID) == false)
