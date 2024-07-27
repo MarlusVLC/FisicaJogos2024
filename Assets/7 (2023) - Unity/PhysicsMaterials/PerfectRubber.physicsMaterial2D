@@ -6,6 +6,6 @@ PhysicsMaterial2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Rubber
-  friction: 0.5
-  bounciness: 0.75
+  m_Name: PerfectRubber
+  friction: 0.2
+  bounciness: 1.2
