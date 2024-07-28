@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Numerics;
+using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 namespace _6.AcaoReacao
 {
@@ -8,12 +10,17 @@ namespace _6.AcaoReacao
         [SerializeField] public bool isKinematic;
         [SerializeField] private float mass;
         [SerializeField] private Vector3 velocity;
+        [SerializeField] private Vector3 acceleration;
         [SerializeField] private bool useGravity = true;
         [SerializeField] private bool useWind = true;
-        [SerializeField] private Vector3 acceleration;
-        [Space]
+        [Header("Sleep Setup")]
+        [SerializeField] private float accelerationSleepThreshold = 5.0f;
+        [SerializeField] private int iterationUntilSleep = 4;
+        [Header("Editor Only")]
         [SerializeField] private Vector3 refScale;
-        
+
+        private bool isAsleep = false;
+        private int sleepCountdown;
         private Collider collider;
 
         public float Mass => mass;
@@ -29,11 +36,7 @@ namespace _6.AcaoReacao
             set => velocity = IsStatic ? Vector3.zero : value;
         }
         
-        public Collider Collider
-        {
-            get => collider == null ? GetComponent<Collider>() : collider;
-            set => collider = value;
-        }
+        public Collider Collider => collider == null ? GetComponent<Collider>() : collider;
 
         public bool IsStatic
         {
@@ -51,8 +54,14 @@ namespace _6.AcaoReacao
             {
                 return;
             }
-            Move();
-            if (useGravity) AddForce(Weight);
+
+            CheckSleepiness();
+
+            if (isAsleep == false)
+            {
+                Move();
+                if (useGravity) AddForce(Weight);
+            }
             if (useWind) AddForce(WorldForces.WindForce);
         }
         
@@ -67,6 +76,12 @@ namespace _6.AcaoReacao
             {
                 return;
             }
+
+            if (forceVector.sqrMagnitude == 0)
+            {
+                return;
+            }
+            isAsleep = false;
             acceleration += forceVector / mass;
             velocity += acceleration * Time.fixedDeltaTime;
         }
@@ -87,6 +102,7 @@ namespace _6.AcaoReacao
             {
                 return;
             }
+            isAsleep = false;
             var forceVector = direction * intensity;
             acceleration = forceVector / mass;
             velocity += acceleration;
@@ -102,6 +118,28 @@ namespace _6.AcaoReacao
         {
             Velocity = Vector3.zero;
             IsStatic = true;
+        }
+
+        private void CheckSleepiness()
+        {
+            if (acceleration.sqrMagnitude < accelerationSleepThreshold * accelerationSleepThreshold)
+            {
+                if (sleepCountdown < iterationUntilSleep)
+                {
+                    sleepCountdown++;
+                }
+                else
+                {
+                    isAsleep = true;
+                    acceleration = Vector3.zero;
+                    velocity = Vector3.zero;
+                }
+            }
+            else
+            {
+                sleepCountdown = 0;
+                isAsleep = false;
+            }
         }
 
         [ContextMenu("Use Mass To Define Scale")]

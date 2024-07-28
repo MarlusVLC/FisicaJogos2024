@@ -15,10 +15,15 @@ namespace _6.AcaoReacao
         
         private Dictionary<int, Collider> colliders = new();
         private int keyCount = 0;
+        
+        //BROAD PHASE
+            //Brute Force <- Utilizada atualmente
+            //Sweep and Prune
+            //Uniform Grid
 
         private void FixedUpdate()
         {
-            NarrowPhaseCheck();
+            BroadPhaseCheck();
         }
 
         public static IEnumerable<ProtoBoxCollider> GetValidBoxColliders() =>
@@ -57,7 +62,7 @@ namespace _6.AcaoReacao
             colliders.Remove(collider.SystemID);
         }
 
-        private void NarrowPhaseCheck()
+        private void BroadPhaseCheck()
         {
             for (var i = 0; i < keyCount; i++) 
             {
@@ -72,19 +77,25 @@ namespace _6.AcaoReacao
                     var a = colliders[i];
                     var b = colliders[j];
                     
+                    //Garante, de maneira bruta, a criação de um grupo de colisão
                     if (a.gameObject.Equals(b.gameObject))
                     {
                         continue;
                     }
                     
-                    if (!a.isActiveAndEnabled || !b.isActiveAndEnabled)
+                    if ((a.isActiveAndEnabled && b.isActiveAndEnabled) == false)
+                    {
+                        continue;
+                    }
+
+                    if (Physics2D.GetIgnoreLayerCollision(a.gameObject.layer, b.gameObject.layer))
                     {
                         continue;
                     }
                     
-
                     if (Collision.DoOverlap(a, b, useElasticCollision))
                     {
+                        Debug.Log($"{a.name} and {b.name} are colliding!");
                         if (a.WasIntersecting && b.WasIntersecting)
                         {
                             a.onCollisionStay.Invoke(b);

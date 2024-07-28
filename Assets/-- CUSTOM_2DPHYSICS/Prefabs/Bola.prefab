@@ -102,9 +102,11 @@ MonoBehaviour:
   isKinematic: 0
   mass: 100
   velocity: {x: 0, y: 0, z: 0}
+  acceleration: {x: 0, y: 0, z: 0}
   useGravity: 1
   useWind: 1
-  acceleration: {x: 0, y: 0, z: 0}
+  accelerationSleepThreshold: 0
+  iterationUntilSleep: 0
   refScale: {x: 0.125, y: 0.125, z: 0.125}
 --- !u!114 &257466943858394009
 MonoBehaviour:

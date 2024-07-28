@@ -14,22 +14,7 @@ namespace _6.AcaoReacao
                 CollisionSize.y * transform.lossyScale.y,
                 CollisionSize.z * transform.lossyScale.z
             );
-        
 
-
-        //
-        // protected override void NarrowPhaseCheck()
-        // {
-        //     for (var i = 0; i < NearbyColliders.Length; i++)
-        //     {
-        //         if (NearbyColliders[i] == null)
-        //         {
-        //             break;
-        //         }
-        //         onCollision.Invoke(NearbyColliders[i]);
-        //     }
-        // }
-        
         protected override void DrawShape()
         {
             Gizmos.color = mainGizmoColor;

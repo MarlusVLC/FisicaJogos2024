@@ -10,27 +10,27 @@ namespace _6.AcaoReacao
         {
             var doOverlap = false;
             var areCollidersCorrectlySet = false;
-            if (a is ProtoBoxCollider && b is ProtoBoxCollider)
+            if (a is ProtoBoxCollider boxA && b is ProtoBoxCollider boxB)
             {
-                doOverlap = DoOverlap((ProtoBoxCollider)a, (ProtoBoxCollider)b);
+                doOverlap = DoOverlap(boxA, boxB);
                 areCollidersCorrectlySet = true;
             }
-            else if (a is ProtoSphericalCollider && b is ProtoSphericalCollider)
+            else if (a is ProtoSphericalCollider sphereA && b is ProtoSphericalCollider sphereB)
             {
-                doOverlap = DoOverlap((ProtoSphericalCollider)a, (ProtoSphericalCollider)b);
+                doOverlap = DoOverlap(sphereA, sphereB);
                 areCollidersCorrectlySet = true;
             }
-            else if (a is ProtoBoxCollider && b is ProtoSphericalCollider)
+            else if (a is ProtoBoxCollider box && b is ProtoSphericalCollider sphere)  
             {
-                return false;
-                // doOverlap = DoOverlap((ProtoBoxCollider)a, (ProtoSphericalCollider)b);
-                // areCollidersCorrectlySet = true;
+                // return false;
+                doOverlap = DoOverlap(sphere, box);
+                areCollidersCorrectlySet = true;
             }
             else
             {
-                return false;
-                // doOverlap = DoOverlap((ProtoSphericalCollider)a, (ProtoBoxCollider)b);
-                // areCollidersCorrectlySet = true;
+                // return false;
+                doOverlap = DoOverlap((ProtoSphericalCollider)a, (ProtoBoxCollider)b);
+                areCollidersCorrectlySet = true;
             }
 
             if (!areCollidersCorrectlySet)
@@ -64,10 +64,20 @@ namespace _6.AcaoReacao
         public static float GetResultantBounciness(Collider a, Collider b) =>
             CustomPhysicsMaterial.GetResultantBounciness(a.Material, b.Material);
 
-        //TODO(Marlus) to be built later
-        // public static bool DoOverlap(ProtoSphericalCollider sphere, ProtoBoxCollider box)
-        // {
+        public static bool DoOverlap(ProtoSphericalCollider sphere, ProtoBoxCollider box)
+        {
+            // Acha o ponto mais perto na caixa em relação ao centro da esfera
+            Vector3 closestPoint = new Vector3(
+                Math.Max(box.NegVertex.x, Math.Min(sphere.Center.x, box.PosVertex.x)),
+                Math.Max(box.NegVertex.y, Math.Min(sphere.Center.y, box.PosVertex.y)),
+                Math.Max(box.NegVertex.z, Math.Min(sphere.Center.z, box.PosVertex.z))
+            );
+            
+            // Calcula a distância entre o ponto mais próximo e o centro da esfera
+            float sqrDistance = (closestPoint = sphere.Center).sqrMagnitude;
+            float radoisSquared = sphere.Size.sqrMagnitude;
 
-        // }
+            return sqrDistance <= radoisSquared;
+        }
     }
 }

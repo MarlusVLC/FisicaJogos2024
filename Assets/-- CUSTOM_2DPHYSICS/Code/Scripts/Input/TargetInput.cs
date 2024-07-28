@@ -23,7 +23,7 @@ namespace _6.AcaoReacao
 
         private void Update()
         {
-            onDirectionalAxisPressed.Invoke(GetInputAxis());
+            TryGetInputAxis();
             if (Input.GetMouseButton(0))
             {
                 onMouseLeft.Invoke(GetMousePosition());
@@ -64,6 +64,17 @@ namespace _6.AcaoReacao
         private static Vector3 GetInputAxis()
         {
             return new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+        }
+
+        private void TryGetInputAxis()
+        {
+            var direction = GetInputAxis();
+            if (direction.sqrMagnitude == 0)
+            {
+                return;
+            }
+            Debug.Log(direction);
+            onDirectionalAxisPressed.Invoke(direction);
         }
 
         public Vector3 GetMousePosition()

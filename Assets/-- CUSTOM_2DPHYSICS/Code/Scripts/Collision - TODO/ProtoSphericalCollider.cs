@@ -10,18 +10,6 @@ namespace _6.AcaoReacao
 
         public override Vector3 Size => transform.localScale * CollisionRadius;
 
-        // protected override void NarrowPhaseCheck()
-        // {
-        //     for (var i = 0; i < NearbyColliders.Length; i++)
-        //     {
-        //         if (NearbyColliders[i] == null)
-        //         {
-        //             break;
-        //         }
-        //         onCollision.Invoke(NearbyColliders[i]);
-        //     }
-        // }
-
         protected override void DrawShape()
         {
             Gizmos.color = mainGizmoColor;

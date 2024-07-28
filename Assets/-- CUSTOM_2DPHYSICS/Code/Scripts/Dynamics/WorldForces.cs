@@ -17,8 +17,7 @@ namespace _6.AcaoReacao
 
         private void OnEnable()
         {
-            if (TargetInput.HasInstance)
-                TargetInput.Instance.onDirectionalAxisPressed.AddListener(SetWindForce);
+            TargetInput.Instance.onDirectionalAxisPressed.AddListener(SetWindForce);
         }
 
         public float GetPotentialGravitationalEnergy(RigidBody rb)

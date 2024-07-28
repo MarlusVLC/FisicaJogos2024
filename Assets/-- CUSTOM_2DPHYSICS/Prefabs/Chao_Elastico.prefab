@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2834631773402394651}
   - component: {fileID: 3238637552383171846}
   - component: {fileID: 8095855649702598761}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Chao_Elastico
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,9 +102,11 @@ MonoBehaviour:
   isKinematic: 0
   mass: 1
   velocity: {x: 0, y: 0, z: 0}
+  acceleration: {x: 0, y: 0, z: 0}
   useGravity: 0
   useWind: 1
-  acceleration: {x: 0, y: 0, z: 0}
+  accelerationSleepThreshold: 0
+  iterationUntilSleep: 0
   refScale: {x: 0, y: 0, z: 0}
 --- !u!114 &3238637552383171846
 MonoBehaviour:
@@ -147,3 +149,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   afterCollisionDirection: {x: 0, y: 0, z: 0}
   frictionThreshold: 1
+  useFriction: 0

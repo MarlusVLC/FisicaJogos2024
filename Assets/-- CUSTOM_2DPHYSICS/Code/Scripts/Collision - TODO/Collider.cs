@@ -82,12 +82,21 @@ namespace _6.AcaoReacao
             {
                 return;
             }
+
+            if (enabled == false)
+            {
+                return;
+            }
             mainGizmoColor = WasIntersecting ? Color.red : Color.green;
             DrawShape();
         }
 
         protected void OnDrawGizmosSelected()
         {
+            if (enabled == false)
+            {
+                return;
+            }
             mainGizmoColor = WasIntersecting ? Color.red : Color.green;
             DrawShape();
         }
