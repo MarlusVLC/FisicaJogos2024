@@ -38,7 +38,7 @@ namespace _6.AcaoReacao
             projectile.IsStatic = true;
             projectile.transform.GetLocalPositionAndRotation(out originalLocalProjPosition, out originalLocalProjRotation);
             
-            projectile.Collider.onCollisionIn.AddListener(_ => Debug.Log("aaa"));
+            projectile.BoundingShape.onCollisionIn.AddListener(_ => Debug.Log("aaa"));
             // projectile.Collider.onCollisionIn.AddListener(HaltMovement);
         }
 
@@ -81,12 +81,12 @@ namespace _6.AcaoReacao
             projectile.IsStatic = projectile.isKinematic = true;
             projectile.transform.SetParent(transform);
             projectile.transform.SetLocalPositionAndRotation(originalLocalProjPosition, originalLocalProjRotation);
-            projectile.Collider.enabled = true;
+            projectile.BoundingShape.enabled = true;
         }
 
-        private void HaltMovement(Collider stopper)
+        private void HaltMovement(BoundingShape stopper)
         {
-            projectile.Collider.enabled = false;
+            projectile.BoundingShape.enabled = false;
             projectile.IsStatic = true;
         }
     }

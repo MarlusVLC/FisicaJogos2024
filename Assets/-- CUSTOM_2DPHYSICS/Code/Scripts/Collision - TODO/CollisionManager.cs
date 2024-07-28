@@ -13,9 +13,13 @@ namespace _6.AcaoReacao
         [SerializeField] private bool useElasticCollision;
         [SerializeField] private bool haltMovementOnCollision;
         
-        private Dictionary<int, Collider> colliders = new();
+        private readonly Dictionary<int, BoundingShape> colliders = new();
         private int keyCount = 0;
         
+        public bool UseElasticCollision => useElasticCollision;
+        public bool HaltMovementOnCollision => haltMovementOnCollision;
+        public IReadOnlyDictionary<int, BoundingShape> Colliders => colliders;
+
         //BROAD PHASE
             //Brute Force <- Utilizada atualmente
             //Sweep and Prune
@@ -26,40 +30,31 @@ namespace _6.AcaoReacao
             BroadPhaseCheck();
         }
 
-        public static IEnumerable<ProtoBoxCollider> GetValidBoxColliders() =>
-            Instance.colliders.Values
-                .Where(c => c is ProtoBoxCollider && 
-                            (c.RigidBody.isKinematic == false && c.RigidBody.isStatic == false))
-                .Cast<ProtoBoxCollider>();
-
-        public bool UseElasticCollision => useElasticCollision;
-        public bool HaltMovementOnCollision => haltMovementOnCollision;
-
-        public int AddCollider(Collider collider)
+        public int AddCollider(BoundingShape boundingShape)
         {
             // collider.onCollisionIn.AddListener(DebugCollision);
-            if (collider.SystemID >= 0 && colliders.ContainsKey(collider.SystemID) == false)
+            if (boundingShape.SystemID >= 0 && colliders.ContainsKey(boundingShape.SystemID) == false)
             {
-                colliders.Add(collider.SystemID, collider);
-                return collider.SystemID;
+                colliders.Add(boundingShape.SystemID, boundingShape);
+                return boundingShape.SystemID;
             }
-            colliders.Add(keyCount, collider);
+            colliders.Add(keyCount, boundingShape);
             return keyCount++;
         }
 
-        public void RemoveCollider(Collider collider)
+        public void RemoveCollider(BoundingShape boundingShape)
         {
-            if (collider.SystemID < 0)
+            if (boundingShape.SystemID < 0)
             {
-                throw new Exception($"{collider.name} haven't been added to the collision manager!");
+                throw new Exception($"{boundingShape.name} haven't been added to the collision manager!");
             }
-            if (colliders.ContainsKey(collider.SystemID) == false)
+            if (colliders.ContainsKey(boundingShape.SystemID) == false)
             {
-                throw new Exception($"{collider.name} couldn't be found on the collision manager!");
+                throw new Exception($"{boundingShape.name} couldn't be found on the collision manager!");
             }
-            Debug.Log($"{collider.name} have been REMOVED and it had the following SystemID = {collider.SystemID}");
+            Debug.Log($"{boundingShape.name} have been REMOVED and it had the following SystemID = {boundingShape.SystemID}");
             // collider.onCollision.AddListener(DebugCollision);
-            colliders.Remove(collider.SystemID);
+            colliders.Remove(boundingShape.SystemID);
         }
 
         private void BroadPhaseCheck()
@@ -76,58 +71,48 @@ namespace _6.AcaoReacao
 
                     var a = colliders[i];
                     var b = colliders[j];
-                    
-                    //Garante, de maneira bruta, a criação de um grupo de colisão
-                    if (a.gameObject.Equals(b.gameObject))
-                    {
-                        continue;
-                    }
-                    
-                    if ((a.isActiveAndEnabled && b.isActiveAndEnabled) == false)
-                    {
-                        continue;
-                    }
 
-                    if (Physics2D.GetIgnoreLayerCollision(a.gameObject.layer, b.gameObject.layer))
-                    {
-                        continue;
-                    }
-                    
                     if (Collision.DoOverlap(a, b))
                     {
-                        if (a.WasIntersecting && b.WasIntersecting)
-                        {
-                            a.onCollisionStay.Invoke(b);
-                            b.onCollisionStay.Invoke(a);
-                        }
-                    }
-                    // else
-                    // {
-                    //     a.onCollisionOut.Invoke(b);
-                    //     b.onCollisionOut.Invoke(a);
-                    // }
-                    else
-                    {
-                        if (a.RigidBody.Velocity.sqrMagnitude < VelocityThreshold * VelocityThreshold &&
-                            b.RigidBody.Velocity.sqrMagnitude < VelocityThreshold * VelocityThreshold)
-                        {
-                            continue;
-                        }
-
-                        if (!Collision.DoOverlap(a, b))
-                        {
-                            continue;
-                        }
                         a.onCollisionIn.Invoke(b);
                         b.onCollisionIn.Invoke(a);
                     }
+                    
+            //         if (Collision.DoOverlap(a, b))
+            //         {
+            //             if (a.WasIntersecting && b.WasIntersecting)
+            //             {
+            //                 a.onCollisionStay.Invoke(b);
+            //                 b.onCollisionStay.Invoke(a);
+            //             }
+            //         }
+            //         // else
+            //         // {
+            //         //     a.onCollisionOut.Invoke(b);
+            //         //     b.onCollisionOut.Invoke(a);
+            //         // }
+            //         else
+            //         {
+            //             if (a.RigidBody.Velocity.sqrMagnitude < VelocityThreshold * VelocityThreshold &&
+            //                 b.RigidBody.Velocity.sqrMagnitude < VelocityThreshold * VelocityThreshold)
+            //             {
+            //                 continue;
+            //             }
+            //
+            //             if (!Collision.DoOverlap(a, b))
+            //             {
+            //                 continue;
+            //             }
+            //             a.onCollisionIn.Invoke(b);
+            //             b.onCollisionIn.Invoke(a);
+            //         }
                 }
             }
         }
 
-        private void DebugCollision(Collider collider)
+        private void DebugCollision(BoundingShape boundingShape)
         {
-            Debug.Log("A collision has happened with " + collider.name);
+            Debug.Log("A collision has happened with " + boundingShape.name);
         }
 
         // public int GetNearbyColliders(int id, float colliderDetectionRadius, out Collider[] nearbyColliders)

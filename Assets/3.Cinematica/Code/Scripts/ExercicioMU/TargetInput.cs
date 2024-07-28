@@ -8,11 +8,11 @@ namespace _3.Cinematica
         [SerializeField] private Transform targetIcon;
         public UnityEvent<Vector3> onTargetSet;
 
-        private Camera camera;
+        private Camera mainCamera;
 
         private void Start()
         {
-            camera = Camera.main;
+            mainCamera = Camera.main;
             DisableTarget();
         }
 
@@ -27,7 +27,7 @@ namespace _3.Cinematica
 
         private void SetTarget()
         {
-            var targetPosition = camera.ScreenToWorldPoint(Input.mousePosition);
+            var targetPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             targetPosition.z = 0;
             targetIcon.position = targetPosition;
             targetIcon.gameObject.SetActive(true);

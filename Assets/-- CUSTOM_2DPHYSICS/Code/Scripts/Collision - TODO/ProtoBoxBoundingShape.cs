@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _6.AcaoReacao
 {
-    public class ProtoBoxCollider : Collider
+    public class ProtoBoxBoundingShape : BoundingShape
     {
         [field: SerializeField] public Vector3 CollisionSize { get; private set; } = Vector3.one;
         [SerializeField] private bool showDetailedGizmos;

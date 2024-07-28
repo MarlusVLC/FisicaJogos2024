@@ -4,25 +4,29 @@ namespace _6.AcaoReacao
 {
     public abstract class EnvironmentCollider : MonoBehaviour
     {
-        protected ProtoBoxCollider collider;
+        protected BoundingShape boundingShape;
 
         private void Awake()
         {
-            collider = GetComponent<ProtoBoxCollider>();
+            boundingShape = GetComponent<BoundingShape>();
         }
         
         protected void FixedUpdate()
         {
-            foreach (var otherCollider in CollisionManager.GetValidBoxColliders())
+            foreach (var otherCollider in CollisionManager.Instance.Colliders.Values)
             {
+                if (otherCollider.SystemID == boundingShape.SystemID)
+                {
+                    continue;
+                }
                 if (otherCollider.gameObject.activeSelf == false)
                     continue;
-                if (!Collision.DoOverlap(collider, otherCollider)) 
+                if (!Collision.DoOverlap(boundingShape, otherCollider)) 
                     continue;
                AffectCollider(otherCollider);
             }
         }
 
-        protected abstract void AffectCollider(Collider otherCollider);
+        protected abstract void AffectCollider(BoundingShape otherBoundingShape);
     }
 }

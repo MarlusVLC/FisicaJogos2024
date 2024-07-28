@@ -5,17 +5,17 @@ namespace _6.AcaoReacao
 {
     public class RigidBodyCanceler : MonoBehaviour
     {
-        [SerializeField] private ProtoBoxCollider projectile;
-        private ProtoBoxCollider collider;
+        [SerializeField] private ProtoBoxBoundingShape projectile;
+        private ProtoBoxBoundingShape boundingShape;
 
         private void Awake()
         {
-            collider = GetComponent<ProtoBoxCollider>();
+            boundingShape = GetComponent<ProtoBoxBoundingShape>();
         }
 
         private void FixedUpdate()
         {
-            if (Collision.DoOverlap(projectile, collider))
+            if (Collision.DoOverlap(projectile, boundingShape))
             {
                 projectile.RigidBody.HaltMovement();
             }

@@ -5,26 +5,31 @@ namespace _6.AcaoReacao
 {
     public static class Collision
     {
-        public static bool DoOverlap(Collider a, Collider b)
+        public static bool DoOverlap(BoundingShape a, BoundingShape b)
         {
+            if (ShouldCollisionBeIgnored(a, b))
+            {
+                return false;
+            }
+            
             var doOverlap = false;
             var areCollidersCorrectlySet = false;
             switch (a)
             {
-                case ProtoBoxCollider boxA when b is ProtoBoxCollider boxB:
+                case ProtoBoxBoundingShape boxA when b is ProtoBoxBoundingShape boxB:
                     doOverlap = DoOverlap(boxA, boxB);
                     areCollidersCorrectlySet = true;
                     break;
-                case ProtoSphericalCollider sphereA when b is ProtoSphericalCollider sphereB:
+                case ProtoSphericalBoundingShape sphereA when b is ProtoSphericalBoundingShape sphereB:
                     doOverlap = DoOverlap(sphereA, sphereB);
                     areCollidersCorrectlySet = true;
                     break;
-                case ProtoBoxCollider box when b is ProtoSphericalCollider sphere:
+                case ProtoBoxBoundingShape box when b is ProtoSphericalBoundingShape sphere:
                     doOverlap = DoOverlap(sphere, box);
                     areCollidersCorrectlySet = true;
                     break;
                 default:
-                    doOverlap = DoOverlap((ProtoSphericalCollider)a, (ProtoBoxCollider)b);
+                    doOverlap = DoOverlap((ProtoSphericalBoundingShape)a, (ProtoBoxBoundingShape)b);
                     areCollidersCorrectlySet = true;
                     break;
             }
@@ -43,14 +48,14 @@ namespace _6.AcaoReacao
             return doOverlap;
         }
         
-        public static bool DoOverlap(ProtoSphericalCollider a, ProtoSphericalCollider b)
+        private static bool DoOverlap(ProtoSphericalBoundingShape a, ProtoSphericalBoundingShape b)
         {
             var sqrDistance = Vector3.Magnitude(b.Center - a.Center);
             var sqrRadiiSum = a.Size.magnitude + b.Size.magnitude;
             return sqrDistance <= sqrRadiiSum;
         }
 
-        public static bool DoOverlap(ProtoBoxCollider a, ProtoBoxCollider b, float threshold = 0f)
+        private static bool DoOverlap(ProtoBoxBoundingShape a, ProtoBoxBoundingShape b, float threshold = 0f)
         {
             return
                 a.NegVertex.x-threshold <= b.PosVertex.x &&
@@ -61,10 +66,7 @@ namespace _6.AcaoReacao
                 b.PosVertex.z+threshold >= b.NegVertex.z;
         }
 
-        public static float GetResultantBounciness(Collider a, Collider b) =>
-            CustomPhysicsMaterial.GetResultantBounciness(a.Material, b.Material);
-
-        public static bool DoOverlap(ProtoSphericalCollider sphere, ProtoBoxCollider box)
+        private static bool DoOverlap(ProtoSphericalBoundingShape sphere, ProtoBoxBoundingShape box)
         {
             // Acha o ponto mais perto na caixa em relação ao centro da esfera
             Vector3 closestPoint = new Vector3(
@@ -79,5 +81,13 @@ namespace _6.AcaoReacao
 
             return sqrDistance <= radoisSquared;
         }
+        
+        public static bool ShouldCollisionBeIgnored(BoundingShape a, BoundingShape b) =>
+            (a.gameObject.Equals(b.gameObject))  // Garante, de maneira bruta, a criação de um grupo de colisão
+            || (a.isActiveAndEnabled && b.isActiveAndEnabled) == false 
+            || Physics2D.GetIgnoreLayerCollision(a.gameObject.layer, b.gameObject.layer);
+        
+        public static float GetResultantBounciness(BoundingShape a, BoundingShape b) =>
+            CustomPhysicsMaterial.GetResultantBounciness(a.Material, b.Material);
     }
 }

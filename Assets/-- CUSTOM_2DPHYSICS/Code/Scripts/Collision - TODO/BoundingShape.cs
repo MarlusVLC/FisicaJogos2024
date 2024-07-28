@@ -7,15 +7,16 @@ using UnityEngine.Serialization;
 namespace _6.AcaoReacao
 {
     [RequireComponent(typeof(RigidBody))]
-    public abstract class Collider : MonoBehaviour
+    //AKA Collider
+    public abstract class BoundingShape : MonoBehaviour
     {
         [SerializeField] private Vector3 offset;
         [SerializeField] private bool alwaysDrawGizmo;
         [Min(0)][SerializeField] private float dragCoefficient = 0.45f;
         [SerializeField] private CustomPhysicsMaterial material;
-        [SerializeField] public UnityEvent<Collider> onCollisionIn;
-        [SerializeField] public UnityEvent<Collider> onCollisionStay;
-        [SerializeField] public UnityEvent<Collider> onCollisionOut;
+        [SerializeField] public UnityEvent<BoundingShape> onCollisionIn;
+        [SerializeField] public UnityEvent<BoundingShape> onCollisionStay;
+        [SerializeField] public UnityEvent<BoundingShape> onCollisionOut;
 
         // private Collider[] nearbyColliders;
         protected Color mainGizmoColor;
@@ -31,7 +32,7 @@ namespace _6.AcaoReacao
         public Vector3 Center => transform.position + offset;
         public Vector3 PosVertex => Center + Size/2;
         public Vector3 NegVertex => Center - Size/2;
-        private List<Collider> intersectingColliders;
+        private List<BoundingShape> intersectingColliders;
         // protected Collider[] NearbyColliders => nearbyColliders;
 
         protected void Start()
@@ -101,7 +102,7 @@ namespace _6.AcaoReacao
             DrawShape();
         }
 
-        private void SetVelocityAfterElasticCollision(Collider other)
+        private void SetVelocityAfterElasticCollision(BoundingShape other)
         {
             var rbA = RigidBody;
             var rbB = other.RigidBody;

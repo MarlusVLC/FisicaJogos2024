@@ -14,11 +14,11 @@ namespace _6.AcaoReacao
         public UnityEvent<Vector3> onDirectionalAxisPressed;
         public UnityEvent onSpaceBarPressed;
 
-        private Camera camera;
+        private Camera mainCamera;
 
         private void Start()
         {
-            camera = Camera.main;
+            mainCamera = Camera.main;
         }
 
         private void Update()
@@ -51,8 +51,9 @@ namespace _6.AcaoReacao
             }
         }
         
-        private void OnDestroy()
+        private new void OnDestroy()
         {
+            base.OnDestroy();
             onMouseRight.RemoveAllListeners();
             onMouseLeft.RemoveAllListeners();
             onMouseLeftDown.RemoveAllListeners();
@@ -79,7 +80,7 @@ namespace _6.AcaoReacao
 
         public Vector3 GetMousePosition()
         {
-            var targetPosition = camera.ScreenToWorldPoint(Input.mousePosition);
+            var targetPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             targetPosition.z = 0;
             return targetPosition;
         }

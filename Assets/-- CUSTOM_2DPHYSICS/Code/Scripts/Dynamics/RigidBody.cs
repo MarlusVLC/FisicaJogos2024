@@ -21,7 +21,7 @@ namespace _6.AcaoReacao
 
         private bool isAsleep = false;
         private int sleepCountdown;
-        private Collider collider;
+        private BoundingShape boundingShape;
 
         public float Mass => mass;
         public float Density => mass / (transform.lossyScale.x * transform.lossyScale.y * transform.lossyScale.z);
@@ -36,7 +36,7 @@ namespace _6.AcaoReacao
             set => velocity = IsStatic ? Vector3.zero : value;
         }
         
-        public Collider Collider => collider == null ? GetComponent<Collider>() : collider;
+        public BoundingShape BoundingShape => boundingShape == null ? GetComponent<BoundingShape>() : boundingShape;
 
         public bool IsStatic
         {
@@ -55,7 +55,7 @@ namespace _6.AcaoReacao
                 return;
             }
 
-            CheckSleepiness();
+            // CheckSleepiness();
 
             if (isAsleep == false)
             {

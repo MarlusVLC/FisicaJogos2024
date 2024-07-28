@@ -4,7 +4,7 @@ namespace _6.AcaoReacao
 {
     //TODO (Marlus) finish later
     [Tooltip("Still in construction, not working correctly")]
-    public class ProtoSphericalCollider : Collider
+    public class ProtoSphericalBoundingShape : BoundingShape
     {
         [field: SerializeField] public float CollisionRadius { get; private set; } = 1;
 

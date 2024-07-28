@@ -33,7 +33,6 @@ namespace _6.AcaoReacao
         {
             if (HasInstance && Instance != this)
             {
-                onInstanceDestruction?.Invoke(Instance);
                 Destroy(Instance.gameObject);
             }
             else if (dontDestroyOnLoad)
@@ -44,6 +43,7 @@ namespace _6.AcaoReacao
 
         protected void OnDestroy()
         {
+            onInstanceDestruction?.Invoke(Instance);
             if (instance == this)
             {
                 instance = null;

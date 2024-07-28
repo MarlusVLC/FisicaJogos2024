@@ -103,9 +103,11 @@ MonoBehaviour:
   isKinematic: 1
   mass: 0
   velocity: {x: 0, y: 0, z: 0}
+  acceleration: {x: 0, y: 0, z: 0}
   useGravity: 0
   useWind: 1
-  acceleration: {x: 0, y: 0, z: 0}
+  accelerationSleepThreshold: 5
+  iterationUntilSleep: 4
   refScale: {x: 0, y: 0, z: 0}
 --- !u!114 &1150460736178456844
 MonoBehaviour:
@@ -250,9 +252,11 @@ MonoBehaviour:
   isKinematic: 1
   mass: 0
   velocity: {x: 0, y: 0, z: 0}
+  acceleration: {x: 0, y: 0, z: 0}
   useGravity: 0
   useWind: 1
-  acceleration: {x: 0, y: 0, z: 0}
+  accelerationSleepThreshold: 5
+  iterationUntilSleep: 4
   refScale: {x: 0, y: 0, z: 0}
 --- !u!114 &4622266041655850087
 MonoBehaviour:
@@ -303,7 +307,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3586619990288287157}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fluids
   m_TagString: Untagged
   m_Icon: {fileID: 0}

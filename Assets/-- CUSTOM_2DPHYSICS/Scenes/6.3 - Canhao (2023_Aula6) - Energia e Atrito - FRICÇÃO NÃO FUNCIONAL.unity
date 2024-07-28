@@ -133,6 +133,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2111539771102010207, guid: db232545f6c2e874dacb5058f5c72ab8,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2111539771102010207, guid: db232545f6c2e874dacb5058f5c72ab8,
+        type: 3}
       propertyPath: afterCollisionDirection.x
       value: -1
       objectReference: {fileID: 0}
@@ -188,6 +193,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4748483253234818608, guid: db232545f6c2e874dacb5058f5c72ab8,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748483253234818608, guid: db232545f6c2e874dacb5058f5c72ab8,
+        type: 3}
       propertyPath: alwaysDrawGizmo
       value: 1
       objectReference: {fileID: 0}
@@ -195,6 +205,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Parede_Direita
+      objectReference: {fileID: 0}
+    - target: {fileID: 5350647414746690349, guid: db232545f6c2e874dacb5058f5c72ab8,
+        type: 3}
+      propertyPath: useWind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5350647414746690349, guid: db232545f6c2e874dacb5058f5c72ab8,
+        type: 3}
+      propertyPath: isStatic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1035,7 +1055,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &862701069
 Transform:
   m_ObjectHideFlags: 0
@@ -1072,8 +1092,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2812202692023718590, guid: 7062051eee55b7e49855d0198e0b0697,
         type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2812202692023718590, guid: 7062051eee55b7e49855d0198e0b0697,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075288032467339676, guid: 7062051eee55b7e49855d0198e0b0697,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3075288032467339676, guid: 7062051eee55b7e49855d0198e0b0697,
         type: 3}
@@ -1320,7 +1350,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1287843780}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Paredes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1542,7 +1572,7 @@ PrefabInstance:
     - target: {fileID: 160321835906706979, guid: ae4efa8b04b080549a2a680710a6adc3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4061112432392269840, guid: ae4efa8b04b080549a2a680710a6adc3,
         type: 3}
@@ -1721,8 +1751,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 0}
   alwaysDrawGizmo: 0
-  dragCoefficient: 0.45
-  material: {fileID: 0}
+  dragCoefficient: 0.1
+  material: {fileID: 11400000, guid: c5332f201ef71c64aa6928a7497101f7, type: 2}
   onCollisionIn:
     m_PersistentCalls:
       m_Calls: []
