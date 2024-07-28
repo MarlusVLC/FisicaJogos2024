@@ -93,9 +93,8 @@ namespace _6.AcaoReacao
                         continue;
                     }
                     
-                    if (Collision.DoOverlap(a, b, useElasticCollision))
+                    if (Collision.DoOverlap(a, b))
                     {
-                        Debug.Log($"{a.name} and {b.name} are colliding!");
                         if (a.WasIntersecting && b.WasIntersecting)
                         {
                             a.onCollisionStay.Invoke(b);
@@ -115,7 +114,7 @@ namespace _6.AcaoReacao
                             continue;
                         }
 
-                        if (!Collision.DoOverlap(a, b, useElasticCollision))
+                        if (!Collision.DoOverlap(a, b))
                         {
                             continue;
                         }

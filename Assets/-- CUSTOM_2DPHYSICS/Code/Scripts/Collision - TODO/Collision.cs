@@ -5,32 +5,28 @@ namespace _6.AcaoReacao
 {
     public static class Collision
     {
-        //TODO: Levar em consideração movimento para confirmar colisão.
-        public static bool DoOverlap(Collider a, Collider b, bool useMomentumConservation = false)
+        public static bool DoOverlap(Collider a, Collider b)
         {
             var doOverlap = false;
             var areCollidersCorrectlySet = false;
-            if (a is ProtoBoxCollider boxA && b is ProtoBoxCollider boxB)
+            switch (a)
             {
-                doOverlap = DoOverlap(boxA, boxB);
-                areCollidersCorrectlySet = true;
-            }
-            else if (a is ProtoSphericalCollider sphereA && b is ProtoSphericalCollider sphereB)
-            {
-                doOverlap = DoOverlap(sphereA, sphereB);
-                areCollidersCorrectlySet = true;
-            }
-            else if (a is ProtoBoxCollider box && b is ProtoSphericalCollider sphere)  
-            {
-                // return false;
-                doOverlap = DoOverlap(sphere, box);
-                areCollidersCorrectlySet = true;
-            }
-            else
-            {
-                // return false;
-                doOverlap = DoOverlap((ProtoSphericalCollider)a, (ProtoBoxCollider)b);
-                areCollidersCorrectlySet = true;
+                case ProtoBoxCollider boxA when b is ProtoBoxCollider boxB:
+                    doOverlap = DoOverlap(boxA, boxB);
+                    areCollidersCorrectlySet = true;
+                    break;
+                case ProtoSphericalCollider sphereA when b is ProtoSphericalCollider sphereB:
+                    doOverlap = DoOverlap(sphereA, sphereB);
+                    areCollidersCorrectlySet = true;
+                    break;
+                case ProtoBoxCollider box when b is ProtoSphericalCollider sphere:
+                    doOverlap = DoOverlap(sphere, box);
+                    areCollidersCorrectlySet = true;
+                    break;
+                default:
+                    doOverlap = DoOverlap((ProtoSphericalCollider)a, (ProtoBoxCollider)b);
+                    areCollidersCorrectlySet = true;
+                    break;
             }
 
             if (!areCollidersCorrectlySet)
@@ -39,10 +35,14 @@ namespace _6.AcaoReacao
                     "Colliders must be sphere or box!");
             }
 
+            if (doOverlap)
+            {
+                Debug.Log($"{a.name} and {b.name} are colliding!");
+            }
+            
             return doOverlap;
         }
         
-        //TODO (Marlus) - Must be fixed
         public static bool DoOverlap(ProtoSphericalCollider a, ProtoSphericalCollider b)
         {
             var sqrDistance = Vector3.Magnitude(b.Center - a.Center);
@@ -74,7 +74,7 @@ namespace _6.AcaoReacao
             );
             
             // Calcula a distância entre o ponto mais próximo e o centro da esfera
-            float sqrDistance = (closestPoint = sphere.Center).sqrMagnitude;
+            float sqrDistance = (closestPoint - sphere.Center).sqrMagnitude;
             float radoisSquared = sphere.Size.sqrMagnitude;
 
             return sqrDistance <= radoisSquared;
