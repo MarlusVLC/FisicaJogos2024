@@ -13,36 +13,28 @@ namespace _6.AcaoReacao
             }
             
             var doOverlap = false;
-            var areCollidersCorrectlySet = false;
             switch (a)
             {
                 case ProtoBoxBoundingShape boxA when b is ProtoBoxBoundingShape boxB:
                     doOverlap = DoOverlap(boxA, boxB);
-                    areCollidersCorrectlySet = true;
                     break;
                 case ProtoSphericalBoundingShape sphereA when b is ProtoSphericalBoundingShape sphereB:
                     doOverlap = DoOverlap(sphereA, sphereB);
-                    areCollidersCorrectlySet = true;
                     break;
                 case ProtoBoxBoundingShape box when b is ProtoSphericalBoundingShape sphere:
                     doOverlap = DoOverlap(sphere, box);
-                    areCollidersCorrectlySet = true;
+                    break;
+                case ProtoSphericalBoundingShape sphere when b is ProtoBoxBoundingShape box:
+                    doOverlap = DoOverlap(sphere, box);
                     break;
                 default:
-                    doOverlap = DoOverlap((ProtoSphericalBoundingShape)a, (ProtoBoxBoundingShape)b);
-                    areCollidersCorrectlySet = true;
-                    break;
-            }
-
-            if (!areCollidersCorrectlySet)
-            {
-                throw new Exception(
-                    "Colliders must be sphere or box!");
+                    throw new Exception(
+                        "Colliders must be sphere or box!");
             }
 
             if (doOverlap)
             {
-                Debug.Log($"{a.name} and {b.name} are colliding!");
+                // Debug.Log($"{a.name} and {b.name} are colliding!");
             }
             
             return doOverlap;
@@ -77,9 +69,9 @@ namespace _6.AcaoReacao
             
             // Calcula a distância entre o ponto mais próximo e o centro da esfera
             float sqrDistance = (closestPoint - sphere.Center).sqrMagnitude;
-            float radoisSquared = sphere.Size.sqrMagnitude;
+            float radiusSqr = (sphere.Size/4).sqrMagnitude;
 
-            return sqrDistance <= radoisSquared;
+            return sqrDistance <= radiusSqr;
         }
         
         public static bool ShouldCollisionBeIgnored(BoundingShape a, BoundingShape b) =>

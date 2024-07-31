@@ -23,7 +23,7 @@ namespace _6.AcaoReacao
                     continue;
                 if (!Collision.DoOverlap(boundingShape, otherCollider)) 
                     continue;
-               AffectCollider(otherCollider);
+                AffectCollider(otherCollider);
             }
         }
 

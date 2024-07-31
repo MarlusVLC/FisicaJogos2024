@@ -32,7 +32,6 @@ namespace _6.AcaoReacao
 
         public int AddCollider(BoundingShape boundingShape)
         {
-            // collider.onCollisionIn.AddListener(DebugCollision);
             if (boundingShape.SystemID >= 0 && colliders.ContainsKey(boundingShape.SystemID) == false)
             {
                 colliders.Add(boundingShape.SystemID, boundingShape);
@@ -108,11 +107,6 @@ namespace _6.AcaoReacao
             //         }
                 }
             }
-        }
-
-        private void DebugCollision(BoundingShape boundingShape)
-        {
-            Debug.Log("A collision has happened with " + boundingShape.name);
         }
 
         // public int GetNearbyColliders(int id, float colliderDetectionRadius, out Collider[] nearbyColliders)

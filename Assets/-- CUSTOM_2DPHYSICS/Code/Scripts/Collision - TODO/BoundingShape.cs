@@ -18,6 +18,7 @@ namespace _6.AcaoReacao
         [SerializeField] public UnityEvent<BoundingShape> onCollisionStay;
         [SerializeField] public UnityEvent<BoundingShape> onCollisionOut;
 
+        private List<BoundingShape> intersectingColliders;
         // private Collider[] nearbyColliders;
         protected Color mainGizmoColor;
 
@@ -32,7 +33,6 @@ namespace _6.AcaoReacao
         public Vector3 Center => transform.position + offset;
         public Vector3 PosVertex => Center + Size/2;
         public Vector3 NegVertex => Center - Size/2;
-        private List<BoundingShape> intersectingColliders;
         // protected Collider[] NearbyColliders => nearbyColliders;
 
         protected void Start()
@@ -44,7 +44,7 @@ namespace _6.AcaoReacao
         {
             SystemID = CollisionManager.Instance.AddCollider(this);
             intersectingColliders = new( CollisionManager.Instance.GetCollidersCountInScene());
-            SetIntersectionEvents();
+            // SetIntersectionEvents();
         }
 
         protected void OnDisable()

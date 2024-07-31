@@ -12,7 +12,7 @@ namespace _6.AcaoReacao
         
         private static T instance;
 
-        public static readonly Lazy<T> lazyInstance = new Lazy<T>(() =>
+        public static readonly Lazy<T> lazyInstance = new(() =>
         {
             T instance = FindObjectOfType<T>();
             

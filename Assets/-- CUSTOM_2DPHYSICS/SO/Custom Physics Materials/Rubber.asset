@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe3315250c44c3cac48f12953166407, type: 3}
   m_Name: Rubber
   m_EditorClassIdentifier: 
-  Bounciness: 0.9
+  Bounciness: 1
   Friction: 0.1

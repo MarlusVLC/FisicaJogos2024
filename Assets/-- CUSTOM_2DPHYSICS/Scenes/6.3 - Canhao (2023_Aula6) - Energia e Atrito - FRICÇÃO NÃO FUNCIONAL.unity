@@ -134,7 +134,7 @@ PrefabInstance:
     - target: {fileID: 2111539771102010207, guid: db232545f6c2e874dacb5058f5c72ab8,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2111539771102010207, guid: db232545f6c2e874dacb5058f5c72ab8,
         type: 3}
@@ -194,7 +194,7 @@ PrefabInstance:
     - target: {fileID: 4748483253234818608, guid: db232545f6c2e874dacb5058f5c72ab8,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4748483253234818608, guid: db232545f6c2e874dacb5058f5c72ab8,
         type: 3}
@@ -370,11 +370,6 @@ PrefabInstance:
         type: 3}
       propertyPath: showDetailedGizmos
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8095855649702598761, guid: 86bd3858e1725d64fa660961a9f3fff2,
-        type: 3}
-      propertyPath: useFriction
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8095855649702598761, guid: 86bd3858e1725d64fa660961a9f3fff2,
         type: 3}
@@ -806,7 +801,7 @@ PrefabInstance:
     - target: {fileID: 2888017140463593227, guid: a7ffd4ce7145ebf43836c8293a21aeb2,
         type: 3}
       propertyPath: m_Name
-      value: Bola_200kg_-1
+      value: Bola_200kg_-1 - BoundSphere
       objectReference: {fileID: 0}
     - target: {fileID: 2888017140463593227, guid: a7ffd4ce7145ebf43836c8293a21aeb2,
         type: 3}
@@ -817,6 +812,11 @@ PrefabInstance:
         type: 3}
       propertyPath: mass
       value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804445283942444224, guid: a7ffd4ce7145ebf43836c8293a21aeb2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1055,7 +1055,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &862701069
 Transform:
   m_ObjectHideFlags: 0
@@ -1071,8 +1071,8 @@ Transform:
   m_Children:
   - {fileID: 1035011736}
   - {fileID: 866318782}
-  - {fileID: 1424027727}
   - {fileID: 600072711}
+  - {fileID: 1424027727}
   - {fileID: 1466397115}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1555,7 +1555,8 @@ MonoBehaviour:
   onCollisionOut:
     m_PersistentCalls:
       m_Calls: []
-  <CollisionRadius>k__BackingField: 1.39
+  <Radius>k__BackingField: 0.7
+  showDetailedGizmos: 0
 --- !u!1001 &1452503611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1670,7 +1671,7 @@ PrefabInstance:
     - target: {fileID: 1039259472233680347, guid: a7ffd4ce7145ebf43836c8293a21aeb2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.744
+      value: -3.45
       objectReference: {fileID: 0}
     - target: {fileID: 1039259472233680347, guid: a7ffd4ce7145ebf43836c8293a21aeb2,
         type: 3}
@@ -1715,14 +1716,20 @@ PrefabInstance:
     - target: {fileID: 2888017140463593227, guid: a7ffd4ce7145ebf43836c8293a21aeb2,
         type: 3}
       propertyPath: m_Name
-      value: Bola_100kg_-2 (1)
+      value: Bola_100kg_-2 (1) - BoundSphere
       objectReference: {fileID: 0}
     - target: {fileID: 2888017140463593227, guid: a7ffd4ce7145ebf43836c8293a21aeb2,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7804445283942444224, guid: a7ffd4ce7145ebf43836c8293a21aeb2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 257466943858394009, guid: a7ffd4ce7145ebf43836c8293a21aeb2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -1762,7 +1769,8 @@ MonoBehaviour:
   onCollisionOut:
     m_PersistentCalls:
       m_Calls: []
-  <CollisionRadius>k__BackingField: 1.37
+  <Radius>k__BackingField: 0.35
+  showDetailedGizmos: 0
 --- !u!1001 &1512688795
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2069,6 +2077,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8040297503834739752, guid: d74eac7de3f21d641b0c6040ba858d09,
+        type: 3}
+      propertyPath: haltMovementOnCollision
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2095,7 +2108,7 @@ PrefabInstance:
     - target: {fileID: 6306021223729463571, guid: 83e182de47363ff4cb16c8dabfc972af,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8196361752647267057, guid: 83e182de47363ff4cb16c8dabfc972af,
         type: 3}

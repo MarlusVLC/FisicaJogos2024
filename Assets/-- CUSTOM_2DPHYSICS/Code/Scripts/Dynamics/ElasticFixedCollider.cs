@@ -15,21 +15,21 @@ namespace _6.AcaoReacao
             var newVelocity = otherBoundingShape.RigidBody.Velocity;
             if (afterCollisionDirection.x != 0)
             {
-                newPosition.x = (boundingShape.Center.x + (boundingShape.Size/2).x * afterCollisionDirection.x) + otherBoundingShape.Size.x / 2 * afterCollisionDirection.x;
-                newVelocity.x *= (-1) *
-                                 CustomPhysicsMaterial.GetResultantBounciness(boundingShape.Material, otherBoundingShape.Material);
+                // newPosition.x = (boundingShape.Center.x + (boundingShape.Size/2).x * afterCollisionDirection.x) + otherBoundingShape.Size.x / 2 * afterCollisionDirection.x;
+                newPosition.x = (boundingShape.Center.x + (boundingShape.Size/2).x + otherBoundingShape.Size.x / 2) * afterCollisionDirection.x;
+                newVelocity.x *= -CustomPhysicsMaterial.GetResultantBounciness(boundingShape.Material, otherBoundingShape.Material);
             }
             if (afterCollisionDirection.y != 0)
             {
-                newPosition.y = (boundingShape.Center.y + (boundingShape.Size/2).y * afterCollisionDirection.y) + otherBoundingShape.Size.y / 2 * afterCollisionDirection.y;
-                newVelocity.y *= (-1) *
-                                 CustomPhysicsMaterial.GetResultantBounciness(boundingShape.Material, otherBoundingShape.Material);
+                newPosition.y = (boundingShape.Center.y + (boundingShape.Size/2).y + otherBoundingShape.Size.y / 2) * afterCollisionDirection.y;
+                newVelocity.y *= -CustomPhysicsMaterial.GetResultantBounciness(boundingShape.Material, otherBoundingShape.Material);
+                
             } 
             otherBoundingShape.RigidBody.Velocity = newVelocity;
             otherBoundingShape.transform.position = newPosition;
 
-            if (!Collision.DoOverlap(boundingShape, otherBoundingShape))
-                return;
+            // if (!Collision.DoOverlap(boundingShape, otherBoundingShape))
+            //     return;
             ApplyFriction(otherBoundingShape);
         }
 
