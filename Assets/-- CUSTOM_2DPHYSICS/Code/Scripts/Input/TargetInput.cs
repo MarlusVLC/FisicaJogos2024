@@ -47,7 +47,7 @@ namespace _6.AcaoReacao
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log(" aaa");
+                Debug.Log("Jump KEY pressed!");
                 onSpaceBarPressed.Invoke();
             }
         }
