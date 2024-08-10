@@ -47,6 +47,7 @@ namespace _6.AcaoReacao
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                Debug.Log(" aaa");
                 onSpaceBarPressed.Invoke();
             }
         }
@@ -74,7 +75,6 @@ namespace _6.AcaoReacao
             {
                 return;
             }
-            Debug.Log(direction);
             onDirectionalAxisPressed.Invoke(direction);
         }
 

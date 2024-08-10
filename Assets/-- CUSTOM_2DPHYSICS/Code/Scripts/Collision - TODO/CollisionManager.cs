@@ -75,6 +75,11 @@ namespace _6.AcaoReacao
                     {
                         a.onCollisionIn.Invoke(b);
                         b.onCollisionIn.Invoke(a);
+                        if (a.isLogicalField == false && b.isLogicalField == false)
+                        {
+                            Debug.Log($"{a.name} is colliding with {b.name}");
+                            CollisionResponse(a, b);
+                        }
                     }
                     
             //         if (Collision.DoOverlap(a, b))
@@ -109,32 +114,34 @@ namespace _6.AcaoReacao
             }
         }
 
-        // public int GetNearbyColliders(int id, float colliderDetectionRadius, out Collider[] nearbyColliders)
-        // {
-        //     nearbyColliders = new Collider[colliders.Count-1];
-        //     var broadIndexer = 0;
-        //     for (var i = 0; i < colliders.Count; i++)
-        //     {
-        //         var nearbyIndex = i - broadIndexer;
-        //         if (i == id)
-        //         {
-        //             broadIndexer++;
-        //             continue;
-        //         }
-        //         var sqrDetectionRadius = Mathf.Pow(defaultDetectionRadius + colliderDetectionRadius, 2);
-        //         var sqrDistance =
-        //             Vector3.SqrMagnitude(colliders[i].transform.position - colliders[id].transform.position);
-        //         if (sqrDistance < sqrDetectionRadius)
-        //         {
-        //             nearbyColliders[nearbyIndex] = colliders[i];
-        //         }
-        //         else
-        //         {
-        //             broadIndexer++;
-        //         }
-        //     }
-        //     return broadIndexer; 
-        // }
+        private void CollisionResponse(BoundingShape colliderA, BoundingShape colliderB)
+        {
+            var rbA = colliderA.RigidBody;
+            var rbB = colliderB.RigidBody;
+
+            Vector3 normal = (rbB.transform.position - rbB.transform.position).normalized;
+
+            Vector3 relativeVelocity = rbB.Velocity - rbA.Velocity;
+            float velocityAlongNormal = Vector3.Dot(relativeVelocity, normal);
+            Debug.Log("Velocity along normal = " + velocityAlongNormal);
+
+            if (velocityAlongNormal > 0)
+                return;
+
+            // float restitution = (colliderA.Material.Bounciness + colliderB.Material.Bounciness) / 2;
+            float restitution = 0.9f;
+
+            float impulseScalar = (-(1 + restitution) * velocityAlongNormal) / (1 /rbA.Mass + 1 / rbB.Mass);
+
+            Vector3 impulse = impulseScalar * normal;
+            rbA.Velocity -= (1 / rbA.Mass) * impulse;
+            rbB.Velocity += (1 / rbB.Mass) * impulse;
+        
+            // rbA.Velocity = rbA.Momentum + rbB.Momentum + rbB.Mass * (rbB.Velocity - rbA.Velocity);
+            // rbA.Velocity /= rbA.Mass + rbB.Mass;
+            Debug.Log($"Resultant velocity of {rbA.name}'s RigidBody after elastic impact = {rbA.Velocity}");
+            Debug.Log($"Resultant velocity of {rbB.name}'s RigidBody after elastic impact = {rbB.Velocity}");
+        }
         
         private void OnDrawGizmosSelected()
         {

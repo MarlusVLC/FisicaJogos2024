@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace _6.AcaoReacao
 {
@@ -11,20 +12,9 @@ namespace _6.AcaoReacao
             boundingShape = GetComponent<BoundingShape>();
         }
         
-        protected void FixedUpdate()
+        private void OnEnable()
         {
-            foreach (var otherCollider in CollisionManager.Instance.Colliders.Values)
-            {
-                if (otherCollider.SystemID == boundingShape.SystemID)
-                {
-                    continue;
-                }
-                if (otherCollider.gameObject.activeSelf == false)
-                    continue;
-                if (!Collision.DoOverlap(boundingShape, otherCollider)) 
-                    continue;
-                AffectCollider(otherCollider);
-            }
+            boundingShape.onCollisionIn.AddListener(AffectCollider);
         }
 
         protected abstract void AffectCollider(BoundingShape otherBoundingShape);

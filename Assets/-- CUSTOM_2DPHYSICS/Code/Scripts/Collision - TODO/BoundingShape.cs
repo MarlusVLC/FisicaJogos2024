@@ -10,6 +10,7 @@ namespace _6.AcaoReacao
     //AKA Collider
     public abstract class BoundingShape : MonoBehaviour
     {
+        [FormerlySerializedAs("isField")] [SerializeField] public bool isLogicalField;
         [SerializeField] private Vector3 offset;
         [SerializeField] private bool alwaysDrawGizmo;
         [Min(0)][SerializeField] private float dragCoefficient = 0.45f;
@@ -106,8 +107,25 @@ namespace _6.AcaoReacao
         {
             var rbA = RigidBody;
             var rbB = other.RigidBody;
-            rbA.Velocity = rbA.Momentum + rbB.Momentum + rbB.Mass * (rbB.Velocity - rbA.Velocity);
-            rbA.Velocity /= rbA.Mass + rbB.Mass;
+
+            Vector3 normal = (rbB.transform.position - rbB.transform.position).normalized;
+
+            Vector3 relativeVelocity = rbB.Velocity - rbA.Velocity;
+            float velocityAlongNormal = Vector3.Dot(relativeVelocity, normal);
+            
+            if (velocityAlongNormal > 0)
+                return;
+
+            float restitution = (Material.Bounciness + Material.Bounciness) / 2;
+
+            float impulseScalar = (-(1 + restitution) * velocityAlongNormal) / (1 /rbA.Mass + 1 / rbB.Mass);
+
+            Vector3 impulse = impulseScalar * normal;
+            rbA.Velocity -= (1 / rbA.Mass) * impulse;
+            rbB.Velocity += (1 / rbB.Mass) * impulse;
+            
+            // rbA.Velocity = rbA.Momentum + rbB.Momentum + rbB.Mass * (rbB.Velocity - rbA.Velocity);
+            // rbA.Velocity /= rbA.Mass + rbB.Mass;
             Debug.Log($"Resultant velocity of {rbA.name}'s RigidBody after elastic impact = {rbA.Velocity}");
         }
 

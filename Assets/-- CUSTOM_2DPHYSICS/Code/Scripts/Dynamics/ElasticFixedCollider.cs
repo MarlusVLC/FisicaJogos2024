@@ -11,26 +11,25 @@ namespace _6.AcaoReacao
 
         protected override void AffectCollider(BoundingShape otherBoundingShape)
         {
-            var newPosition = otherBoundingShape.transform.position;
-            var newVelocity = otherBoundingShape.RigidBody.Velocity;
-            if (afterCollisionDirection.x != 0)
-            {
-                // newPosition.x = (boundingShape.Center.x + (boundingShape.Size/2).x * afterCollisionDirection.x) + otherBoundingShape.Size.x / 2 * afterCollisionDirection.x;
-                newPosition.x = (boundingShape.Center.x + (boundingShape.Size/2).x + otherBoundingShape.Size.x / 2) * afterCollisionDirection.x;
-                newVelocity.x *= -CustomPhysicsMaterial.GetResultantBounciness(boundingShape.Material, otherBoundingShape.Material);
-            }
-            if (afterCollisionDirection.y != 0)
-            {
-                newPosition.y = (boundingShape.Center.y + (boundingShape.Size/2).y + otherBoundingShape.Size.y / 2) * afterCollisionDirection.y;
-                newVelocity.y *= -CustomPhysicsMaterial.GetResultantBounciness(boundingShape.Material, otherBoundingShape.Material);
-                
-            } 
-            otherBoundingShape.RigidBody.Velocity = newVelocity;
-            otherBoundingShape.transform.position = newPosition;
-
-            // if (!Collision.DoOverlap(boundingShape, otherBoundingShape))
-            //     return;
-            ApplyFriction(otherBoundingShape);
+            // var newPosition = otherBoundingShape.transform.position;
+            // var newVelocity = otherBoundingShape.RigidBody.Velocity;
+            // if (afterCollisionDirection.x != 0)
+            // {
+            //     newPosition.x = (boundingShape.Center.x + (boundingShape.Size/2).x + otherBoundingShape.Size.x / 2) * afterCollisionDirection.x;
+            //     newVelocity.x *= -CustomPhysicsMaterial.GetResultantBounciness(boundingShape.Material, otherBoundingShape.Material);
+            // }
+            // if (afterCollisionDirection.y != 0)
+            // {
+            //     newPosition.y = (boundingShape.Center.y + (boundingShape.Size/2).y + otherBoundingShape.Size.y / 2) * afterCollisionDirection.y;
+            //     newVelocity.y *= -CustomPhysicsMaterial.GetResultantBounciness(boundingShape.Material, otherBoundingShape.Material);
+            //     
+            // } 
+            // otherBoundingShape.RigidBody.Velocity = newVelocity;
+            // otherBoundingShape.transform.position = newPosition;
+            //
+            // // if (!Collision.DoOverlap(boundingShape, otherBoundingShape))
+            // //     return;
+            // ApplyFriction(otherBoundingShape);
         }
 
         private void ApplyFriction(BoundingShape otherBoundingShape)
