@@ -107,15 +107,18 @@ namespace GMTK.PlatformerToolkit {
 
             if (pressingKey) {
                 //If the sign (i.e. positive or negative) of our input direction doesn't match our movement, it means we're turning around and so should use the turn speed stat.
-                if (Mathf.Sign(directionX) != Mathf.Sign(velocity.x)) {
+                if (Mathf.Sign(directionX) != Mathf.Sign(velocity.x)) 
+                {
                     maxSpeedChange = turnSpeed * Time.deltaTime;
                 }
-                else {
+                else 
+                {
                     //If they match, it means we're simply running along and so should use the acceleration stat
                     maxSpeedChange = acceleration * Time.deltaTime;
                 }
             }
-            else {
+            else 
+            {
                 //And if we're not pressing a direction at all, use the deceleration stat
                 maxSpeedChange = deceleration * Time.deltaTime;
             }
@@ -128,7 +131,8 @@ namespace GMTK.PlatformerToolkit {
 
         }
 
-        private void runWithoutAcceleration() {
+        private void runWithoutAcceleration() 
+        {
             //If we're not using acceleration and deceleration, just send our desired velocity (direction * max speed) to the Rigidbody
             velocity.x = desiredVelocity.x;
 
