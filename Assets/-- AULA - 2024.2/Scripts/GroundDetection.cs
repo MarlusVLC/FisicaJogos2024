@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem.Utilities;
 
 public class GroundDetection : MonoBehaviour
@@ -6,10 +8,19 @@ public class GroundDetection : MonoBehaviour
     [SerializeField] private ContactFilter2D contactFilter;
     [SerializeField] private float detectionReach = 1.0f;
     [SerializeField] private float detectionAmplitude = 0.5f;
+    [SerializeField] private UnityEvent onGroundDetected;
 
     private RaycastHit2D[] groundHits = new RaycastHit2D[2];
 
     public ReadOnlyArray<RaycastHit2D> GroundHits => groundHits;
+
+    public void Update()
+    {
+        if (IsOnGround())
+        {
+            onGroundDetected.Invoke();
+        }
+    }
 
     public bool IsOnGround()
     {
@@ -28,6 +39,12 @@ public class GroundDetection : MonoBehaviour
         //     Debug.Log("Collision normal = " + groundHits[i].normal);
         // }
         return hits > 1;
+    }
+
+    public void AddCallbackOnGroundDetection(UnityAction action)
+    {
+        //TODO: Precisa levar em consideração a queda
+        onGroundDetected.AddListener(action);
     }
 
     private void OnDrawGizmosSelected()

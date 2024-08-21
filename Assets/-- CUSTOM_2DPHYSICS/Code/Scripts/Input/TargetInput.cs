@@ -47,7 +47,6 @@ namespace _6.AcaoReacao
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("Jump KEY pressed!");
                 onSpaceBarPressed.Invoke();
             }
         }
@@ -71,10 +70,6 @@ namespace _6.AcaoReacao
         private void TryGetInputAxis()
         {
             var direction = GetInputAxis();
-            if (direction.sqrMagnitude == 0)
-            {
-                return;
-            }
             onDirectionalAxisPressed.Invoke(direction);
         }
 
