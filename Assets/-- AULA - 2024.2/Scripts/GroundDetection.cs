@@ -43,7 +43,6 @@ public class GroundDetection : MonoBehaviour
 
     public void AddCallbackOnGroundDetection(UnityAction action)
     {
-        //TODO: Precisa levar em consideração a queda
         onGroundDetected.AddListener(action);
     }
 

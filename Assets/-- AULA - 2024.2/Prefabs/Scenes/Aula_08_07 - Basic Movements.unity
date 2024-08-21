@@ -463,8 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpVelocity: 16
-  velocityThreshold: 1
-  maxJumps: 1
+  maxJumps: 2
   maxBufferTime: 0.2
 --- !u!1 &1596378704
 GameObject:

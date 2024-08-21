@@ -6,8 +6,8 @@ using UnityEngine;
 public class PlayerJump : PlayerMovementBase
 {
     [SerializeField] private float jumpVelocity;
-    [SerializeField] private int maxJumps = 1; //Not used yet
-    [SerializeField] private float velocityThreshold;
+    [SerializeField] private int maxJumps = 1;
+    // [SerializeField] private float velocityThreshold;
 
     [Header("Player Assist")] 
     [SerializeField] private float maxBufferTime;
@@ -23,7 +23,7 @@ public class PlayerJump : PlayerMovementBase
     private void Start()
     {
         TargetInput.Instance.onSpaceBarPressed.AddListener(() => TryJumping());
-        _detector.AddCallbackOnGroundDetection(ResetJumpCount);
+        _detector.AddCallbackOnGroundDetection(TryResetJumpCount);
         _detector.AddCallbackOnGroundDetection(ResetBufferTime);
     }
 
@@ -31,7 +31,6 @@ public class PlayerJump : PlayerMovementBase
     
     private bool TryJumping(bool shouldUseBuffer)
     {
-        Debug.Log("Jump Count = " + _jumpCount);
         if (CanJump == false)
         {
             if (shouldUseBuffer)
@@ -67,6 +66,14 @@ public class PlayerJump : PlayerMovementBase
     }
 
     // Zera a contagem de pulos executados antes do jogador encostar no chão
-    private void ResetJumpCount() => _jumpCount = 0;
+    private void TryResetJumpCount()
+    {
+        if (rb.velocity.y > 0)
+        {
+            return;
+        }
+        _jumpCount = 0;
+    }
+
     private void ResetBufferTime() => _currentBufferTime = 0f;
 } 
