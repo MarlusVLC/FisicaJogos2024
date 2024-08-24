@@ -499,7 +499,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpVelocity: 16
-  minJumpHeight: 3
+  minJumpHeight: 1
+  jumpCancelRate: 5
   maxJumps: 1
   maxBufferTime: 0.1
   coyoteTime: 0.1

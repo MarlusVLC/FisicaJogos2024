@@ -7,6 +7,7 @@ public class PlayerJump : PlayerMovementBase
 {
     [SerializeField] private float jumpVelocity;
     [SerializeField] private float minJumpHeight;
+    [SerializeField] private float jumpCancelRate;
     [SerializeField] private int maxJumps = 1;
 
     [Header("Player Assist")] 
@@ -61,11 +62,7 @@ public class PlayerJump : PlayerMovementBase
     public void Jump()
     {
         _jumpCount++;
-
-        _velocityVector = rb.velocity;
-        _velocityVector.y = jumpVelocity;
-        rb.velocity = _velocityVector;
-
+        SetVelocity(y: jumpVelocity);
         _jumpOriginY = transform.position.y;
         _hasJumped = true;
         ResetCoyoteTime();
@@ -136,15 +133,15 @@ public class PlayerJump : PlayerMovementBase
         {
             yield return new WaitForFixedUpdate();
         }
-        _velocityVector = rb.velocity;
-        _velocityVector.y = Mathf.Min(0, _velocityVector.y);
-        rb.velocity = _velocityVector;
+        var targetSpeed = Mathf.MoveTowards(rb.velocity.y, 0, jumpCancelRate);
+        SetVelocity(y: Mathf.Min(targetSpeed, rb.velocity.y));
     }
 
     public void TriggerJumpCancelRoutine()
     {
         StartCoroutine(CancelJump());
     }
+
     
 // Zera a contagem de pulos executados antes do jogador encostar no chão
     private void TryResetJumpCount()
