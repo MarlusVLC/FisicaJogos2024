@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using _6.AcaoReacao;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerJump : PlayerMovementBase
 {
     [SerializeField] private float jumpVelocity;
+    [SerializeField] private float minJumpHeight;
     [SerializeField] private int maxJumps = 1;
 
     [Header("Player Assist")] 
@@ -17,14 +17,16 @@ public class PlayerJump : PlayerMovementBase
     private int _jumpCount = 0;
     private float _currentBufferTime = 0.0f;
     private float _coyoteTimeCounter = 0.0f;
+    private float _jumpOriginY;
     private Coroutine _coyoteRoutine;
     
     public bool IsBufferingJump => _currentBufferTime <= maxBufferTime;
-    public bool IsJumping => _hasJumped && rb.velocity.y > 0;
+    public bool IsJumping => _hasJumped && rb.velocity.y >= 0;
 
     private void Start()
     {
         TargetInput.Instance.onSpaceBarPressed.AddListener(() => TryJumping());
+        TargetInput.Instance.onSpaceBarReleased.AddListener(TriggerJumpCancelRoutine);
         
         _detector.AddCallbackOnGroundDetection(TryResetJumpCount, true);
         _detector.AddCallbackOnGroundDetection(ResetBufferTime, true);
@@ -60,13 +62,24 @@ public class PlayerJump : PlayerMovementBase
     {
         _jumpCount++;
 
-        _velocity = rb.velocity;
-        _velocity.y = jumpVelocity;
-        rb.velocity = _velocity;
+        _velocityVector = rb.velocity;
+        _velocityVector.y = jumpVelocity;
+        rb.velocity = _velocityVector;
+
+        _jumpOriginY = transform.position.y;
         _hasJumped = true;
         ResetCoyoteTime();
     }
-    
+
+    public float GetJumpHeight()
+    {
+        if (IsJumping == false)
+        {
+            throw new NullReferenceException("Player hasn't jumped yet. Therefore no Jump Height can be calculated");
+        }
+        return transform.position.y - _jumpOriginY;
+    }
+
     #region BUFFER
     private IEnumerator TriggerBuffer()
     {
@@ -85,7 +98,7 @@ public class PlayerJump : PlayerMovementBase
     private void ResetBufferTime() => _currentBufferTime = 0f;
 #endregion
 
-#region COYOTE_TIME
+    #region COYOTE_TIME
     private IEnumerator TriggerCoyoteRoutine()
     {
         while (_coyoteTimeCounter < coyoteTime)
@@ -104,7 +117,6 @@ public class PlayerJump : PlayerMovementBase
         }
         StopCoroutine(_coyoteRoutine);
         _coyoteRoutine = null;
-        Debug.Log("Coyote routine cleaned!");
     }
 
     private void TriggerCoyoteTime()
@@ -118,6 +130,21 @@ public class PlayerJump : PlayerMovementBase
     }
     #endregion
 
+    private IEnumerator CancelJump()
+    {
+        while (IsJumping && GetJumpHeight() < minJumpHeight )
+        {
+            yield return new WaitForFixedUpdate();
+        }
+        _velocityVector = rb.velocity;
+        _velocityVector.y = Mathf.Min(0, _velocityVector.y);
+        rb.velocity = _velocityVector;
+    }
+
+    public void TriggerJumpCancelRoutine()
+    {
+        StartCoroutine(CancelJump());
+    }
     
 // Zera a contagem de pulos executados antes do jogador encostar no chão
     private void TryResetJumpCount()

@@ -4,7 +4,7 @@ public class PlayerMovementBase : MonoBehaviour
 {
     protected GroundDetection _detector;
     protected Rigidbody2D rb;
-    protected Vector2 _velocity;
+    protected Vector2 _velocityVector;
 
     protected void Awake()
     {

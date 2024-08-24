@@ -51,16 +51,16 @@ namespace Marlus_Aula2024
 
         public void MoveLinearly()
         {
-            _velocity = rb.velocity;
-            _velocity.x = _targetSpeed;
-            rb.velocity = _velocity;
+            _velocityVector = rb.velocity;
+            _velocityVector.x = _targetSpeed;
+            rb.velocity = _velocityVector;
         }
 
         public void Accelerate()
         {
-            _velocity = rb.velocity;
+            _velocityVector = rb.velocity;
 
-            if (_velocity.x == 0)
+            if (_velocityVector.x == 0)
             {
                 if (_targetSpeed != 0)
                 {
@@ -73,7 +73,7 @@ namespace Marlus_Aula2024
                 {
                     _speedChangeRate = deceleration;
                 }
-                else if (Mathf.Sign(_velocity.x) == Mathf.Sign(_targetSpeed))
+                else if (Mathf.Sign(_velocityVector.x) == Mathf.Sign(_targetSpeed))
                 {
                     _speedChangeRate = acceleration;
                 }
@@ -83,8 +83,8 @@ namespace Marlus_Aula2024
                 }
             }
             
-            _velocity.x = Mathf.MoveTowards(_velocity.x, _targetSpeed, _speedChangeRate * Time.fixedDeltaTime);
-            rb.velocity = _velocity;
+            _velocityVector.x = Mathf.MoveTowards(_velocityVector.x, _targetSpeed, _speedChangeRate * Time.fixedDeltaTime);
+            rb.velocity = _velocityVector;
         }
     }
 

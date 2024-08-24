@@ -337,8 +337,8 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  detectionReach: 0.5
-  detectionAmplitude: 0.5
+  groundCheckDistance: 0.5
+  groundCheckRadius: 0.5
   onGroundDetected:
     m_PersistentCalls:
       m_Calls: []
@@ -499,6 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpVelocity: 16
+  minJumpHeight: 3
   maxJumps: 1
   maxBufferTime: 0.1
   coyoteTime: 0.1
