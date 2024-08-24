@@ -13,6 +13,7 @@ namespace _6.AcaoReacao
         public UnityEvent<Vector3> onMouseRightDown;
         public UnityEvent<Vector3> onDirectionalAxisPressed;
         public UnityEvent onSpaceBarPressed;
+        public UnityEvent onSpaceBarReleased;
 
         private Camera mainCamera;
 
@@ -49,6 +50,10 @@ namespace _6.AcaoReacao
             {
                 onSpaceBarPressed.Invoke();
             }
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                onSpaceBarReleased.Invoke();
+            }
         }
         
         private new void OnDestroy()
@@ -60,6 +65,7 @@ namespace _6.AcaoReacao
             onMouseRightDown.RemoveAllListeners();
             onDirectionalAxisPressed.RemoveAllListeners();
             onSpaceBarPressed.RemoveAllListeners();
+            onSpaceBarReleased.RemoveAllListeners();
         }
 
         private static Vector3 GetInputAxis()

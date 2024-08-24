@@ -14,5 +14,6 @@ public class Respawner : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         col.transform.position = Vector3.zero;
+        // col.attachedRigidbody.
     }
 }

@@ -2,23 +2,40 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem.Utilities;
+using UnityEngine.Serialization;
 
 public class GroundDetection : MonoBehaviour
 {
     [SerializeField] private ContactFilter2D contactFilter;
-    [SerializeField] private float detectionReach = 1.0f;
-    [SerializeField] private float detectionAmplitude = 0.5f;
+    [FormerlySerializedAs("detectionReach")] [SerializeField] private float groundCheckDistance = 1.0f;
+    [FormerlySerializedAs("detectionAmplitude")] [SerializeField] private float groundCheckRadius = 0.5f;
     [SerializeField] private UnityEvent onGroundDetected;
+    [SerializeField] private UnityEvent onGroundLost;
 
-    private RaycastHit2D[] groundHits = new RaycastHit2D[2];
+    private bool _wasOnGround; //Was on ground in the last frame
+    private RaycastHit2D[] _groundHits = new RaycastHit2D[2];
 
-    public ReadOnlyArray<RaycastHit2D> GroundHits => groundHits;
+    public ReadOnlyArray<RaycastHit2D> GroundHits => _groundHits;
 
     public void Update()
     {
-        if (IsOnGround())
+        CheckDetectionStatus();
+    }
+
+    private void CheckDetectionStatus()
+    {
+        var isOnGround = IsOnGround();
+        if (_wasOnGround == isOnGround) 
+            return;
+        
+        _wasOnGround = isOnGround;
+        if (isOnGround)
         {
             onGroundDetected.Invoke();
+        }
+        else
+        {
+            onGroundLost.Invoke();
         }
     }
 
@@ -26,11 +43,11 @@ public class GroundDetection : MonoBehaviour
     {
         int hits = Physics2D.CircleCast(
             origin: transform.position,
-            radius: detectionAmplitude,
+            radius: groundCheckRadius,
             direction: Vector2.down,
             contactFilter: contactFilter,
-            results: groundHits,
-            distance: detectionReach);
+            results: _groundHits,
+            distance: groundCheckDistance);
         // Debug.Log("Hit quantity = " + hits);
         // for (int i = 0; i < hits; i++)
         // {
@@ -41,14 +58,17 @@ public class GroundDetection : MonoBehaviour
         return hits > 1;
     }
 
-    public void AddCallbackOnGroundDetection(UnityAction action)
+    public void AddCallbackOnGroundDetection(UnityAction action, bool doItWhenGrounding)
     {
-        onGroundDetected.AddListener(action);
+        if (doItWhenGrounding)
+            onGroundDetected.AddListener(action);
+        else
+            onGroundLost.AddListener(action);
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = IsOnGround() ? Color.green : Color.red;
-        Gizmos.DrawWireSphere(transform.position + (Vector3.down * detectionReach), detectionAmplitude);
+        Gizmos.DrawWireSphere(transform.position + (Vector3.down * groundCheckDistance), groundCheckRadius);
     }
 } 
