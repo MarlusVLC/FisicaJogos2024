@@ -6,6 +6,9 @@ using UnityEngine;
 public class PlayerJump : PlayerMovementBase
 {
     [SerializeField] private float jumpVelocity;
+    [SerializeField] private bool usePredefinedVelocity;
+    [Min(0.1f)][SerializeField] private float timeToPeak;
+    [Min(0.1f)][SerializeField] private float maxJumpHeight;
     [SerializeField] private float minJumpHeight;
     [SerializeField] private float jumpCancelRate;
     [SerializeField] private int maxJumps = 1;
@@ -62,13 +65,29 @@ public class PlayerJump : PlayerMovementBase
     public void Jump()
     {
         _jumpCount++;
-        SetVelocity(y: jumpVelocity);
+        if (usePredefinedVelocity)
+        {
+            SetVelocity(y: jumpVelocity);
+        }
+        else
+        {
+            rb.AddForce(Vector2.up * (rb.mass * GetJumpVelocity()), ForceMode2D.Impulse);
+            // SetVelocity(y: GetJumpVelocity());
+        }
         _jumpOriginY = transform.position.y;
         _hasJumped = true;
         ResetCoyoteTime();
     }
 
-    public float GetJumpHeight()
+    public float GetJumpVelocity()
+    {
+        float gravity = 2 * maxJumpHeight / Mathf.Pow(timeToPeak, 2);
+        rb.gravityScale = gravity / Mathf.Abs(Physics2D.gravity.y);
+        float velocity = 2 * maxJumpHeight / timeToPeak;
+        return velocity;
+    }
+    
+    public float GetCurrentJumpHeight()
     {
         if (IsJumping == false)
         {
@@ -129,7 +148,7 @@ public class PlayerJump : PlayerMovementBase
 
     private IEnumerator CancelJump()
     {
-        while (IsJumping && GetJumpHeight() < minJumpHeight )
+        while (IsJumping && GetCurrentJumpHeight() < minJumpHeight )
         {
             yield return new WaitForFixedUpdate();
         }

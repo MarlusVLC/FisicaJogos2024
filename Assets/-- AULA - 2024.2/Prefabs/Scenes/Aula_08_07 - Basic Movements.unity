@@ -499,11 +499,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpVelocity: 16
+  usePredefinedVelocity: 0
+  timeToPeak: 0.5
+  maxJumpHeight: 3
   minJumpHeight: 1
-  jumpCancelRate: 5
+  jumpCancelRate: 4
   maxJumps: 1
   maxBufferTime: 0.1
-  coyoteTime: 0.1
+  coyoteTime: 0.2
 --- !u!1 &1584174934
 GameObject:
   m_ObjectHideFlags: 0
