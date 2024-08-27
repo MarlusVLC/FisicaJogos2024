@@ -500,11 +500,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpVelocity: 16
   usePredefinedVelocity: 0
+  useForce: 0
   timeToPeak: 0.5
   maxJumpHeight: 3
   minJumpHeight: 1
   jumpCancelRate: 4
-  maxJumps: 1
+  maxJumps: 2
   maxBufferTime: 0.1
   coyoteTime: 0.2
 --- !u!1 &1584174934
@@ -1056,6 +1057,36 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1539009911}
+    - target: {fileID: 5807814228604364865, guid: f87fdb53e2f16b54aaf61acb47761bfd,
+        type: 3}
+      propertyPath: m_XDamping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807814228604364865, guid: f87fdb53e2f16b54aaf61acb47761bfd,
+        type: 3}
+      propertyPath: m_DeadZoneWidth
+      value: 0.108
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807814228604364865, guid: f87fdb53e2f16b54aaf61acb47761bfd,
+        type: 3}
+      propertyPath: m_LookaheadTime
+      value: 0.068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807814228604364865, guid: f87fdb53e2f16b54aaf61acb47761bfd,
+        type: 3}
+      propertyPath: m_DeadZoneHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807814228604364865, guid: f87fdb53e2f16b54aaf61acb47761bfd,
+        type: 3}
+      propertyPath: m_SoftZoneHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807814228604364865, guid: f87fdb53e2f16b54aaf61acb47761bfd,
+        type: 3}
+      propertyPath: m_LookaheadIgnoreY
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7326202743433253694, guid: f87fdb53e2f16b54aaf61acb47761bfd,
         type: 3}
       propertyPath: m_Name
@@ -1110,6 +1141,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018309263362665769, guid: f87fdb53e2f16b54aaf61acb47761bfd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.15157425
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018309263362665769, guid: f87fdb53e2f16b54aaf61acb47761bfd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9120195615098223260, guid: f87fdb53e2f16b54aaf61acb47761bfd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.15157425
+      objectReference: {fileID: 0}
+    - target: {fileID: 9120195615098223260, guid: f87fdb53e2f16b54aaf61acb47761bfd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1305,6 +1356,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelLimits
       objectReference: {fileID: 0}
+    - target: {fileID: 1859213881306730287, guid: a166e3c106daa4c4aa7be28f5eaa17a1,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: c7987bd3f06c07d4fbc4118d9306a51e, type: 2}
     - target: {fileID: 4116423897445681301, guid: a166e3c106daa4c4aa7be28f5eaa17a1,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -7,6 +7,7 @@ public class PlayerJump : PlayerMovementBase
 {
     [SerializeField] private float jumpVelocity;
     [SerializeField] private bool usePredefinedVelocity;
+    [SerializeField] private bool useForce;
     [Min(0.1f)][SerializeField] private float timeToPeak;
     [Min(0.1f)][SerializeField] private float maxJumpHeight;
     [SerializeField] private float minJumpHeight;
@@ -65,26 +66,33 @@ public class PlayerJump : PlayerMovementBase
     public void Jump()
     {
         _jumpCount++;
-        if (usePredefinedVelocity)
+        DefineJumpVelocity();
+
+        if (useForce)
         {
-            SetVelocity(y: jumpVelocity);
-        }
+            if (_jumpCount > 1)
+            {
+                SetVelocity(y: 0);
+            }
+            rb.AddForce(Vector2.up * (rb.mass * jumpVelocity), ForceMode2D.Impulse);        }
         else
         {
-            rb.AddForce(Vector2.up * (rb.mass * GetJumpVelocity()), ForceMode2D.Impulse);
-            // SetVelocity(y: GetJumpVelocity());
+            SetVelocity(y: jumpVelocity);
         }
         _jumpOriginY = transform.position.y;
         _hasJumped = true;
         ResetCoyoteTime();
     }
 
-    public float GetJumpVelocity()
+    public void DefineJumpVelocity()
     {
+        if (usePredefinedVelocity)
+        {
+            return;
+        }
         float gravity = 2 * maxJumpHeight / Mathf.Pow(timeToPeak, 2);
         rb.gravityScale = gravity / Mathf.Abs(Physics2D.gravity.y);
-        float velocity = 2 * maxJumpHeight / timeToPeak;
-        return velocity;
+        jumpVelocity = 2 * maxJumpHeight / timeToPeak;
     }
     
     public float GetCurrentJumpHeight()

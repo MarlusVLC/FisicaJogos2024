@@ -85,6 +85,7 @@ namespace Marlus_Aula2024
             
             _velocityVector.x = Mathf.MoveTowards(_velocityVector.x, _targetSpeed, _speedChangeRate * Time.fixedDeltaTime);
             rb.velocity = _velocityVector;
+            // rb.AddForce(new Vector2(_velocityVector.x,0));
         }
     }
 
