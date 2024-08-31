@@ -51,9 +51,7 @@ namespace Marlus_Aula2024
 
         public void MoveLinearly()
         {
-            _velocityVector = rb.velocity;
-            _velocityVector.x = _targetSpeed;
-            rb.velocity = _velocityVector;
+            SetVelocity(x: _targetSpeed);
         }
 
         public void Accelerate()
