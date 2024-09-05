@@ -16,6 +16,8 @@ public class GroundDetection : MonoBehaviour
     private RaycastHit2D[] _groundHits = new RaycastHit2D[2];
 
     public ReadOnlyArray<RaycastHit2D> GroundHits => _groundHits;
+    public float GroundCheckDistance => groundCheckDistance * transform.localScale.y;
+    public float GroundCheckRadius => groundCheckRadius * transform.localScale.x;
 
     public void Update()
     {
@@ -43,11 +45,11 @@ public class GroundDetection : MonoBehaviour
     {
         int hits = Physics2D.CircleCast(
             origin: transform.position,
-            radius: groundCheckRadius,
+            radius: GroundCheckRadius,
             direction: Vector2.down,
             contactFilter: contactFilter,
             results: _groundHits,
-            distance: groundCheckDistance);
+            distance: GroundCheckDistance);
         // Debug.Log("Hit quantity = " + hits);
         // for (int i = 0; i < hits; i++)
         // {
@@ -69,6 +71,6 @@ public class GroundDetection : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = IsOnGround() ? Color.green : Color.red;
-        Gizmos.DrawWireSphere(transform.position + (Vector3.down * groundCheckDistance), groundCheckRadius);
+        Gizmos.DrawWireSphere(transform.position + (Vector3.down * GroundCheckDistance), GroundCheckRadius);
     }
 } 
