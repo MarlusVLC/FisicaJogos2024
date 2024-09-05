@@ -30,7 +30,7 @@ public class PlayerJump : PlayerMovementBase
 
     private void Start()
     {
-        TargetInput.Instance.onSpaceBarPressed.AddListener(() => TryJumping());
+        TargetInput.Instance.onSpaceBarPressed.AddListener(() => TryJumping(maxBufferTime > 0.0f));
         TargetInput.Instance.onSpaceBarReleased.AddListener(TriggerJumpCancelRoutine);
         
         _detector.AddCallbackOnGroundDetection(TryResetJumpCount, true);
@@ -44,7 +44,7 @@ public class PlayerJump : PlayerMovementBase
     public bool CanJump =>
             (_detector.IsOnGround()
             || _jumpCount < maxJumps)
-            && _coyoteTimeCounter < coyoteTime;
+            && (_coyoteTimeCounter < coyoteTime || coyoteTime <= 0.0f);
 
     public bool TryJumping() => TryJumping(true);
 
@@ -87,6 +87,7 @@ public class PlayerJump : PlayerMovementBase
     public void DefineJumpVelocity()
     {
         if (usePredefinedVelocity)
+            
         {
             return;
         }

@@ -17,7 +17,7 @@ public class GroundDetection : MonoBehaviour
 
     public ReadOnlyArray<RaycastHit2D> GroundHits => _groundHits;
     public float GroundCheckDistance => groundCheckDistance * transform.localScale.y;
-    public float GroundCheckRadius => groundCheckRadius * transform.localScale.x;
+    public float GroundCheckRadius => groundCheckRadius * Math.Abs(transform.localScale.x);
 
     public void Update()
     {
