@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class PlayerMovementBase : MonoBehaviour
 {

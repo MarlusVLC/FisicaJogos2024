@@ -3,7 +3,7 @@ using _6.AcaoReacao;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerRun : MonoBehaviour
+public class PlayerRun : PlayerMovementBase
 {
     [field: SerializeField] public float MaxSpeed { get; private set; }
     [field: SerializeField] public float Acceleration { get; private set; }
@@ -15,16 +15,15 @@ public class PlayerRun : MonoBehaviour
     
     private bool _isRunning;
     private float? _currentBufferTime = null;
-    private GroundDetection _detector;
-    private Rigidbody2D _rigidBody;
-    
-    public bool IsRunning => _isRunning && _detector.IsOnGround() && Mathf.Abs(_rigidBody.velocity.x) > 0;
+
+    public bool IsRunning => _isRunning && _detector.IsOnGround() && Mathf.Abs(rb.velocity.x) > 0;
     public bool IsBuffering => _currentBufferTime < maxBufferTime;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _detector = GetComponent<GroundDetection>();
-        _rigidBody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Start()

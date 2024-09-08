@@ -27,14 +27,12 @@ public class PlayerGlide : PlayerMovementBase
 
     private void FixedUpdate()
     {
-        if (IsGliding)
+        if (!IsGliding) 
+            return;
+        if (Mathf.Abs(rb.velocity.y) > maxFallSpeed)
         {
-            if (Mathf.Abs(_velocityVector.y) > maxFallSpeed)
-            {
-                SetVelocity(y: maxFallSpeed);
-            }    
+            SetVelocity(y: -maxFallSpeed);
         }
-        
     }
 
     private void Update()
@@ -51,6 +49,5 @@ public class PlayerGlide : PlayerMovementBase
             IsGliding = false;
             OnGlideToggle.Invoke(false);
         }
-        
     }
 }
