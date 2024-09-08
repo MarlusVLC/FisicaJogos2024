@@ -14,6 +14,10 @@ namespace _6.AcaoReacao
         public UnityEvent<Vector3> onDirectionalAxisPressed;
         public UnityEvent onSpaceBarPressed;
         public UnityEvent onSpaceBarReleased;
+        public UnityEvent onShiftPressed;
+        public UnityEvent onShiftReleased;
+        public UnityEvent onControlPressed;
+        public UnityEvent onControlReleased;
 
         private Camera mainCamera;
 
@@ -53,6 +57,24 @@ namespace _6.AcaoReacao
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 onSpaceBarReleased.Invoke();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                onShiftPressed.Invoke();
+            }
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                onShiftReleased.Invoke();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                onControlPressed.Invoke();
+            }
+            if (Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                onControlReleased.Invoke();
             }
         }
         

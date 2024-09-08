@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerJump : PlayerMovementBase
 {
-    [SerializeField] private float jumpVelocity;
+    [field: SerializeField] public MultipliableFloat JumpVelocity  { get; private set; }
     [SerializeField] private bool usePredefinedVelocity;
     [SerializeField] private bool useForce;
     [Min(0.1f)][SerializeField] private float timeToPeak;
@@ -17,8 +17,11 @@ public class PlayerJump : PlayerMovementBase
     [Header("Player Assist")] 
     [SerializeField] private float maxBufferTime;
     [SerializeField] private float coyoteTime;
+    
+    [field: SerializeField] public float HorizontalTurnSpeedMult { get; private set; }
 
     private bool _hasJumped = false;
+    private bool _isJumpIntended = false;
     private int _jumpCount = 0;
     private float _currentBufferTime = 0.0f;
     private float _coyoteTimeCounter = 0.0f;
@@ -27,10 +30,13 @@ public class PlayerJump : PlayerMovementBase
     
     public bool IsBufferingJump => _currentBufferTime <= maxBufferTime;
     public bool IsJumping => _hasJumped && rb.velocity.y >= 0;
+    public bool IsFalling => _detector.IsOnGround() == false && rb.velocity.y < 0;
+    public bool CanUseBuffer => maxBufferTime > 0.0f;
+    public bool CanUseCoyoteTime => coyoteTime > 0.0f;
 
     private void Start()
     {
-        TargetInput.Instance.onSpaceBarPressed.AddListener(() => TryJumping(maxBufferTime > 0.0f));
+        TargetInput.Instance.onSpaceBarPressed.AddListener(() => TryJumping(shouldUseBuffer: CanUseBuffer));
         TargetInput.Instance.onSpaceBarReleased.AddListener(TriggerJumpCancelRoutine);
         
         _detector.AddCallbackOnGroundDetection(TryResetJumpCount, true);
@@ -42,16 +48,25 @@ public class PlayerJump : PlayerMovementBase
     }
 
     public bool CanJump =>
-            (_detector.IsOnGround()
-            || _jumpCount < maxJumps)
-            && (_coyoteTimeCounter < coyoteTime || coyoteTime <= 0.0f);
-
-    public bool TryJumping() => TryJumping(true);
-
-    private bool TryJumping(bool shouldUseBuffer)
+        (_detector.IsOnGround()
+         || _jumpCount < maxJumps)
+        && (_coyoteTimeCounter < coyoteTime || CanUseCoyoteTime == false)
+        && _playerRun.IsRunning == false
+    ;
+    
+    public bool TryJumping(bool shouldUseBuffer = false, bool considerJumpIntention = false)
     {
+        if (considerJumpIntention)
+        {
+            if (_isJumpIntended == false) 
+                return false;
+            Jump();
+            return true;
+        }
+        
         if (CanJump == false)
         {
+            _isJumpIntended = true;
             if (shouldUseBuffer)
             {
                 StartCoroutine(TriggerBuffer());
@@ -74,10 +89,12 @@ public class PlayerJump : PlayerMovementBase
             {
                 SetVelocity(y: 0);
             }
-            rb.AddForce(Vector2.up * (rb.mass * jumpVelocity), ForceMode2D.Impulse);        }
+
+            rb.AddForce(Vector2.up * (rb.mass * JumpVelocity), ForceMode2D.Impulse);
+        }
         else
         {
-            SetVelocity(y: jumpVelocity);
+            SetVelocity(y: JumpVelocity);
         }
         _jumpOriginY = transform.position.y;
         _hasJumped = true;
@@ -87,13 +104,12 @@ public class PlayerJump : PlayerMovementBase
     public void DefineJumpVelocity()
     {
         if (usePredefinedVelocity)
-            
         {
             return;
         }
         float gravity = 2 * maxJumpHeight / Mathf.Pow(timeToPeak, 2);
         rb.gravityScale = gravity / Mathf.Abs(Physics2D.gravity.y);
-        jumpVelocity = 2 * maxJumpHeight / timeToPeak;
+        JumpVelocity.baseValue = 2 * (maxJumpHeight / timeToPeak);
     }
     
     public float GetCurrentJumpHeight()
@@ -157,6 +173,7 @@ public class PlayerJump : PlayerMovementBase
 
     private IEnumerator CancelJump()
     {
+        _isJumpIntended = false;
         while (IsJumping && GetCurrentJumpHeight() < minJumpHeight )
         {
             yield return new WaitForFixedUpdate();

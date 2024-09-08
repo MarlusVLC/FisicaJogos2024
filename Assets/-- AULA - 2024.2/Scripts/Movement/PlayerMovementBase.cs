@@ -1,15 +1,19 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEditor;
+using UnityEngine;
 
-public class PlayerMovementBase : MonoBehaviour
+public abstract class PlayerMovementBase : MonoBehaviour
 {
     protected GroundDetection _detector;
     protected Rigidbody2D rb;
     protected Vector2 _velocityVector;
+    protected PlayerRun _playerRun;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         _detector = GetComponent<GroundDetection>();
+        _playerRun = GetComponent<PlayerRun>();
     }
 
     protected void SetVelocity(float? x = null, float? y = null)
