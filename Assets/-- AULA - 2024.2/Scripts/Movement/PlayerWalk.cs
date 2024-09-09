@@ -34,15 +34,12 @@ public class PlayerWalk : PlayerMovementBase
     {
         TryAlignScale(direction.x);
         _targetSpeed = direction.x * MaxSpeed;
-
     }
 
     public void TryAlignScale(float direction)
     {
         if (direction == 0)
-        {
             return;
-        }
         var scale = transform.localScale;
         scale.x = Mathf.Abs(scale.x) * Mathf.Sign(direction);
         transform.localScale = scale;

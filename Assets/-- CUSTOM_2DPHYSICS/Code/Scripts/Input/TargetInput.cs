@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Threading;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 namespace _6.AcaoReacao
@@ -50,29 +52,29 @@ namespace _6.AcaoReacao
                 onMouseRightDown.Invoke(GetMousePosition());
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
             {
                 onSpaceBarPressed.Invoke();
             }
-            if (Input.GetKeyUp(KeyCode.Space))
+            if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.X))
             {
                 onSpaceBarReleased.Invoke();
             }
             
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.S))
             {
                 onShiftPressed.Invoke();
             }
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+            if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.S))
             {
                 onShiftReleased.Invoke();
             }
             
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.E))
             {
                 onControlPressed.Invoke();
             }
-            if (Input.GetKeyUp(KeyCode.LeftControl))
+            if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.E))
             {
                 onControlReleased.Invoke();
             }
@@ -88,6 +90,10 @@ namespace _6.AcaoReacao
             onDirectionalAxisPressed.RemoveAllListeners();
             onSpaceBarPressed.RemoveAllListeners();
             onSpaceBarReleased.RemoveAllListeners();
+            onShiftPressed.RemoveAllListeners();
+            onShiftReleased.RemoveAllListeners();
+            onControlPressed.RemoveAllListeners();
+            onControlReleased.RemoveAllListeners();
         }
 
         private static Vector3 GetInputAxis()

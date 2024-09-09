@@ -10,9 +10,9 @@ public class PlayerJump : PlayerMovementBase
     [SerializeField] private bool useForce;
     [Min(0.1f)][SerializeField] private float timeToPeak;
     [Min(0.1f)][SerializeField] private float maxJumpHeight;
-    [SerializeField] private float minJumpHeight;
-    [SerializeField] private float jumpCancelRate;
-    [SerializeField] private int maxJumps = 1;
+    [Min(0.1f)][SerializeField] private float minJumpHeight;
+    [Min(0.1f)][SerializeField] private float jumpCancelRate;
+    [Min(0)][SerializeField] private int maxJumps = 1;
 
     [Header("Player Assist")] 
     [SerializeField] private float maxBufferTime;
