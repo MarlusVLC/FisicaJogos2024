@@ -52,6 +52,16 @@ public class PlayerWalk : PlayerMovementBase
 
     public void Accelerate()
     {
+        // rb.isKinematic = false;
+        if (_targetSpeed == 0)
+        {
+            // rb.isKinematic = true;
+            // if (_detector.IsOnGround())
+            // {
+                // print("Shouldn't be moving at all!");
+                // _velocityVector.y = 0;
+            // }            
+        }
         _velocityVector = rb.velocity;
 
         if (_velocityVector.x == 0)
