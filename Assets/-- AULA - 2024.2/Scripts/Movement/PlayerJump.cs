@@ -80,6 +80,7 @@ public class PlayerJump : PlayerMovementBase
 
     public void Jump()
     {
+        rb.isKinematic = false;
         _jumpCount++;
         DefineJumpVelocity();
 
