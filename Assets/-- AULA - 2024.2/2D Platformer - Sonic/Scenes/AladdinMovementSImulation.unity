@@ -7318,6 +7318,7 @@ MonoBehaviour:
     baseValue: 10
     multiplier: 0
   useAcceleration: 1
+  kinematicThreshold: 1
 --- !u!114 &1539009907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7353,6 +7354,7 @@ MonoBehaviour:
   onGroundLost:
     m_PersistentCalls:
       m_Calls: []
+  useDebugLog: 1
 --- !u!61 &1539009908
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7460,7 +7462,7 @@ MonoBehaviour:
     baseValue: 20
     multiplier: 1
   usePredefinedVelocity: 0
-  useForce: 1
+  useForce: 0
   timeToPeak: 0.5
   maxJumpHeight: 5
   minJumpHeight: 2

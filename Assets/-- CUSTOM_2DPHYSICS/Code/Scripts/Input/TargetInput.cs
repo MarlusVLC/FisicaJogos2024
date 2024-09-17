@@ -98,7 +98,7 @@ namespace _6.AcaoReacao
 
         private static Vector3 GetInputAxis()
         {
-            return new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+            return new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
         }
 
         private void TryGetInputAxis()

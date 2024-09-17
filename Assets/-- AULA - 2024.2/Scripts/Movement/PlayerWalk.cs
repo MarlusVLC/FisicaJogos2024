@@ -9,6 +9,7 @@ public class PlayerWalk : PlayerMovementBase
     [field: SerializeField] public MultipliableFloat Deceleration { get; private set; }
     [field: SerializeField] public MultipliableFloat TurnSpeed { get; private set; }
     [SerializeField] private bool useAcceleration = true;
+    [SerializeField] private float kinematicThreshold = 0.1f;
 
     private float _targetSpeed;
     private float _speedChangeRate;
@@ -57,10 +58,10 @@ public class PlayerWalk : PlayerMovementBase
 
         if (_targetSpeed == 0)
         {
-            if (_detector.IsOnGround() && _velocityVector.y < 0.1f)
+            if (_detector.IsOnGround() && _velocityVector.y < kinematicThreshold)
             {
                 rb.isKinematic = true;
-
+        
                 print("Shouldn't be moving at all!");
                 _velocityVector.y = 0;
             }            

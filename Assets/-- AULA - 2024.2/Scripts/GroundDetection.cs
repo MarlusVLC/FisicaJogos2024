@@ -17,8 +17,9 @@ public class GroundDetection : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.5f;
     [SerializeField] private UnityEvent onGroundDetected;
     [SerializeField] private UnityEvent onGroundLost;
+
     [Header("Debug Settings")]
-    [SerializeField] 
+    [SerializeField] private bool useDebugLog;
 
     private bool _wasOnGround; //Was on ground in the last frame
     private RaycastHit2D[] _groundHits = new RaycastHit2D[2];
@@ -91,19 +92,29 @@ public class GroundDetection : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
-
         
+        DebugHits(GroundHits);
         return hits > 1;
     }
 
-    private void DebugHits(RaycastHit2D[] hits)
+    private void DebugHits(ReadOnlyArray<RaycastHit2D> hits)
     {
-        Debug.Log("Hit quantity = " + hits.Length);
-        for (int i = 0; i < hits.Length; i++)
+        if (useDebugLog == false || Application.isPlaying == false)
+        {
+            return;
+        }
+        Debug.Log("Hit quantity = " + hits.Count);
+        for (int i = 0; i < hits.Count; i++)
         {
             Debug.Log("Hit index = " + i);
             Debug.Log("Collider name = " + hits[i].transform.name);
             Debug.Log("Collision normal = " + hits[i].normal);
+            var angle = Mathf.Acos(hits[i].normal.x / hits[i].normal.magnitude) * (180 / Mathf.PI);
+            Debug.Log("Collision Angle = " + angle);
+            if (angle / 90 != Mathf.RoundToInt(angle / 90))
+            {
+                Debug.Log("Slope detected!");
+            }
         }
     }
 
