@@ -9,12 +9,11 @@ public class LerpLight : MonoBehaviour
     public float time = 1f;
     public bool reset = false;
     public bool isToggled = true;
-    public AnimationCurve customCurve;
+    public AnimationCurve customCurveMax;
 
     private Light _light;
 
-    [Header("frame config")]
-    public bool frameByFrame = false;
+    [Header("frame config")] public bool frameByFrame = false;
     public bool advanceFrame = false;
 
     private void Awake()
@@ -29,7 +28,7 @@ public class LerpLight : MonoBehaviour
         {
             reset = true;
         }
-        
+
         if (reset)
         {
             t = 0.0f;
@@ -44,13 +43,23 @@ public class LerpLight : MonoBehaviour
 
         if (advanceFrame || !frameByFrame)
         {
-            float x = 0.0f;
-            float y = 0.0f;
             t += Time.deltaTime / time;
-            _light.intensity = Mathf.LerpUnclamped(startIntensity, endIntensity, customCurve.Evaluate(t));
-
+            ApplyLerp(t);
             advanceFrame = false;
         }
-        
     }
+
+    public void ApplyLerp(float entry)
+    {
+        // var lerpValue = curveUse switch
+        // {
+        //     CurveUse.Min => customCurveMin.Evaluate(entry),
+        //     CurveUse.Max => customCurveMax.Evaluate(entry),
+        //     CurveUse.Both => minMaxCurve.Evaluate(entry),
+        //     _ => throw new ArgumentOutOfRangeException()
+        // };
+        var lerpValue = customCurveMax.Evaluate(entry);
+        _light.intensity = Mathf.LerpUnclamped(startIntensity, endIntensity, lerpValue);    
+    }
+
 }

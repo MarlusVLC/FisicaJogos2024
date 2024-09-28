@@ -10,10 +10,8 @@ public enum TransitionType
     Custom,
 }
 
-public class Lerp : MonoBehaviour
+public class MovementLerp : MonoBehaviour
 {
-
-
     public Transform start;
     public Transform end;
     public float t;
