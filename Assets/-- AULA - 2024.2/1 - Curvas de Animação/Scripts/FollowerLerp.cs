@@ -6,9 +6,12 @@ public class FollowerLerp : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private float proximityRadius;
     [SerializeField] private float movementDetectionRadius;
+    [SerializeField] private float rotationDetectionRadius;
     [Min((0))][SerializeField] private float movementDuration;
+    [SerializeField] private bool followTargetDirection;
 
     private Vector3 _lastDefTargetPos;
+    private Vector3 _lastDefTargetDir;
     private Vector3 _lastDefProxPos;
     private Vector3 _lastDefOriginPos;
     private Vector3 _lastDefOriginToTargetDir;
@@ -16,17 +19,30 @@ public class FollowerLerp : MonoBehaviour
     private Vector3 _nextMovementPosition;
     private Vector3 _nextMovementDirection;
     [Space]
-    public float _distance;
-    public float t = 0f;
+    [ReadOnly] public float _distance;
+    [ReadOnly] public float t = 0f;
     
     private void Start()
     {
         _lastDefTargetPos = target.position;
+        _lastDefTargetDir = target.forward;
         _lastDefOriginPos = transform.position;
         _lastDefOriginDir =  transform.forward;
         
         _lastDefOriginToTargetDir = (_lastDefTargetPos - _lastDefOriginPos).normalized;
-        _lastDefProxPos = _lastDefOriginToTargetDir * (_distance - proximityRadius);
+        DefineClosestPosition();
+    }
+
+    private void DefineClosestPosition()
+    {
+        if (followTargetDirection)
+        {
+            _lastDefProxPos = _lastDefTargetPos - (_lastDefTargetDir * proximityRadius);
+        }
+        else
+        {
+            _lastDefProxPos = _lastDefOriginPos + _lastDefOriginToTargetDir * (_distance - proximityRadius);
+        }
     }
 
     private void LateUpdate()
@@ -42,17 +58,22 @@ public class FollowerLerp : MonoBehaviour
 
         _distance = Vector3.Distance(_lastDefOriginPos, _lastDefTargetPos);
 
-        if (Vector3.Distance(_lastDefTargetPos, target.position) < movementDetectionRadius )
+        if (HasTargetPositionOrRotationChanged == false)
         {
             return;
         }
         _lastDefTargetPos = target.position;
+        _lastDefTargetDir = target.forward;
         _lastDefOriginPos = transform.position;
         _lastDefOriginDir = transform.forward;
         _lastDefOriginToTargetDir = (_lastDefTargetPos - _lastDefOriginPos).normalized;
-        _lastDefProxPos = _lastDefOriginPos + _lastDefOriginToTargetDir * (_distance - proximityRadius);
+        DefineClosestPosition();
         t = 0;
     }
+
+    private bool HasTargetPositionOrRotationChanged =>
+        Vector3.Distance(_lastDefTargetPos, target.position) >= movementDetectionRadius
+        || Vector3.Distance(_lastDefTargetDir, target.forward) >= rotationDetectionRadius;
 
     public void Move2D()
     {

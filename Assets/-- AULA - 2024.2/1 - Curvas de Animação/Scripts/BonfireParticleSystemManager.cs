@@ -1,10 +1,8 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
-    [FormerlySerializedAs("animationCurve")] [SerializeField] private AnimationCurve lightingCurve;
+    [SerializeField] private AnimationCurve lightingCurve;
     [SerializeField] private AnimationCurve fireCurve;
     [SerializeField] private LerpLight lerpLight;
     [SerializeField] private float[] particleMultipliers;
@@ -16,7 +14,6 @@ public class EffectManager : MonoBehaviour
 
     private void Start()
     {
-        // lerpLight.curveUse = CurveUse.Max;
         lerpLight.customCurveMax = lightingCurve;
         lerpLight.frameByFrame = true;
     }

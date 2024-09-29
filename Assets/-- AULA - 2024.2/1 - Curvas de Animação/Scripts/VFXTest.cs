@@ -10,7 +10,6 @@ public class VFXTest : MonoBehaviour
     public bool debugOnUpdate;
     
     private VisualEffect vfx;
-    // private VFXParticleSystemInfo
 
     private List<string> systemNames = new();
 
